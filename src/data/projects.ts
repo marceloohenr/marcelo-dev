@@ -19,7 +19,7 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: 'Portfólio Gabriela Mendes',
+    title: 'Portfólio Profissional',
     client: 'Nutricionista',
     description:
       'Portfólio institucional desenvolvido para fortalecer o posicionamento da nutricionista Gabriela Mendes, ampliar sua autoridade no mercado e gerar novos contatos comerciais.',
