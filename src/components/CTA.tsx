@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from 'lucide-react';
+﻿import { ArrowRight, Sparkles } from 'lucide-react';
 
 const CTA = () => {
   const scrollToContact = () => {
@@ -46,3 +46,4 @@ const CTA = () => {
 };
 
 export default CTA;
+

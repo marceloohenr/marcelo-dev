@@ -1,4 +1,5 @@
-import { ArrowRight, Code2 } from 'lucide-react';
+﻿import { ArrowRight, Code2 } from 'lucide-react';
+import profilePhoto from '../assets/marcelo-henrique-avatar.jpg';
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -19,6 +20,14 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="text-center">
+          <div className="w-[clamp(4rem,9vw,5.75rem)] h-[clamp(4rem,9vw,5.75rem)] rounded-full overflow-hidden mx-auto mb-5 border border-blue-500/30 shadow-lg shadow-blue-600/20 animate-fade-in">
+            <img
+              src={profilePhoto}
+              alt="Foto de Marcelo Henrique"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mb-8 animate-fade-in">
             <Code2 size={18} className="text-blue-400" />
             <span className="text-blue-300 text-sm font-medium">Desenvolvedor Web</span>
@@ -54,3 +63,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

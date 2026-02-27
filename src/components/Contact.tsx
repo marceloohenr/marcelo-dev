@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Mail, Linkedin, Send } from 'lucide-react';
+﻿import { useState } from 'react';
+import { Mail, Linkedin, Send, Instagram, MessageCircle } from 'lucide-react';
+import { contactInfo } from '../data/contact';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,10 +9,12 @@ const Contact = () => {
     message: '',
   });
 
+  const whatsappBaseUrl = `https://wa.me/${contactInfo.whatsappNumber}`;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const whatsappMessage = `Olá! Meu nome é ${formData.name}. ${formData.message}`;
-    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappMessage = `Olá! Meu nome é ${formData.name}. Email: ${formData.email}. ${formData.message}`;
+    const whatsappUrl = `${whatsappBaseUrl}?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -42,7 +45,7 @@ const Contact = () => {
 
             <div className="space-y-4 mb-8">
               <a
-                href="mailto:contato@marcelohenrique.dev"
+                href={`mailto:${contactInfo.email}`}
                 className="flex items-center gap-4 p-4 bg-slate-900 border border-slate-800 rounded-xl hover:border-blue-500/50 transition-all group"
               >
                 <div className="w-12 h-12 bg-blue-600/10 rounded-lg flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
@@ -50,12 +53,27 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-slate-400 text-sm">Email</p>
-                  <p className="text-slate-100 font-medium">contato@marcelohenrique.dev</p>
+                  <p className="text-slate-100 font-medium">{contactInfo.email}</p>
                 </div>
               </a>
 
               <a
-                href="https://linkedin.com/in/marcelohenrique"
+                href={whatsappBaseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 bg-slate-900 border border-slate-800 rounded-xl hover:border-blue-500/50 transition-all group"
+              >
+                <div className="w-12 h-12 bg-blue-600/10 rounded-lg flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
+                  <MessageCircle className="text-blue-400" size={24} />
+                </div>
+                <div>
+                  <p className="text-slate-400 text-sm">WhatsApp</p>
+                  <p className="text-slate-100 font-medium">{contactInfo.displayPhone}</p>
+                </div>
+              </a>
+
+              <a
+                href={contactInfo.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 bg-slate-900 border border-slate-800 rounded-xl hover:border-blue-500/50 transition-all group"
@@ -65,7 +83,22 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-slate-400 text-sm">LinkedIn</p>
-                  <p className="text-slate-100 font-medium">Marcelo Henrique</p>
+                  <p className="text-slate-100 font-medium">Marcelo Henrique Malagueta</p>
+                </div>
+              </a>
+
+              <a
+                href={contactInfo.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 bg-slate-900 border border-slate-800 rounded-xl hover:border-blue-500/50 transition-all group"
+              >
+                <div className="w-12 h-12 bg-blue-600/10 rounded-lg flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
+                  <Instagram className="text-blue-400" size={24} />
+                </div>
+                <div>
+                  <p className="text-slate-400 text-sm">Instagram</p>
+                  <p className="text-slate-100 font-medium">@{contactInfo.instagramHandle}</p>
                 </div>
               </a>
             </div>
@@ -75,7 +108,8 @@ const Contact = () => {
                 Pronto para começar?
               </h4>
               <p className="text-slate-300 text-sm leading-relaxed">
-                Preencha o formulário ao lado ou entre em contato diretamente pelo WhatsApp. Vamos transformar suas ideias em realidade!
+                Preencha o formulário ao lado ou fale comigo direto no WhatsApp.
+                Vamos transformar suas ideias em um site profissional.
               </p>
             </div>
           </div>
@@ -146,3 +180,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

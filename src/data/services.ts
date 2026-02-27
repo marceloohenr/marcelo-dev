@@ -1,4 +1,4 @@
-import { Code2, Rocket, Briefcase, Zap, Wrench } from 'lucide-react';
+﻿import { Briefcase, Code2, LayoutTemplate, Rocket, Wrench, Zap } from 'lucide-react';
 
 export interface Service {
   id: number;
@@ -11,7 +11,8 @@ export const services: Service[] = [
   {
     id: 1,
     title: 'Desenvolvimento de Site Institucional',
-    description: 'Sites profissionais completos para empresas e negócios que buscam autoridade digital.',
+    description:
+      'Sites profissionais completos para empresas e negócios que buscam autoridade digital.',
     icon: Code2,
   },
   {
@@ -38,4 +39,12 @@ export const services: Service[] = [
     description: 'Suporte contínuo para manter seu site sempre atualizado e funcionando perfeitamente.',
     icon: Wrench,
   },
+  {
+    id: 6,
+    title: 'Redesign de Sites',
+    description:
+      'Atualização visual e estrutural de sites antigos para um layout moderno, responsivo e focado em conversão.',
+    icon: LayoutTemplate,
+  },
 ];
+

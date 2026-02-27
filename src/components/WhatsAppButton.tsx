@@ -1,7 +1,9 @@
-import { MessageCircle } from 'lucide-react';
+﻿import { MessageCircle } from 'lucide-react';
+import { contactInfo } from '../data/contact';
 
 const WhatsAppButton = () => {
-  const whatsappUrl = 'https://wa.me/5511999999999?text=Olá! Gostaria de solicitar um orçamento para desenvolvimento de site.';
+  const message = 'Olá! Gostaria de solicitar um orçamento para desenvolvimento de site.';
+  const whatsappUrl = `https://wa.me/${contactInfo.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   return (
     <a
@@ -19,3 +21,4 @@ const WhatsAppButton = () => {
 };
 
 export default WhatsAppButton;
+

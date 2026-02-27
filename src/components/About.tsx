@@ -1,4 +1,5 @@
-import { User, Briefcase, Code2, Target } from 'lucide-react';
+﻿import { User, Briefcase, Code2, Target } from 'lucide-react';
+import profilePhoto from '../assets/marcelo-henrique-portrait.jpg';
 
 const About = () => {
   const highlights = [
@@ -58,12 +59,16 @@ const About = () => {
           </div>
 
           <div className="order-1 md:order-2">
-            <div className="relative">
+            <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[440px] mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-500/10 rounded-2xl blur-2xl"></div>
-              <div className="relative bg-slate-900 border border-slate-700 rounded-2xl p-8 flex items-center justify-center min-h-[400px]">
+              <div className="relative bg-slate-900 border border-slate-700 rounded-2xl p-5 sm:p-6 lg:p-8 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-blue-600/30">
-                    <User size={64} className="text-white" />
+                  <div className="w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px] aspect-[3/4] rounded-2xl overflow-hidden mx-auto mb-6 border border-slate-700 shadow-lg shadow-blue-600/20">
+                    <img
+                      src={profilePhoto}
+                      alt="Foto de Marcelo Henrique"
+                      className="w-full h-full object-cover object-top"
+                    />
                   </div>
                   <p className="text-slate-400 text-sm">
                     Desenvolvedor Web
@@ -82,3 +87,4 @@ const About = () => {
 };
 
 export default About;
+

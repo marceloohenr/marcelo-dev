@@ -1,4 +1,4 @@
-import Navbar from './components/Navbar';
+﻿import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
 import Projects from './components/Projects';
@@ -29,3 +29,4 @@ function App() {
 }
 
 export default App;
+

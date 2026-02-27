@@ -1,4 +1,4 @@
-import { Code2, Zap, Palette, TrendingUp, FolderTree } from 'lucide-react';
+﻿import { Code2, Zap, Palette, TrendingUp, FolderTree } from 'lucide-react';
 
 const Differentials = () => {
   const differentials = [
@@ -68,3 +68,4 @@ const Differentials = () => {
 };
 
 export default Differentials;
+
