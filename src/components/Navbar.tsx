@@ -1,6 +1,5 @@
 ﻿import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { contactInfo } from '../data/contact';
 import { getScrollBehavior } from '../utils/motion';
 
 const MENU_ITEMS = [
@@ -141,10 +140,6 @@ const Navbar = () => {
     scrollToSection(sectionId);
   };
 
-  const whatsappUrl = `https://wa.me/${contactInfo.whatsappNumber}?text=${encodeURIComponent(
-    'Olá! Gostaria de solicitar um orçamento para desenvolvimento de site.'
-  )}`;
-
   return (
     <nav
       aria-label="Navegação principal"
@@ -155,16 +150,8 @@ const Navbar = () => {
       }`}
     >
       <div className="content-shell">
-        <div className="flex h-16 items-center justify-between md:h-20">
-          <a
-            href="#hero"
-            onClick={(event) => handleSectionLinkClick(event, 'hero')}
-            className="focus-ring text-lg font-extrabold tracking-tight text-text-primary transition-colors hover:text-brand-400 md:text-xl"
-          >
-            Marcelo Henrique
-          </a>
-
-          <div className="hidden items-center gap-8 md:flex">
+        <div className="relative flex h-16 items-center md:h-20">
+          <div className="mx-auto hidden items-center gap-8 md:flex">
             {MENU_ITEMS.map((item) => (
               <a
                 key={item.id}
@@ -176,21 +163,12 @@ const Navbar = () => {
                 {item.label}
               </a>
             ))}
-
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp px-5 py-2.5 text-caption"
-            >
-              Solicitar Orçamento
-            </a>
           </div>
 
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((current) => !current)}
-            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-button border border-slate-700 bg-bg-elevated text-text-secondary transition-colors hover:text-brand-400 md:hidden"
+            className="focus-ring ml-auto inline-flex h-11 w-11 items-center justify-center rounded-button border border-slate-700 bg-bg-elevated text-text-secondary transition-colors hover:text-brand-400 md:hidden"
             aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="menu-mobile"
@@ -217,7 +195,7 @@ const Navbar = () => {
                     key={item.id}
                     href={`#${item.id}`}
                     onClick={(event) => handleSectionLinkClick(event, item.id)}
-                    className={`nav-link w-full rounded-button px-4 py-3 text-left ${
+                    className={`nav-link w-full rounded-button px-4 py-3 text-center ${
                       activeSection === item.id ? 'bg-brand-600/10 nav-link-active' : ''
                     }`}
                     aria-current={activeSection === item.id ? 'location' : undefined}
@@ -225,16 +203,6 @@ const Navbar = () => {
                     {item.label}
                   </a>
                 ))}
-
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp mt-2 w-full"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Solicitar Orçamento
-                </a>
               </div>
             </div>
           </div>
