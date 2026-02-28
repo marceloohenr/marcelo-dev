@@ -10,15 +10,14 @@ const WhatsAppButton = () => {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300 group"
+      className="focus-ring fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full border border-state-success/70 bg-state-success text-slate-950 shadow-brand transition-transform duration-200 hover:scale-105 sm:bottom-[calc(1.25rem+env(safe-area-inset-bottom))] sm:right-5 md:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] md:right-6"
       aria-label="Contato via WhatsApp"
+      title="Falar no WhatsApp"
     >
-      <MessageCircle size={28} className="group-hover:scale-110 transition-transform" />
-      <span className="absolute -top-2 -right-2 w-3 h-3 bg-green-400 rounded-full animate-ping"></span>
-      <span className="absolute -top-2 -right-2 w-3 h-3 bg-green-400 rounded-full"></span>
+      <MessageCircle size={27} aria-hidden="true" />
+      <span className="pointer-events-none absolute -right-0.5 -top-0.5 h-3.5 w-3.5 rounded-full border border-bg-base bg-green-300" />
     </a>
   );
 };
 
 export default WhatsAppButton;
-

@@ -46,10 +46,10 @@ const ProjectPreview = ({ title, link }: ProjectPreviewProps) => {
 
   if (allSourcesFailed) {
     return (
-      <div className="h-full w-full flex flex-col items-center justify-center gap-2 px-4 text-center">
-        <Code2 size={52} className="text-blue-400 opacity-70" />
-        <p className="text-slate-300 text-sm font-medium">{getSiteHostname(link)}</p>
-        <p className="text-slate-500 text-xs">Preview indisponível no momento</p>
+      <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-center">
+        <Code2 size={46} className="text-brand-400/80" />
+        <p className="text-caption font-semibold text-text-secondary">{getSiteHostname(link)}</p>
+        <p className="text-caption text-text-muted">Preview indisponível no momento</p>
       </div>
     );
   }
@@ -68,78 +68,65 @@ const ProjectPreview = ({ title, link }: ProjectPreviewProps) => {
 
 const Projects = () => {
   return (
-    <section id="projetos" className="py-20 bg-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-100 mb-4">
-            Projetos Realizados
-          </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Confira alguns dos projetos desenvolvidos com foco em performance e conversão
+    <section id="projetos" aria-labelledby="projetos-title" className="section-shell-alt section-anchor">
+      <div className="content-shell">
+        <header className="section-header">
+          <h2 id="projetos-title" className="section-title">Projetos Realizados</h2>
+          <p className="section-subtitle">
+            Confira alguns dos projetos desenvolvidos com foco em performance e conversão.
           </p>
-        </div>
+        </header>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project) => {
             const hasPreview = isValidSiteUrl(project.link);
 
             return (
-              <div
-                key={project.id}
-                className="group bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/10"
-              >
-                <div className="h-48 bg-gradient-to-br from-blue-600/20 to-slate-800">
+              <article key={project.id} className="card-base card-interactive flex h-full flex-col overflow-hidden">
+                <div className="aspect-[16/10] border-b border-slate-700/70 bg-gradient-to-br from-brand-600/20 to-bg-elevated">
                   {hasPreview ? (
                     <ProjectPreview title={project.title} link={project.link!} />
                   ) : (
-                    <div className="h-full flex items-center justify-center">
-                      <Code2
-                        size={64}
-                        className="text-blue-400 opacity-50 group-hover:opacity-100 transition-opacity"
-                      />
+                    <div className="flex h-full items-center justify-center">
+                      <Code2 size={58} className="text-brand-400/70" />
                     </div>
                   )}
                 </div>
 
-                <div className="p-6">
-                  <div className="mb-3">
-                    <h3 className="text-xl font-bold text-slate-100 mb-1">
-                      {project.title}
-                    </h3>
-                    <p className="text-blue-400 text-sm font-medium">{project.client}</p>
+                <div className="flex flex-1 flex-col p-6">
+                  <div>
+                    <h3 className="text-h3 text-text-primary">{project.title}</h3>
+                    <p className="mt-1 text-caption font-semibold text-brand-400">{project.client}</p>
                   </div>
 
-                  <p className="text-slate-300 mb-4 leading-relaxed">{project.description}</p>
+                  <p className="mt-4 text-body text-text-secondary">{project.description}</p>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-blue-600/10 border border-blue-500/20 text-blue-300 text-xs rounded-full"
-                      >
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span key={tech} className="chip-base">
                         {tech}
                       </span>
                     ))}
                   </div>
 
-                  {hasPreview ? (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors font-medium group/link"
-                    >
-                      Ver Projeto
-                      <ExternalLink
-                        size={16}
-                        className="group-hover/link:translate-x-1 transition-transform"
-                      />
-                    </a>
-                  ) : (
-                    <p className="text-slate-500 text-sm">Link público em breve</p>
-                  )}
+                  <div className="mt-auto pt-6">
+                    {hasPreview ? (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link-action"
+                        aria-label={`Abrir projeto ${project.title} em nova aba`}
+                      >
+                        Ver Projeto
+                        <ExternalLink size={16} aria-hidden="true" />
+                      </a>
+                    ) : (
+                      <p className="text-caption text-text-muted">Link público em breve</p>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
@@ -149,4 +136,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

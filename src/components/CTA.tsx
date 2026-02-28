@@ -1,49 +1,57 @@
-﻿import { ArrowRight, Sparkles } from 'lucide-react';
+﻿import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react';
+import { contactInfo } from '../data/contact';
+import { getScrollBehavior } from '../utils/motion';
 
-const CTA = () => {
+export default function CTA() {
   const scrollToContact = () => {
     const element = document.getElementById('contato');
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: getScrollBehavior() });
     }
   };
 
+  const whatsappUrl = `https://wa.me/${contactInfo.whatsappNumber}?text=${encodeURIComponent(
+    'Olá! Gostaria de solicitar um orçamento para desenvolvimento de site.'
+  )}`;
+
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-950/20 to-slate-900 relative overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-96 h-96 bg-blue-600/10 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl"></div>
-      </div>
+    <section id="cta" aria-labelledby="cta-title" className="section-shell-alt section-anchor relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(37,99,235,0.18),transparent_42%),radial-gradient(circle_at_85%_80%,rgba(59,130,246,0.16),transparent_44%)]" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mb-8">
-          <Sparkles size={18} className="text-blue-400" />
-          <span className="text-blue-300 text-sm font-medium">Vamos trabalhar juntos</span>
+      <div className="content-shell relative z-10">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="section-eyebrow">
+            <Sparkles size={16} aria-hidden="true" />
+            <span>Vamos trabalhar juntos</span>
+          </div>
+
+          <h2 id="cta-title" className="text-h2 text-text-primary md:text-h1">Vamos criar um site profissional para o seu negócio?</h2>
+
+          <p className="mx-auto mt-6 max-w-2xl text-body-lg text-text-secondary">
+            Transforme sua presença digital e comece a conquistar mais clientes com um site moderno e
+            estratégico.
+          </p>
+
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-4 sm:mt-10 sm:flex-row sm:items-center">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-whatsapp sm:min-w-[13rem]"
+            >
+              Solicitar Orçamento
+              <MessageCircle size={18} aria-hidden="true" />
+            </a>
+
+            <button type="button" onClick={scrollToContact} className="btn-secondary sm:min-w-[13rem]">
+              Ir para Contato
+              <ArrowRight size={18} aria-hidden="true" />
+            </button>
+          </div>
+
+          <p className="mt-6 text-caption text-text-muted">Resposta em até 24 horas</p>
         </div>
-
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-100 mb-6 leading-tight">
-          Vamos criar um site profissional para o seu negócio?
-        </h2>
-
-        <p className="text-slate-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-          Transforme sua presença digital e comece a conquistar mais clientes com um site moderno e estratégico
-        </p>
-
-        <button
-          onClick={scrollToContact}
-          className="group inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-xl shadow-blue-600/20"
-        >
-          Solicitar Orçamento
-          <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
-        </button>
-
-        <p className="text-slate-500 text-sm mt-6">
-          Resposta em até 24 horas
-        </p>
       </div>
     </section>
   );
-};
-
-export default CTA;
-
+}

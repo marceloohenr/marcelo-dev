@@ -1,27 +1,147 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 7rem;
+    }
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-bg-base font-sans text-text-primary antialiased;
+  }
+
+  ::selection {
+    @apply bg-brand-500/35 text-text-primary;
+  }
+}
+
+@layer components {
+  .content-shell {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-shell {
+    @apply bg-bg-base py-14 sm:py-16 lg:py-20;
+  }
+
+  .section-shell-alt {
+    @apply bg-bg-surface py-14 sm:py-16 lg:py-20;
+  }
+
+  .section-header {
+    @apply mx-auto mb-10 max-w-3xl text-center sm:mb-12 lg:mb-16;
+  }
+
+  .section-eyebrow {
+    @apply mb-4 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-600/10 px-4 py-2 text-caption font-semibold text-brand-400;
+  }
+
+  .section-title {
+    @apply text-h2 tracking-tight text-text-primary;
+  }
+
+  .section-subtitle {
+    @apply mt-3 text-body text-text-muted sm:mt-4 md:text-body-lg;
+  }
+
+  .section-anchor {
+    @apply scroll-mt-24 md:scroll-mt-28;
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base;
+  }
+
+  .card-base {
+    @apply rounded-card border border-slate-800/90 bg-bg-elevated/65 shadow-soft;
+  }
+
+  .card-interactive {
+    @apply transition-all duration-200 hover:-translate-y-1 hover:border-brand-500/55 hover:shadow-brand focus-within:ring-2 focus-within:ring-brand-400 focus-within:ring-offset-2 focus-within:ring-offset-bg-base;
+  }
+
+  .card-link {
+    @apply focus-ring card-base card-interactive;
+  }
+
+  .btn-base {
+    @apply focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-button px-6 py-3 text-body font-semibold transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply btn-base border border-brand-500/90 bg-brand-600 text-white shadow-soft hover:-translate-y-0.5 hover:bg-brand-500 hover:shadow-brand;
+  }
+
+  .btn-secondary {
+    @apply btn-base border border-slate-700 bg-bg-elevated text-text-primary hover:-translate-y-0.5 hover:border-brand-500/60 hover:bg-bg-surface;
+  }
+
+  .btn-whatsapp {
+    @apply btn-base border border-state-success/60 bg-state-success text-slate-950 shadow-soft hover:-translate-y-0.5 hover:bg-green-400 hover:shadow-brand;
+  }
+
+  .chip-base {
+    @apply inline-flex items-center rounded-full border border-brand-500/35 bg-brand-600/10 px-3 py-1 text-caption font-medium text-brand-400;
+  }
+
+  .input-base {
+    @apply focus-ring min-h-11 w-full rounded-button border border-slate-700/90 bg-bg-elevated px-4 py-3 text-body text-text-primary placeholder:text-text-muted/75;
+  }
+
+  .nav-link {
+    @apply focus-ring relative text-caption font-semibold text-text-secondary transition-colors hover:text-brand-400;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 bg-brand-400/90 transition-transform duration-200;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    @apply scale-x-100;
+  }
+
+  .nav-link-active {
+    @apply text-brand-400;
+  }
+
+  .nav-link-active::after {
+    @apply scale-x-100;
+  }
+
+  .icon-link {
+    @apply focus-ring inline-flex h-11 w-11 items-center justify-center rounded-button border border-slate-700 bg-bg-elevated text-text-secondary transition-colors hover:border-brand-500/60 hover:text-brand-400;
+  }
+
+  .link-action {
+    @apply focus-ring inline-flex items-center gap-2 text-caption font-semibold text-brand-400 transition-colors hover:text-brand-500;
+  }
+
+  .skip-link {
+    @apply focus-ring fixed left-4 top-1 z-[70] -translate-y-16 rounded-button border border-slate-700 bg-bg-elevated px-4 py-2 text-caption font-semibold text-text-primary shadow-soft;
+  }
+
+  .skip-link:focus-visible {
+    @apply translate-y-2;
   }
 }
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
+    animation: fadeIn 0.5s ease-out both;
   }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out;
+    animation: fadeInUp 0.65s ease-out both;
   }
 
   .delay-200 {
@@ -32,8 +152,8 @@
     animation-delay: 0.3s;
   }
 
-  .delay-700 {
-    animation-delay: 0.7s;
+  .delay-500 {
+    animation-delay: 0.5s;
   }
 }
 
@@ -41,6 +161,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -49,10 +170,28 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-pulse {
+    animation: none !important;
   }
 }

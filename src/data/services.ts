@@ -1,10 +1,11 @@
-﻿import { Briefcase, Code2, LayoutTemplate, Rocket, Wrench, Zap } from 'lucide-react';
+﻿import type { LucideIcon } from 'lucide-react';
+import { Briefcase, Code2, LayoutTemplate, Rocket, Wrench, Zap } from 'lucide-react';
 
 export interface Service {
   id: number;
   title: string;
   description: string;
-  icon: any;
+  icon: LucideIcon;
 }
 
 export const services: Service[] = [
@@ -47,4 +48,3 @@ export const services: Service[] = [
     icon: LayoutTemplate,
   },
 ];
-

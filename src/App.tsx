@@ -12,16 +12,22 @@ import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   return (
-    <div className="bg-slate-950">
+    <div className="bg-bg-base text-text-primary">
+      <a href="#conteudo-principal" className="skip-link">
+        Pular para o conteúdo principal
+      </a>
+
       <Navbar />
-      <Hero />
-      <Problem />
-      <Projects />
-      <Services />
-      <Differentials />
-      <About />
-      <CTA />
-      <Contact />
+      <main id="conteudo-principal">
+        <Hero />
+        <Problem />
+        <Projects />
+        <Services />
+        <Differentials />
+        <About />
+        <CTA />
+        <Contact />
+      </main>
       <Footer />
       <WhatsAppButton />
     </div>

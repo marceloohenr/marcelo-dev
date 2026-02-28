@@ -18,65 +18,65 @@ const About = () => {
   ];
 
   return (
-    <section id="sobre" className="py-20 bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/10 border border-blue-500/20 rounded-full mb-6">
-              <User size={18} className="text-blue-400" />
-              <span className="text-blue-300 text-sm font-medium">Sobre mim</span>
+    <section id="sobre" aria-labelledby="sobre-title" className="section-shell section-anchor">
+      <div className="content-shell">
+        <div className="grid gap-8 md:gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+          <div>
+            <div className="section-eyebrow">
+              <User size={16} aria-hidden="true" />
+              <span>Sobre mim</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-100 mb-6">
-              Marcelo Henrique
-            </h2>
+            <h2 id="sobre-title" className="section-title">Marcelo Henrique</h2>
 
-            <div className="space-y-4 mb-8">
-              <p className="text-slate-300 text-lg leading-relaxed">
-                Desenvolvedor Web com base sólida em lógica de programação e foco em soluções digitais eficientes.
+            <div className="mt-6 space-y-4">
+              <p className="text-body-lg text-text-secondary">
+                Desenvolvedor Web com base sólida em lógica de programação e foco em soluções digitais
+                eficientes.
               </p>
-              <p className="text-slate-300 text-lg leading-relaxed">
-                Especializado na criação de sites modernos para profissionais e pequenos negócios que desejam fortalecer sua presença digital e conquistar mais clientes.
+              <p className="text-body-lg text-text-secondary">
+                Especializado na criação de sites modernos para profissionais e pequenos negócios que
+                desejam fortalecer sua presença digital e conquistar mais clientes.
               </p>
-              <p className="text-slate-300 text-lg leading-relaxed">
-                Cada projeto é desenvolvido com atenção aos detalhes, performance e estratégia de conversão, garantindo que seu investimento gere resultados reais.
+              <p className="text-body-lg text-text-secondary">
+                Cada projeto é desenvolvido com atenção aos detalhes, performance e estratégia de conversão,
+                garantindo que seu investimento gere resultados reais.
               </p>
             </div>
 
-            <div className="space-y-3">
-              {highlights.map((item, index) => {
+            <div className="mt-8 space-y-3">
+              {highlights.map((item) => {
                 const Icon = item.icon;
+
                 return (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-600/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Icon className="text-blue-400" size={20} />
+                  <div key={item.text} className="card-base flex items-center gap-3 px-4 py-3">
+                    <div className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-button border border-brand-500/25 bg-brand-600/10">
+                      <Icon className="text-brand-400" size={19} />
                     </div>
-                    <p className="text-slate-300">{item.text}</p>
+                    <p className="text-body text-text-secondary">{item.text}</p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="order-1 md:order-2">
-            <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[440px] mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-500/10 rounded-2xl blur-2xl"></div>
-              <div className="relative bg-slate-900 border border-slate-700 rounded-2xl p-5 sm:p-6 lg:p-8 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-full max-w-[220px] sm:max-w-[260px] lg:max-w-[300px] aspect-[3/4] rounded-2xl overflow-hidden mx-auto mb-6 border border-slate-700 shadow-lg shadow-blue-600/20">
-                    <img
-                      src={profilePhoto}
-                      alt="Foto de Marcelo Henrique"
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-                  <p className="text-slate-400 text-sm">
-                    Desenvolvedor Web
-                  </p>
-                  <p className="text-blue-400 font-medium mt-2">
-                    Disponível para novos projetos
-                  </p>
+          <div>
+            <div className="mx-auto w-full max-w-[22rem] sm:max-w-[24rem]">
+              <div className="card-base p-5 sm:p-6">
+                <div className="aspect-[3/4] overflow-hidden rounded-card border border-slate-700/80">
+                  <img
+                    src={profilePhoto}
+                    alt="Foto de Marcelo Henrique"
+                    className="block h-full w-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
+
+                <p className="mt-5 text-center text-caption text-text-muted">Desenvolvedor Web</p>
+                <p className="mt-1 text-center text-body font-semibold text-brand-400">
+                  Disponível para novos projetos
+                </p>
               </div>
             </div>
           </div>
@@ -87,4 +87,3 @@ const About = () => {
 };
 
 export default About;
-

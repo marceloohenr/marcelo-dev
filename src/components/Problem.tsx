@@ -1,4 +1,4 @@
-﻿import { AlertCircle, CheckCircle } from 'lucide-react';
+﻿import { AlertCircle, CheckCircle2 } from 'lucide-react';
 
 const Problem = () => {
   const problems = [
@@ -8,38 +8,42 @@ const Problem = () => {
   ];
 
   return (
-    <section className="py-20 bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+    <section id="problema" aria-labelledby="problema-title" className="section-shell section-anchor">
+      <div className="content-shell">
+        <div className="grid gap-8 md:gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-start">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-6">
-              O Problema que Eu Resolvo
-            </h2>
-            <div className="space-y-4 mb-8">
-              {problems.map((problem, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <AlertCircle className="text-red-400 mt-1 flex-shrink-0" size={20} />
-                  <p className="text-slate-300 text-lg">{problem}</p>
+            <h2 id="problema-title" className="section-title">O Problema que Eu Resolvo</h2>
+            <p className="section-subtitle max-w-xl">
+              Muitos negócios perdem oportunidades por não comunicar valor com clareza no ambiente digital.
+            </p>
+
+            <div className="mt-7 space-y-3 sm:mt-8 sm:space-y-4">
+              {problems.map((problem) => (
+                <div key={problem} className="flex items-start gap-3">
+                  <AlertCircle className="mt-1 flex-shrink-0 text-rose-400" size={20} />
+                  <p className="text-body text-text-secondary md:text-body-lg">{problem}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-600/10 to-blue-500/5 border border-blue-500/20 rounded-2xl p-8">
-            <div className="flex items-start gap-3 mb-4">
-              <CheckCircle className="text-blue-400 mt-1 flex-shrink-0" size={24} />
+          <div className="card-base p-6 sm:p-7 md:p-8">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="mt-1 flex-shrink-0 text-brand-400" size={22} />
               <div>
-                <h3 className="text-2xl font-bold text-slate-100 mb-3">A Solução</h3>
-                <p className="text-slate-300 text-lg leading-relaxed">
-                  Eu desenvolvo sites <span className="text-blue-400 font-semibold">modernos</span>, <span className="text-blue-400 font-semibold">rápidos</span> e <span className="text-blue-400 font-semibold">estratégicos</span> para transformar visitantes em clientes.
+                <h3 className="text-h3 text-text-primary">A Solução</h3>
+                <p className="mt-4 text-body-lg text-text-secondary">
+                  Eu desenvolvo sites <span className="font-semibold text-brand-400">modernos</span>,{' '}
+                  <span className="font-semibold text-brand-400">rápidos</span> e{' '}
+                  <span className="font-semibold text-brand-400">estratégicos</span> para transformar
+                  visitantes em clientes.
                 </p>
               </div>
             </div>
-            <div className="mt-6 pt-6 border-t border-blue-500/20">
-              <p className="text-slate-400">
-                Seu negócio merece uma presença digital que transmita profissionalismo e gere resultados reais.
-              </p>
-            </div>
+
+            <p className="mt-6 border-t border-slate-700/70 pt-6 text-body text-text-muted">
+              Seu negócio merece uma presença digital que transmita profissionalismo e gere resultados reais.
+            </p>
           </div>
         </div>
       </div>
@@ -48,4 +52,3 @@ const Problem = () => {
 };
 
 export default Problem;
-
