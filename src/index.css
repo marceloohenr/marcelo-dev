@@ -195,3 +195,19 @@
     animation: none !important;
   }
 }
+
+html[data-share-preview='1'] {
+  scroll-behavior: auto;
+}
+
+html[data-share-preview='1'] .animate-fade-in,
+html[data-share-preview='1'] .animate-fade-in-up,
+html[data-share-preview='1'] .animate-pulse {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+html[data-share-preview='1'] [data-share-preview-hidden='true'] {
+  display: none !important;
+}
