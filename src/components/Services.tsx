@@ -27,8 +27,8 @@ const Services = () => {
             return (
               <Reveal key={service.id} className="h-full" delay={index * 70}>
                 <article className="card-balanced card-interactive">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand-400/25 bg-brand-500/10 text-brand-400 shadow-brand">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand-300/20 bg-brand-500/10 text-brand-300 shadow-brand">
                       <Icon size={22} aria-hidden="true" />
                     </div>
                     <span className="status-pill-primary">{service.eyebrow}</span>
@@ -42,7 +42,13 @@ const Services = () => {
                   </p>
 
                   <div className="mt-auto pt-6">
-                    <div className="h-px w-full bg-gradient-to-r from-brand-400/30 via-white/10 to-transparent" />
+                    <div className="flex flex-wrap gap-2">
+                      {service.deliverables.map((item) => (
+                        <span key={item} className="chip-base text-text-primary">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </article>
               </Reveal>

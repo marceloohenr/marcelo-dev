@@ -1,6 +1,8 @@
+import type { LucideIcon } from 'lucide-react';
+import { Github, Instagram, Linkedin, Mail } from 'lucide-react';
+
 export const contactInfo = {
   email: 'marcelohabm@gmail.com',
-  phoneNumber: '81998916570',
   whatsappNumber: '5581998916570',
   displayPhone: '(81) 99891-6570',
   githubUrl: 'https://github.com/marceloohenr',
@@ -10,3 +12,42 @@ export const contactInfo = {
   linkedinUrl: 'https://www.linkedin.com/in/marcelo-henrique-malagueta-64b35224a/',
   linkedinLabel: 'Marcelo Henrique Malagueta',
 } as const;
+
+export interface ContactChannel {
+  id: string;
+  label: string;
+  value: string;
+  href: string;
+  icon: LucideIcon;
+}
+
+export const contactChannels: ContactChannel[] = [
+  {
+    id: 'email',
+    label: 'Email',
+    value: contactInfo.email,
+    href: `mailto:${contactInfo.email}`,
+    icon: Mail,
+  },
+  {
+    id: 'linkedin',
+    label: 'LinkedIn',
+    value: contactInfo.linkedinLabel,
+    href: contactInfo.linkedinUrl,
+    icon: Linkedin,
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    value: contactInfo.githubLabel,
+    href: contactInfo.githubUrl,
+    icon: Github,
+  },
+  {
+    id: 'instagram',
+    label: 'Instagram',
+    value: contactInfo.instagramLabel,
+    href: contactInfo.instagramUrl,
+    icon: Instagram,
+  },
+];

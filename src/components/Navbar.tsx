@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { MouseEvent } from 'react';
-import { Menu, MessageCircle, X } from 'lucide-react';
-import { contactInfo } from '../data/contact';
-import { navigationItems, siteMetadata } from '../data/site';
-import { buildWhatsappUrl } from '../utils/contact';
+import { Menu, X } from 'lucide-react';
+import { navigationItems } from '../data/site';
 import { scrollToSection } from '../utils/motion';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
-  const budgetUrl = buildWhatsappUrl(contactInfo.whatsappNumber, siteMetadata.budgetMessage);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,25 +70,47 @@ const Navbar = () => {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((left, right) => right.intersectionRatio - left.intersectionRatio);
+    let animationFrameId = 0;
 
-        if (visibleEntries[0]) {
-          setActiveSection(visibleEntries[0].target.id);
+    const updateActiveSection = () => {
+      const headerOffset = window.innerWidth >= 768 ? 124 : 96;
+      const probeY = window.scrollY + headerOffset + window.innerHeight * 0.16;
+      const pageBottom = window.scrollY + window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      if (pageBottom >= documentHeight - 4) {
+        const lastSection = sections[sections.length - 1];
+
+        if (lastSection) {
+          setActiveSection((current) => (current === lastSection.id ? current : lastSection.id));
         }
-      },
-      {
-        root: null,
-        rootMargin: '-38% 0px -45% 0px',
-        threshold: [0.2, 0.35, 0.55],
-      }
-    );
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+        return;
+      }
+
+      const matchedSection = [...sections]
+        .reverse()
+        .find((section) => probeY >= section.offsetTop);
+
+      const nextSectionId = matchedSection?.id ?? sections[0].id;
+      setActiveSection((current) => (current === nextSectionId ? current : nextSectionId));
+    };
+
+    const handleViewportChange = () => {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    handleViewportChange();
+
+    window.addEventListener('scroll', handleViewportChange, { passive: true });
+    window.addEventListener('resize', handleViewportChange);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('scroll', handleViewportChange);
+      window.removeEventListener('resize', handleViewportChange);
+    };
   }, []);
 
   const handleSectionLink = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
@@ -112,27 +131,8 @@ const Navbar = () => {
       }`}
     >
       <div className="content-shell">
-        <div className="flex h-16 items-center gap-3 md:h-[4.75rem] md:gap-4">
-          <a
-            href="#inicio"
-            onClick={(event) => handleSectionLink(event, 'inicio')}
-            className="focus-ring flex min-w-0 flex-1 items-center gap-3 rounded-button px-1 py-1 md:flex-none md:px-2"
-            aria-label="Ir para o início"
-          >
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-400/[0.35] bg-brand-500/[0.12] font-display text-body font-bold text-brand-400 shadow-brand">
-              MH
-            </span>
-            <span className="min-w-0">
-              <span className="block truncate font-display text-[1rem] font-semibold text-text-primary">
-                {siteMetadata.personName}
-              </span>
-              <span className="hidden text-[0.72rem] uppercase tracking-[0.18em] text-text-muted min-[420px]:block">
-                {siteMetadata.role}
-              </span>
-            </span>
-          </a>
-
-          <div className="ml-auto hidden items-center gap-5 lg:gap-7 md:flex">
+        <div className="flex h-16 items-center justify-end md:h-[4.75rem] md:justify-center">
+          <div className="hidden items-center justify-center gap-5 md:flex lg:gap-7">
             {navigationItems.map((item) => (
               <a
                 key={item.id}
@@ -146,20 +146,10 @@ const Navbar = () => {
             ))}
           </div>
 
-          <a
-            href={budgetUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary ml-3 hidden md:inline-flex"
-          >
-            {siteMetadata.budgetLabel}
-            <MessageCircle size={18} aria-hidden="true" />
-          </a>
-
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((current) => !current)}
-            className="focus-ring ml-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-button border border-white/[0.12] bg-bg-elevated/90 text-text-secondary transition-colors hover:text-brand-400 md:hidden"
+            className="focus-ring inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-button border border-white/[0.12] bg-bg-elevated/90 text-text-secondary transition-colors hover:text-brand-300 md:hidden"
             aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="menu-mobile"
@@ -191,7 +181,7 @@ const Navbar = () => {
                       href={`#${item.id}`}
                       onClick={(event) => handleSectionLink(event, item.id)}
                       className={`nav-link w-full rounded-button px-4 py-3 text-left ${
-                        activeSection === item.id ? 'bg-brand-400/[0.12] nav-link-active' : ''
+                        activeSection === item.id ? 'bg-brand-300/10 nav-link-active' : ''
                       }`}
                       aria-current={activeSection === item.id ? 'location' : undefined}
                     >
@@ -199,16 +189,6 @@ const Navbar = () => {
                     </a>
                   ))}
                 </div>
-
-                <a
-                  href={budgetUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary mt-4 w-full"
-                >
-                  {siteMetadata.budgetLabel}
-                  <MessageCircle size={18} aria-hidden="true" />
-                </a>
               </div>
             </div>
           </div>

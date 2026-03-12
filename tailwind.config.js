@@ -5,26 +5,29 @@ export default {
     extend: {
       colors: {
         bg: {
-          base: '#0f172a',
-          surface: '#111827',
-          elevated: '#172033',
-          card: '#1e293b',
+          base: '#08111d',
+          surface: '#0f172a',
+          elevated: '#162033',
+          card: '#1d2a40',
         },
         text: {
-          primary: '#f1f5f9',
-          secondary: '#94a3b8',
-          muted: '#64748b',
+          primary: '#f5f7fb',
+          secondary: '#b6c2d2',
+          muted: '#8696aa',
         },
         brand: {
-          300: '#60a5fa',
-          400: '#3b82f6',
+          300: '#93c5fd',
+          400: '#60a5fa',
           500: '#2563eb',
           600: '#1d4ed8',
           700: '#1e40af',
         },
+        border: {
+          subtle: '#2a3a55',
+        },
         state: {
           success: '#22c55e',
-          highlight: '#3b82f6',
+          highlight: '#93c5fd',
           warning: '#f59e0b',
         },
       },
@@ -58,9 +61,9 @@ export default {
         button: '1rem',
       },
       boxShadow: {
-        soft: '0 24px 60px -32px rgba(15, 23, 42, 0.85)',
-        brand: '0 26px 64px -28px rgba(37, 99, 235, 0.5)',
-        glow: '0 0 0 1px rgba(59, 130, 246, 0.14), 0 20px 56px -28px rgba(37, 99, 235, 0.38)',
+        soft: '0 30px 80px -48px rgba(8, 17, 29, 0.88)',
+        brand: '0 24px 60px -30px rgba(37, 99, 235, 0.46)',
+        glow: '0 0 0 1px rgba(147, 197, 253, 0.14), 0 24px 60px -32px rgba(37, 99, 235, 0.34)',
       },
       maxWidth: {
         content: '76rem',

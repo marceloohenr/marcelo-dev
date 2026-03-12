@@ -1,6 +1,6 @@
-# Marcelo Henrique | Home Comercial
+# Marcelo Henrique | Portfólio Web
 
-Landing page em React + TypeScript criada para captação de clientes interessados em sites, catálogos online e sistemas web.
+Portfólio em React + TypeScript voltado para captação de clientes interessados em sites, catálogos online e sistemas web.
 
 ## Stack
 
@@ -9,6 +9,8 @@ Landing page em React + TypeScript criada para captação de clientes interessad
 - Vite
 - Tailwind CSS
 - Lucide React
+- Vitest
+- Testing Library
 
 ## Scripts
 
@@ -17,6 +19,7 @@ npm install
 npm run dev
 npm run lint
 npm run typecheck
+npm run test
 npm run build
 ```
 
@@ -25,30 +28,35 @@ npm run build
 ```text
 src/
 ├── components/
+│   ├── SiteHead.tsx
 │   ├── Navbar.tsx
 │   ├── Hero.tsx
 │   ├── Projects.tsx
 │   ├── Services.tsx
-│   ├── Differentials.tsx
-│   ├── CTA.tsx
+│   ├── Process.tsx
+│   ├── Contact.tsx
 │   ├── Footer.tsx
 │   └── WhatsAppButton.tsx
 ├── data/
 │   ├── site.ts
+│   ├── hero.ts
+│   ├── process.ts
 │   ├── contact.ts
 │   ├── projects.ts
-│   ├── services.ts
-│   └── differentials.ts
+│   └── services.ts
+├── test/
+│   └── setup.ts
 └── index.css
 ```
 
-## Personalização rápida
+## Fonte de verdade
 
-- `src/data/site.ts`: copy principal da página, labels dos CTAs e itens da navegação.
-- `src/data/contact.ts`: WhatsApp, e-mail e LinkedIn.
-- `src/data/projects.ts`: vitrine dinâmica de projetos. Novos cards entram automaticamente no grid.
-- `src/data/services.ts`: três serviços principais exibidos na home.
-- `src/data/differentials.ts`: diferenciais curtos da entrega.
+- [src/data/site.ts](src/data/site.ts): copy principal, labels, navegação e metadados usados pelo `SiteHead`.
+- [src/data/hero.ts](src/data/hero.ts): provas rápidas e bloco de credibilidade do hero.
+- [src/data/process.ts](src/data/process.ts): checklist de entrega, etapas e destaques do processo.
+- [src/data/contact.ts](src/data/contact.ts): e-mail, WhatsApp e redes profissionais.
+- [src/data/projects.ts](src/data/projects.ts): catálogo dinâmico de projetos com filtros por categoria.
+- [src/data/services.ts](src/data/services.ts): serviços principais exibidos na home.
 
 ## Projetos dinâmicos
 
@@ -57,28 +65,44 @@ Cada projeto usa a estrutura abaixo:
 ```ts
 {
   id: 'slug-do-projeto',
-  name: 'Nome do projeto',
-  category: 'Portfólio profissional',
-  previewImage: '/projects/capa-do-projeto.svg',
+  title: 'Nome do projeto',
+  category: 'Sites',
+  projectType: 'Site profissional',
+  description: 'Resumo curto do projeto',
+  previewImage: '/projects/capa-do-projeto.jpg',
   projectUrl: 'https://url-do-projeto.com',
+  segment: 'Segmento do cliente',
+  focus: 'Objetivo central do projeto',
+  technologies: ['React', 'TypeScript'],
   date: '2026-03-12',
+  isFeatured: true,
 }
 ```
 
 Campos:
 
-- `category`: `Portfólio profissional`, `Catálogo online`, `Site institucional` ou `Sistema web`.
-- `previewImage`: capa usada no card; se falhar, o componente gera fallback visual.
-- `projectUrl`: opcional. Sem ele, o card continua visível, mas não clicável.
+- `category`: usada pelos filtros (`Sites`, `Catálogos`, `Sistemas`).
+- `projectType`: rótulo exibido no card.
+- `previewImage`: imagem real usada no preview do projeto.
+- `segment`: contexto de negócio mostrado dentro do card.
+- `focus`: objetivo principal comunicado no case.
+- `technologies`: lista curta de tecnologias mostrada no card.
+- `isFeatured`: badge opcional para destacar projetos.
+
+## SEO e metadados
+
+O componente [src/components/SiteHead.tsx](src/components/SiteHead.tsx) sincroniza título, descrição, OG, Twitter, canonical e JSON-LD a partir de [src/data/site.ts](src/data/site.ts).
 
 ## Direção visual
 
-- Fundo base: `#0f172a`
+- Fundo base: `#08111d`
+- Fundo secundário: `#0f172a`
+- Superfície: `#162033`
 - Azul primário: `#2563eb`
-- Azul destaque: `#3b82f6`
-- Texto principal: `#f1f5f9`
-- Texto secundário: `#94a3b8`
-- Tipografia: `Sora` para títulos e `Manrope` para texto
+- Azul destaque: `#93c5fd`
+- Verde de ação: `#22c55e`
+- Texto principal: `#f5f7fb`
+- Texto secundário: `#b6c2d2`
 
 ## Deploy
 

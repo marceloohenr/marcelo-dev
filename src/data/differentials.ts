@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Code2, Layers3, Palette, Zap } from 'lucide-react';
+import { LayoutTemplate, MessageCircle, MonitorSmartphone, Sparkles } from 'lucide-react';
 
 export interface Differential {
   id: string;
@@ -10,27 +10,27 @@ export interface Differential {
 
 export const differentials: Differential[] = [
   {
-    id: 'design-moderno',
-    title: 'Design moderno',
-    description: 'Layout atual, contrastado e alinhado com a imagem profissional do negócio.',
-    icon: Palette,
+    id: 'atendimento-direto',
+    title: 'Atendimento direto',
+    description: 'Você fala comigo de forma direta, sem repasse e sem ruído no projeto.',
+    icon: MessageCircle,
   },
   {
-    id: 'performance',
-    title: 'Performance otimizada',
-    description: 'Carregamento rápido e navegação fluida para melhorar a percepção de valor.',
-    icon: Zap,
+    id: 'visual-profissional',
+    title: 'Visual profissional',
+    description: 'Layout pensado para transmitir mais confiança e apresentar melhor o negócio.',
+    icon: Sparkles,
   },
   {
-    id: 'codigo-organizado',
-    title: 'Código organizado',
-    description: 'Base clara, bem estruturada e fácil de evoluir sem remendos.',
-    icon: Code2,
+    id: 'estrutura-clara',
+    title: 'Estrutura clara',
+    description: 'Seções e conteúdo organizados para facilitar leitura, navegação e contato.',
+    icon: LayoutTemplate,
   },
   {
-    id: 'estrutura-escalavel',
-    title: 'Estrutura escalável',
-    description: 'Projeto pronto para crescer com novas páginas, áreas e integrações.',
-    icon: Layers3,
+    id: 'entrega-responsiva',
+    title: 'Entrega responsiva',
+    description: 'Projeto preparado para funcionar bem no desktop e no mobile.',
+    icon: MonitorSmartphone,
   },
 ];

@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="card-base px-5 py-7 sm:px-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="min-w-0">
-              <p className="text-caption uppercase tracking-[0.2em] text-brand-400">
+              <p className="text-caption uppercase tracking-[0.2em] text-brand-300">
                 {siteMetadata.personName}
               </p>
               <h2 className="mt-3 font-display text-h2 text-text-primary">{siteMetadata.role}</h2>
