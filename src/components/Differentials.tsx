@@ -32,9 +32,13 @@ const Differentials = () => {
 
             return (
               <Reveal key={item.id} delay={index * 70}>
-                <article className="card-balanced card-interactive h-full">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-300/20 bg-brand-500/10 text-brand-300">
-                    <Icon size={20} aria-hidden="true" />
+                <article className="group card-balanced card-interactive h-full">
+                  <div className="icon-shell icon-shell-md">
+                    <Icon
+                      size={20}
+                      aria-hidden="true"
+                      className="transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:rotate-3"
+                    />
                   </div>
 
                   <h3 className="mt-5 text-balance font-display text-h3 text-text-primary">

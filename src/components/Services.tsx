@@ -26,12 +26,18 @@ const Services = () => {
 
             return (
               <Reveal key={service.id} className="h-full" delay={index * 70}>
-                <article className="card-balanced card-interactive">
+                <article className="group card-balanced card-interactive">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand-300/20 bg-brand-500/10 text-brand-300 shadow-brand">
-                      <Icon size={22} aria-hidden="true" />
+                    <div className="icon-shell icon-shell-lg">
+                      <Icon
+                        size={22}
+                        aria-hidden="true"
+                        className="transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:rotate-3"
+                      />
                     </div>
-                    <span className="status-pill-primary">{service.eyebrow}</span>
+                    <span className="status-pill-primary transition-colors duration-300 group-hover:border-brand-300/30 group-hover:bg-brand-500/15">
+                      {service.eyebrow}
+                    </span>
                   </div>
 
                   <h3 className="mt-6 text-balance font-display text-h3 text-text-primary">

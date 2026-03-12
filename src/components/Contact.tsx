@@ -46,18 +46,26 @@ const Contact = () => {
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-whatsapp min-h-14 px-7 text-body-lg sm:min-w-[16rem]"
+                      className="btn-whatsapp group min-h-14 px-7 text-body-lg sm:min-w-[16rem]"
                     >
                       {siteMetadata.budgetLabel}
-                      <MessageCircle size={18} aria-hidden="true" />
+                      <MessageCircle
+                        size={18}
+                        aria-hidden="true"
+                        className="transition-transform duration-300 group-hover:scale-110"
+                      />
                     </a>
 
                     <a
                       href={`mailto:${contactInfo.email}`}
-                      className="btn-secondary min-h-14 px-7 text-body-lg sm:min-w-[14rem]"
+                      className="btn-secondary group min-h-14 px-7 text-body-lg sm:min-w-[14rem]"
                     >
                       {siteMetadata.emailCtaLabel}
-                      <Mail size={18} aria-hidden="true" />
+                      <Mail
+                        size={18}
+                        aria-hidden="true"
+                        className="transition-transform duration-300 group-hover:-translate-y-0.5"
+                      />
                     </a>
                   </div>
 
@@ -95,8 +103,12 @@ const Contact = () => {
                             rel={isExternal ? 'noopener noreferrer' : undefined}
                             className="focus-ring group flex items-center gap-4"
                           >
-                            <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-brand-300/20 bg-brand-500/10 text-brand-300">
-                              <Icon size={18} aria-hidden="true" />
+                            <div className="icon-shell icon-shell-sm">
+                              <Icon
+                                size={18}
+                                aria-hidden="true"
+                                className="transition-transform duration-300 group-hover:scale-110"
+                              />
                             </div>
 
                             <div className="min-w-0 flex-1 text-left">
@@ -130,9 +142,13 @@ const Contact = () => {
                               href={channel.href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="social-pill"
+                              className="social-pill group"
                             >
-                              <Icon size={16} aria-hidden="true" />
+                              <Icon
+                                size={16}
+                                aria-hidden="true"
+                                className="transition-transform duration-300 group-hover:scale-110"
+                              />
                               {channel.label}
                             </a>
                           </Reveal>

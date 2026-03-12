@@ -24,40 +24,49 @@ const Footer = () => {
                 href={contactInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="icon-link"
+                className="icon-link group"
                 aria-label="GitHub"
               >
-                <Github size={18} />
+                <Github size={18} className="transition-transform duration-300 group-hover:scale-110" />
               </a>
               <a
                 href={contactInfo.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="icon-link"
+                className="icon-link group"
                 aria-label="LinkedIn"
               >
-                <Linkedin size={18} />
+                <Linkedin
+                  size={18}
+                  className="transition-transform duration-300 group-hover:scale-110"
+                />
               </a>
               <a
                 href={contactInfo.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="icon-link"
+                className="icon-link group"
                 aria-label="Instagram"
               >
-                <Instagram size={18} />
+                <Instagram
+                  size={18}
+                  className="transition-transform duration-300 group-hover:scale-110"
+                />
               </a>
-              <a href={`mailto:${contactInfo.email}`} className="icon-link" aria-label="Email">
-                <Mail size={18} />
+              <a href={`mailto:${contactInfo.email}`} className="icon-link group" aria-label="Email">
+                <Mail size={18} className="transition-transform duration-300 group-hover:scale-110" />
               </a>
               <a
                 href={getWhatsappBaseUrl(contactInfo.whatsappNumber)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="icon-link"
+                className="icon-link group floating-cta"
                 aria-label="WhatsApp"
               >
-                <MessageCircle size={18} />
+                <MessageCircle
+                  size={18}
+                  className="transition-transform duration-300 group-hover:scale-110"
+                />
               </a>
             </div>
           </div>
