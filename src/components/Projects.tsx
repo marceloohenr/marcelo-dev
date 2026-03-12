@@ -68,7 +68,7 @@ const Projects = () => {
         ) : null}
 
         {visibleProjects.length ? (
-          <div className="grid auto-rows-fr gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid auto-rows-fr gap-6 md:grid-cols-2 xl:grid-cols-3">
             {visibleProjects.map((project, index) => (
               <Reveal key={project.id} className="h-full" delay={index * 80}>
                 <a
@@ -78,7 +78,7 @@ const Projects = () => {
                   className="group card-link flex h-full min-w-0 flex-col overflow-hidden p-0"
                   aria-label={`Abrir projeto ${project.title} em nova aba`}
                 >
-                  <div className="border-b border-white/10 p-4 sm:p-5">
+                  <div className="border-b border-white/10 p-5 sm:p-6">
                     <div className="overflow-hidden rounded-[1.35rem] border border-white/10 bg-bg-base shadow-[0_22px_48px_-36px_rgba(8,17,29,0.95)]">
                       <div className="flex items-center gap-1.5 border-b border-white/10 bg-bg-base/92 px-3 py-2">
                         <span className="h-2 w-2 rounded-full bg-rose-400/85" aria-hidden="true" />
@@ -104,9 +104,9 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-1 flex-col gap-5 p-5 sm:p-6">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
+                  <div className="flex flex-1 flex-col gap-6 p-6 sm:p-7">
+                    <div className="space-y-5">
+                      <div className="space-y-2.5">
                         <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
                           {project.segment}
                         </p>

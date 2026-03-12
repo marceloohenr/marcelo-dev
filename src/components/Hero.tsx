@@ -59,7 +59,7 @@ const Hero = () => {
             <Reveal delay={110}>
               <h1
                 id="hero-title"
-                className="mx-auto mt-3 max-w-[12ch] text-balance font-sans text-[clamp(2.45rem,7vw,5.1rem)] font-extrabold leading-[0.98] tracking-[-0.018em] text-text-primary sm:tracking-[-0.022em]"
+                className="mx-auto mt-3 max-w-none whitespace-nowrap font-sans text-[clamp(2rem,8.7vw,5.1rem)] font-extrabold leading-[0.98] tracking-[-0.02em] text-text-primary sm:text-[clamp(2.35rem,7vw,5.1rem)]"
               >
                 {siteMetadata.heroHeadline}
               </h1>
@@ -72,7 +72,7 @@ const Hero = () => {
             </Reveal>
           </div>
 
-          <div className="mt-6 flex flex-wrap justify-center gap-2.5 sm:gap-3">
+          <div className="mt-7 flex flex-wrap justify-center gap-2.5 sm:gap-3">
             {heroProofs.map((item, index) => {
               const Icon = item.icon;
 
@@ -94,7 +94,7 @@ const Hero = () => {
           </div>
 
           <Reveal delay={320}>
-            <div className="mt-8 flex w-full flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
+            <div className="mt-7 flex w-full flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
               <button
                 type="button"
                 onClick={() => scrollToSection('projetos')}

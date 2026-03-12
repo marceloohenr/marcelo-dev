@@ -26,7 +26,7 @@ const Differentials = () => {
           </header>
         </Reveal>
 
-        <div className="grid auto-rows-fr gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid auto-rows-fr gap-6 md:grid-cols-2 xl:grid-cols-4">
           {differentials.map((item, index) => {
             const Icon = item.icon;
 
@@ -41,7 +41,7 @@ const Differentials = () => {
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 text-pretty text-body text-text-secondary">
+                  <p className="mt-3 text-pretty text-body leading-[1.72] text-text-secondary">
                     {item.description}
                   </p>
                 </article>
