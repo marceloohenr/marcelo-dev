@@ -12,19 +12,19 @@ export const differentials: Differential[] = [
   {
     id: 'design-moderno',
     title: 'Design moderno',
-    description: 'Interface limpa, atual e alinhada com a imagem profissional do negócio.',
+    description: 'Layout atual, contrastado e alinhado com a imagem profissional do negócio.',
     icon: Palette,
   },
   {
     id: 'performance',
     title: 'Performance otimizada',
-    description: 'Carregamento rápido e navegação fluida para melhorar percepção de valor.',
+    description: 'Carregamento rápido e navegação fluida para melhorar a percepção de valor.',
     icon: Zap,
   },
   {
     id: 'codigo-organizado',
     title: 'Código organizado',
-    description: 'Base clara e bem estruturada para evoluir sem remendos.',
+    description: 'Base clara, bem estruturada e fácil de evoluir sem remendos.',
     icon: Code2,
   },
   {

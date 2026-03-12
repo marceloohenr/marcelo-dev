@@ -5,22 +5,27 @@ export default {
     extend: {
       colors: {
         bg: {
-          base: '#0f172a',
-          surface: '#111c34',
-          elevated: '#182544',
+          base: '#060b16',
+          surface: '#0c1426',
+          elevated: '#101b31',
+          card: '#13213d',
         },
         text: {
-          primary: '#f1f5f9',
-          secondary: '#94a3b8',
-          muted: '#64748b',
+          primary: '#f5f9ff',
+          secondary: '#b7c7e5',
+          muted: '#7c90b5',
         },
         brand: {
-          400: '#3b82f6',
-          500: '#2563eb',
-          600: '#1d4ed8',
+          300: '#72c8ff',
+          400: '#3ea8ff',
+          500: '#1683ff',
+          600: '#0a63d8',
+          700: '#0849a6',
         },
         state: {
-          success: '#22c55e',
+          success: '#35d07f',
+          highlight: '#8bd8ff',
+          warning: '#ffb84d',
         },
       },
       fontFamily: {
@@ -49,15 +54,16 @@ export default {
         caption: ['0.875rem', { lineHeight: '1.55' }],
       },
       borderRadius: {
-        card: '1.5rem',
-        button: '0.95rem',
+        card: '1.6rem',
+        button: '1rem',
       },
       boxShadow: {
-        soft: '0 24px 60px -32px rgba(8, 14, 28, 0.82)',
-        brand: '0 28px 64px -30px rgba(37, 99, 235, 0.5)',
+        soft: '0 30px 80px -42px rgba(2, 10, 26, 0.92)',
+        brand: '0 30px 70px -32px rgba(22, 131, 255, 0.55)',
+        glow: '0 0 0 1px rgba(114, 200, 255, 0.12), 0 24px 80px -34px rgba(12, 80, 160, 0.6)',
       },
       maxWidth: {
-        content: '74rem',
+        content: '76rem',
       },
     },
   },

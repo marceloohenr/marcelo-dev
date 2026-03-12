@@ -11,9 +11,11 @@ export interface ProjectRecord {
   id: string;
   name: string;
   category: ProjectCategory;
-  previewImage?: string;
+  previewImage: string;
   projectUrl?: string;
   date: string;
+  isNew?: boolean;
+  ctaLabel?: string;
 }
 
 export const projects: ProjectRecord[] = [
@@ -21,31 +23,29 @@ export const projects: ProjectRecord[] = [
     id: 'cosme-racoes',
     name: 'Cosme Rações',
     category: 'Catálogo online',
-    previewImage: '/projects/cosme-preview.svg',
+    previewImage: '/projects/cosme-preview.png',
     projectUrl: 'https://cosme-racoes.vercel.app',
     date: '2026-03-11',
+    isNew: true,
+    ctaLabel: 'Ver projeto',
   },
   {
     id: 'nuvle',
     name: 'Nuvle',
     category: 'Catálogo online',
-    previewImage: '/projects/nuvle-preview.svg',
+    previewImage: '/projects/nuvle-preview.png',
     projectUrl: 'https://nuvle.vercel.app',
     date: '2026-02-14',
+    isNew: true,
+    ctaLabel: 'Ver projeto',
   },
   {
     id: 'gabriela-mendes',
     name: 'Gabriela Mendes',
     category: 'Portfólio profissional',
-    previewImage: '/projects/gabriela-preview.svg',
+    previewImage: '/projects/gabriela-preview.png',
     projectUrl: 'https://portifoliogabriela.vercel.app',
     date: '2025-11-08',
-  },
-  {
-    id: 'site-institucional-comercial',
-    name: 'Site Institucional Comercial',
-    category: 'Site institucional',
-    previewImage: '/projects/site-preview.svg',
-    date: '2025-05-27',
+    ctaLabel: 'Ver projeto',
   },
 ];

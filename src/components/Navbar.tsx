@@ -107,7 +107,7 @@ const Navbar = () => {
       aria-label="Navegação principal"
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'border-b border-white/10 bg-bg-base/82 shadow-soft backdrop-blur-xl'
+          ? 'border-b border-white/10 bg-bg-base/[0.82] shadow-soft backdrop-blur-xl'
           : 'bg-transparent'
       }`}
     >
@@ -119,7 +119,7 @@ const Navbar = () => {
             className="focus-ring flex min-w-0 flex-1 items-center gap-3 rounded-button px-1 py-1 md:flex-none md:px-2"
             aria-label="Ir para o início"
           >
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-400/35 bg-brand-400/12 font-display text-body font-bold text-brand-400 shadow-brand">
+            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-300/[0.35] bg-brand-400/[0.12] font-display text-body font-bold text-brand-300 shadow-brand">
               MH
             </span>
             <span className="min-w-0">
@@ -159,7 +159,7 @@ const Navbar = () => {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((current) => !current)}
-            className="focus-ring ml-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-button border border-white/10 bg-bg-elevated/90 text-text-secondary transition-colors hover:text-brand-400 md:hidden"
+            className="focus-ring ml-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-button border border-white/[0.12] bg-bg-elevated/90 text-text-secondary transition-colors hover:text-brand-300 md:hidden"
             aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="menu-mobile"
@@ -191,7 +191,7 @@ const Navbar = () => {
                       href={`#${item.id}`}
                       onClick={(event) => handleSectionLink(event, item.id)}
                       className={`nav-link w-full rounded-button px-4 py-3 text-left ${
-                        activeSection === item.id ? 'bg-brand-400/12 nav-link-active' : ''
+                        activeSection === item.id ? 'bg-brand-400/[0.12] nav-link-active' : ''
                       }`}
                       aria-current={activeSection === item.id ? 'location' : undefined}
                     >

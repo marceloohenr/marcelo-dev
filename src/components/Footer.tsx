@@ -1,4 +1,4 @@
-import { Linkedin, Mail, MessageCircle } from 'lucide-react';
+import { Instagram, Linkedin, Mail, MessageCircle } from 'lucide-react';
 import { contactInfo } from '../data/contact';
 import { siteMetadata } from '../data/site';
 import { getWhatsappBaseUrl } from '../utils/contact';
@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="card-base px-5 py-7 sm:px-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="min-w-0">
-              <p className="text-caption uppercase tracking-[0.2em] text-brand-400">
+              <p className="text-caption uppercase tracking-[0.2em] text-brand-300">
                 {siteMetadata.personName}
               </p>
               <h2 className="mt-3 font-display text-h2 text-text-primary">{siteMetadata.role}</h2>
@@ -19,7 +19,16 @@ const Footer = () => {
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={contactInfo.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon-link"
+                aria-label="Instagram"
+              >
+                <Instagram size={18} />
+              </a>
               <a
                 href={contactInfo.linkedinUrl}
                 target="_blank"

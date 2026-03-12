@@ -33,13 +33,16 @@ const Differentials = () => {
             return (
               <Reveal key={item.id} delay={index * 65}>
                 <article className="card-base card-interactive h-full min-w-0 p-5 sm:p-6">
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-400/25 bg-brand-400/10">
-                    <Icon className="text-brand-400" size={24} />
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-300/25 bg-brand-400/10">
+                    <Icon className="text-brand-300" size={24} />
                   </div>
                   <h3 className="text-balance font-display text-h3 text-text-primary">
                     {item.title}
                   </h3>
                   <p className="mt-3 text-pretty text-body text-text-secondary">{item.description}</p>
+                  <div className="mt-5 inline-flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.14em] text-brand-300">
+                    Mais valor percebido
+                  </div>
                 </article>
               </Reveal>
             );

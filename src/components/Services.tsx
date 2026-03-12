@@ -29,8 +29,11 @@ const Services = () => {
             return (
               <Reveal key={service.id} delay={index * 70}>
                 <article className="card-base card-interactive flex h-full min-w-0 flex-col p-6 sm:p-7">
-                  <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand-400/25 bg-brand-400/10 shadow-brand">
-                    <Icon className="text-brand-400" size={22} />
+                  <div className="mb-6 flex items-center justify-between gap-4">
+                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-brand-300/25 bg-brand-400/10 shadow-brand">
+                      <Icon className="text-brand-300" size={22} />
+                    </div>
+                    <span className="status-pill-primary">{service.eyebrow}</span>
                   </div>
 
                   <h3 className="text-balance font-display text-h3 text-text-primary">
@@ -39,6 +42,8 @@ const Services = () => {
                   <p className="mt-3 text-pretty text-body text-text-secondary">
                     {service.description}
                   </p>
+
+                  <div className="mt-6 h-px w-full bg-gradient-to-r from-brand-300/30 via-white/10 to-transparent" />
                 </article>
               </Reveal>
             );

@@ -1,38 +1,44 @@
 export const siteMetadata = {
   personName: 'Marcelo Henrique',
   role: 'Desenvolvedor Web',
-  title: 'Marcelo Henrique | Sites, catálogos online e sistemas web',
+  title: 'Marcelo Henrique | Sites modernos, catálogos online e sistemas web',
   description:
-    'Desenvolvo sites modernos para profissionais e negócios que querem gerar mais autoridade e clientes online.',
+    'Desenvolvo sites modernos, catálogos online e sistemas web para profissionais e empresas que querem mais presença digital e mais contatos.',
   canonicalUrl: 'https://marcelo-webdev.vercel.app/',
-  budgetLabel: 'Chamar no WhatsApp',
+  budgetLabel: 'Solicitar projeto',
   budgetMessage:
-    'Olá, Marcelo! Quero conversar sobre um novo site, catálogo online ou sistema web.',
+    'Olá, Marcelo! Quero solicitar um projeto de site, catálogo online ou sistema web.',
   heroEyebrow: 'Sites, catálogos online e sistemas web',
   heroDescription:
-    'Desenvolvo sites modernos para profissionais e negócios que querem gerar mais autoridade e clientes online.',
-  heroPrimaryCtaLabel: 'Chamar no WhatsApp',
+    'Desenvolvo sites modernos e sistemas para profissionais e empresas que querem gerar mais presença digital.',
+  heroPrimaryCtaLabel: 'Falar no WhatsApp',
   heroSecondaryCtaLabel: 'Ver projetos',
-  heroAvailability: 'Atendendo novos projetos',
+  heroAvailability: 'Disponível para novos projetos',
+  heroResponseLabel: 'Resposta rápida',
   heroHighlights: ['Sites profissionais', 'Catálogos online', 'Sistemas web'],
   projectsEyebrow: 'Projetos desenvolvidos',
-  projectsTitle: 'Projetos com visual profissional e foco comercial.',
+  projectsTitle: 'Projetos com preview real para gerar confiança imediata.',
   projectsDescription:
-    'Trabalhos criados para apresentar melhor serviços, produtos e negócios no ambiente digital.',
+    'Alguns trabalhos publicados para mostrar padrão visual, organização e apresentação profissional.',
   servicesEyebrow: 'Serviços principais',
-  servicesTitle: 'Soluções para apresentar melhor seu negócio e gerar mais contatos.',
+  servicesTitle: 'O que posso desenvolver para posicionar melhor o seu negócio.',
   servicesDescription:
-    'Projetos sob medida para quem precisa vender melhor, organizar a presença digital e transmitir mais autoridade.',
+    'Soluções pensadas para apresentar serviços, produtos e operações com mais clareza, autoridade e conversão.',
   differentialsEyebrow: 'Diferenciais',
-  differentialsTitle: 'Entrega técnica com visual moderno, performance e estrutura para crescer.',
+  differentialsTitle: 'Entrega visual forte com base técnica pronta para crescer.',
   differentialsDescription:
-    'Cada projeto é pensado para funcionar bem hoje e continuar evoluindo sem improviso.',
+    'Cada projeto é construído para passar mais profissionalismo hoje e continuar evoluindo sem improviso.',
+  contactEyebrow: 'Contato direto',
+  contactTitle: 'Escolha o canal mais rápido para pedir seu projeto.',
+  contactDescription:
+    'WhatsApp para atendimento imediato, Instagram e LinkedIn para conhecer melhor meu trabalho e e-mail para orçamentos detalhados.',
   ctaEyebrow: 'Pronto para tirar o projeto do papel?',
   ctaTitle: 'Vamos criar um site ou sistema para atrair mais clientes?',
   ctaDescription:
-    'Fale comigo no WhatsApp e receba um direcionamento rápido para o seu projeto.',
+    'Me chame no WhatsApp ou pelas redes sociais para solicitar um site, catálogo online ou sistema web.',
+  ctaSecondaryLabel: 'Ver Instagram',
   footerDescription:
-    'Desenvolvimento de sites, catálogos online e sistemas web para profissionais e negócios que precisam de uma presença digital mais forte.',
+    'Desenvolvimento de sites, catálogos online e sistemas web para profissionais e empresas que precisam de presença digital mais forte.',
   footerCopyright: 'Marcelo Henrique © 2026. Todos os direitos reservados.',
 } as const;
 
