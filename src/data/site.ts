@@ -8,30 +8,30 @@ export const siteMetadata = {
   budgetLabel: 'Solicitar projeto',
   budgetMessage:
     'Olá, Marcelo! Quero solicitar um projeto de site, catálogo online ou sistema web.',
-  heroEyebrow: 'Sites, catálogos online e sistemas web',
-  heroDescription:
-    'Desenvolvo sites modernos e sistemas para profissionais e empresas que querem gerar mais presença digital.',
+  heroEyebrow: 'Desenvolvimento web profissional',
+  heroHeadline: 'Marcelo Henrique – Desenvolvedor Web',
+  heroDescription: 'Criação de sites e sistemas para profissionais e empresas.',
   heroPrimaryCtaLabel: 'Falar no WhatsApp',
   heroSecondaryCtaLabel: 'Ver projetos',
   heroAvailability: 'Disponível para novos projetos',
   heroResponseLabel: 'Resposta rápida',
   heroHighlights: ['Sites profissionais', 'Catálogos online', 'Sistemas web'],
   projectsEyebrow: 'Projetos desenvolvidos',
-  projectsTitle: 'Projetos com preview real para gerar confiança imediata.',
+  projectsTitle: 'Projetos com apresentação limpa e preview real.',
   projectsDescription:
-    'Alguns trabalhos publicados para mostrar padrão visual, organização e apresentação profissional.',
+    'Alguns trabalhos publicados para mostrar organização visual, enquadramento e padrão profissional.',
   servicesEyebrow: 'Serviços principais',
-  servicesTitle: 'O que posso desenvolver para posicionar melhor o seu negócio.',
+  servicesTitle: 'Soluções objetivas para apresentar melhor o seu negócio.',
   servicesDescription:
-    'Soluções pensadas para apresentar serviços, produtos e operações com mais clareza, autoridade e conversão.',
+    'Estruturas pensadas para comunicar valor com clareza, boa leitura e apresentação profissional.',
   differentialsEyebrow: 'Diferenciais',
-  differentialsTitle: 'Entrega visual forte com base técnica pronta para crescer.',
+  differentialsTitle: 'Visual profissional com base técnica organizada.',
   differentialsDescription:
-    'Cada projeto é construído para passar mais profissionalismo hoje e continuar evoluindo sem improviso.',
+    'Cada projeto é montado com foco em clareza, equilíbrio visual e estrutura pronta para evoluir.',
   contactEyebrow: 'Contato direto',
-  contactTitle: 'Escolha o canal mais rápido para pedir seu projeto.',
+  contactTitle: 'Canais diretos para solicitar seu projeto.',
   contactDescription:
-    'WhatsApp para atendimento imediato, Instagram e LinkedIn para conhecer melhor meu trabalho e e-mail para orçamentos detalhados.',
+    'Escolha o canal que fizer mais sentido para iniciar a conversa sobre sites e sistemas para a sua empresa.',
   ctaEyebrow: 'Pronto para tirar o projeto do papel?',
   ctaTitle: 'Vamos criar um site ou sistema para atrair mais clientes?',
   ctaDescription:

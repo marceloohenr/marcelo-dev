@@ -56,7 +56,7 @@
   }
 
   .section-header {
-    @apply mx-auto mb-10 max-w-3xl text-center sm:mb-12 lg:mb-14;
+    @apply mx-auto mb-10 max-w-[46rem] text-center sm:mb-12 lg:mb-14;
   }
 
   .section-eyebrow {
@@ -69,7 +69,7 @@
   }
 
   .section-subtitle {
-    @apply mx-auto mt-4 max-w-3xl text-body text-text-secondary sm:text-body-lg;
+    @apply mx-auto mt-4 max-w-[42rem] text-body text-text-secondary sm:text-body-lg;
   }
 
   .section-anchor {
@@ -131,7 +131,15 @@
   }
 
   .metric-card {
-    @apply card-base p-4 sm:p-5;
+    @apply card-base flex h-full flex-col items-center justify-center p-5 text-center sm:p-6;
+  }
+
+  .card-balanced {
+    @apply card-base flex h-full min-w-0 flex-col p-5 sm:p-6;
+  }
+
+  .card-copy {
+    @apply max-w-[34ch];
   }
 
   .input-base {

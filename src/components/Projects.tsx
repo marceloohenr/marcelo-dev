@@ -9,40 +9,28 @@ const sortedProjects = [...projects].sort(
 
 const Projects = () => {
   return (
-    <section id="projetos" aria-labelledby="projetos-title" className="section-shell-alt section-anchor">
+    <section
+      id="projetos"
+      aria-labelledby="projetos-title"
+      className="section-shell-alt section-anchor"
+    >
       <div className="content-shell">
-        <div className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,22rem)] lg:items-end lg:justify-between">
-          <Reveal>
-            <header className="max-w-3xl">
-              <div className="section-eyebrow">
-                <FolderKanban size={16} aria-hidden="true" />
-                <span>{siteMetadata.projectsEyebrow}</span>
-              </div>
-              <h2 id="projetos-title" className="section-title text-left">
-                {siteMetadata.projectsTitle}
-              </h2>
-              <p className="section-subtitle mx-0 max-w-2xl text-left text-pretty">
-                {siteMetadata.projectsDescription}
-              </p>
-            </header>
-          </Reveal>
-
-          <Reveal delay={90}>
-            <div className="card-base p-5 sm:p-6">
-              <p className="text-caption uppercase tracking-[0.18em] text-brand-300">
-                Prova visual
-              </p>
-              <p className="mt-3 text-pretty text-body text-text-secondary">
-                Cada card abaixo usa screenshot real do projeto publicado para transmitir mais
-                confiança e padrão profissional.
-              </p>
+        <Reveal>
+          <header className="section-header">
+            <div className="section-eyebrow">
+              <FolderKanban size={16} aria-hidden="true" />
+              <span>{siteMetadata.projectsEyebrow}</span>
             </div>
-          </Reveal>
-        </div>
+            <h2 id="projetos-title" className="section-title">
+              {siteMetadata.projectsTitle}
+            </h2>
+            <p className="section-subtitle text-pretty">{siteMetadata.projectsDescription}</p>
+          </header>
+        </Reveal>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid auto-rows-fr gap-5 md:grid-cols-2 xl:grid-cols-3">
           {sortedProjects.map((project, index) => (
-            <Reveal key={project.id} delay={index * 90}>
+            <Reveal key={project.id} className="h-full" delay={index * 90}>
               <a
                 href={project.projectUrl}
                 target="_blank"
@@ -54,13 +42,13 @@ const Projects = () => {
                   <img
                     src={project.previewImage}
                     alt={`Preview do projeto ${project.name}`}
-                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                     loading="lazy"
                     decoding="async"
-                    width={1280}
-                    height={800}
+                    width={960}
+                    height={600}
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,11,22,0.04),rgba(6,11,22,0.14)_55%,rgba(6,11,22,0.85))]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,11,22,0.02),rgba(6,11,22,0.12)_58%,rgba(6,11,22,0.88))]" />
 
                   <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                     <span className="status-pill-primary">{project.category}</span>
@@ -72,17 +60,17 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col gap-5 p-5">
-                  <div>
+                <div className="flex flex-1 flex-col justify-between gap-5 p-5 sm:p-6">
+                  <div className="space-y-3 text-left">
                     <p className="text-caption uppercase tracking-[0.18em] text-text-muted">
                       Projeto publicado
                     </p>
-                    <h3 className="mt-3 text-balance font-display text-h3 text-text-primary">
+                    <h3 className="text-balance font-display text-h3 text-text-primary">
                       {project.name}
                     </h3>
                   </div>
 
-                  <div className="mt-auto flex items-center justify-between gap-4">
+                  <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-4">
                     <span className="text-body font-medium text-text-secondary">
                       {project.ctaLabel ?? 'Ver projeto'}
                     </span>

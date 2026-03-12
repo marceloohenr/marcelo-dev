@@ -26,22 +26,24 @@ const Differentials = () => {
           </header>
         </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid auto-rows-fr gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {differentials.map((item, index) => {
             const Icon = item.icon;
 
             return (
-              <Reveal key={item.id} delay={index * 65}>
-                <article className="card-base card-interactive h-full min-w-0 p-5 sm:p-6">
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-300/25 bg-brand-400/10">
+              <Reveal key={item.id} className="h-full" delay={index * 65}>
+                <article className="card-balanced card-interactive items-center text-center">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-300/25 bg-brand-400/10">
                     <Icon className="text-brand-300" size={24} />
                   </div>
-                  <h3 className="text-balance font-display text-h3 text-text-primary">
+                  <h3 className="mt-5 text-balance font-display text-h3 text-text-primary">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-pretty text-body text-text-secondary">{item.description}</p>
+                  <p className="card-copy mt-3 text-pretty text-body text-text-secondary">
+                    {item.description}
+                  </p>
                   <div className="mt-5 inline-flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.14em] text-brand-300">
-                    Mais valor percebido
+                    Mais organização visual
                   </div>
                 </article>
               </Reveal>
