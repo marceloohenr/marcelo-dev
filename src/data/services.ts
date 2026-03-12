@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { BookImage, Building2, Monitor } from 'lucide-react';
 
-export interface Service {
+interface Service {
   id: string;
   eyebrow: string;
   title: string;

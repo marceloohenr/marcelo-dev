@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { LayoutTemplate, MessageCircle, Sparkles } from 'lucide-react';
 
-export interface HeroProof {
+interface HeroProof {
   icon: LucideIcon;
   label: string;
 }

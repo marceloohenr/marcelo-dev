@@ -4,7 +4,6 @@ import { Github, Instagram, Linkedin, Mail } from 'lucide-react';
 export const contactInfo = {
   email: 'marcelohabm@gmail.com',
   whatsappNumber: '5581998916570',
-  displayPhone: '(81) 99891-6570',
   githubUrl: 'https://github.com/marceloohenr',
   githubLabel: 'github.com/marceloohenr',
   instagramUrl: 'https://instagram.com/marceloohenr',
@@ -13,7 +12,7 @@ export const contactInfo = {
   linkedinLabel: 'Marcelo Henrique Malagueta',
 } as const;
 
-export interface ContactChannel {
+interface ContactChannel {
   id: string;
   label: string;
   value: string;

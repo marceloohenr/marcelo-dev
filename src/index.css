@@ -144,18 +144,6 @@
     @apply status-pill border-brand-300/20 bg-brand-500/10 text-brand-300;
   }
 
-  .status-pill-success {
-    @apply status-pill border-state-success/30 bg-state-success/10 text-state-success;
-  }
-
-  .status-pill-new {
-    @apply status-pill border-state-warning/30 bg-state-warning/10 text-state-warning;
-  }
-
-  .metric-card {
-    @apply card-base flex h-full flex-col items-center justify-center p-5 text-center sm:p-6;
-  }
-
   .card-balanced {
     @apply card-base flex h-full min-w-0 flex-col p-5 sm:p-6;
   }
@@ -178,10 +166,6 @@
 
   .info-card {
     @apply rounded-[1.15rem] border border-white/10 bg-white/5 p-4 sm:p-5;
-  }
-
-  .input-base {
-    @apply focus-ring min-h-12 w-full rounded-button border border-white/10 bg-white/[0.04] px-4 py-3 text-body text-text-primary placeholder:text-text-muted;
   }
 
   .nav-link {

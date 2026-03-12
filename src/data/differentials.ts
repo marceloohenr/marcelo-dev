@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { LayoutTemplate, MessageCircle, MonitorSmartphone, Sparkles } from 'lucide-react';
 
-export interface Differential {
+interface Differential {
   id: string;
   title: string;
   description: string;

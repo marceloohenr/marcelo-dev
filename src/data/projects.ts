@@ -1,8 +1,8 @@
-export const projectCategoryOrder = ['Portfólio', 'Catálogos', 'Sistemas'] as const;
+const projectCategoryOrder = ['Portfólio', 'Catálogos', 'Sistemas'] as const;
 
 export type ProjectCategory = (typeof projectCategoryOrder)[number];
 
-export interface ProjectRecord {
+interface ProjectRecord {
   id: string;
   title: string;
   category: ProjectCategory;
