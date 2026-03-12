@@ -3,6 +3,8 @@ export const contactInfo = {
   phoneNumber: '81998916570',
   whatsappNumber: '5581998916570',
   displayPhone: '(81) 99891-6570',
+  githubUrl: 'https://github.com/marceloohenr',
+  githubLabel: 'github.com/marceloohenr',
   instagramUrl: 'https://instagram.com/marceloohenr',
   instagramLabel: '@marceloohenr',
   linkedinUrl: 'https://www.linkedin.com/in/marcelo-henrique-malagueta-64b35224a/',

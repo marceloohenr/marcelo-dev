@@ -32,9 +32,9 @@ const Differentials = () => {
 
             return (
               <Reveal key={item.id} className="h-full" delay={index * 65}>
-                <article className="card-balanced card-interactive items-center text-center">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-300/25 bg-brand-400/10">
-                    <Icon className="text-brand-300" size={24} />
+                <article className="card-balanced card-interactive">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-400/25 bg-brand-500/10 text-brand-400">
+                    <Icon size={24} aria-hidden="true" />
                   </div>
                   <h3 className="mt-5 text-balance font-display text-h3 text-text-primary">
                     {item.title}
@@ -42,8 +42,8 @@ const Differentials = () => {
                   <p className="card-copy mt-3 text-pretty text-body text-text-secondary">
                     {item.description}
                   </p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-caption font-semibold uppercase tracking-[0.14em] text-brand-300">
-                    Mais organização visual
+                  <div className="mt-auto pt-5 text-caption font-semibold uppercase tracking-[0.14em] text-brand-400">
+                    Entrega profissional
                   </div>
                 </article>
               </Reveal>

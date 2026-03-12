@@ -5,27 +5,27 @@ export default {
     extend: {
       colors: {
         bg: {
-          base: '#060b16',
-          surface: '#0c1426',
-          elevated: '#101b31',
-          card: '#13213d',
+          base: '#0f172a',
+          surface: '#111827',
+          elevated: '#172033',
+          card: '#1e293b',
         },
         text: {
-          primary: '#f5f9ff',
-          secondary: '#b7c7e5',
-          muted: '#7c90b5',
+          primary: '#f1f5f9',
+          secondary: '#94a3b8',
+          muted: '#64748b',
         },
         brand: {
-          300: '#72c8ff',
-          400: '#3ea8ff',
-          500: '#1683ff',
-          600: '#0a63d8',
-          700: '#0849a6',
+          300: '#60a5fa',
+          400: '#3b82f6',
+          500: '#2563eb',
+          600: '#1d4ed8',
+          700: '#1e40af',
         },
         state: {
-          success: '#35d07f',
-          highlight: '#8bd8ff',
-          warning: '#ffb84d',
+          success: '#22c55e',
+          highlight: '#3b82f6',
+          warning: '#f59e0b',
         },
       },
       fontFamily: {
@@ -58,9 +58,9 @@ export default {
         button: '1rem',
       },
       boxShadow: {
-        soft: '0 30px 80px -42px rgba(2, 10, 26, 0.92)',
-        brand: '0 30px 70px -32px rgba(22, 131, 255, 0.55)',
-        glow: '0 0 0 1px rgba(114, 200, 255, 0.12), 0 24px 80px -34px rgba(12, 80, 160, 0.6)',
+        soft: '0 24px 60px -32px rgba(15, 23, 42, 0.85)',
+        brand: '0 26px 64px -28px rgba(37, 99, 235, 0.5)',
+        glow: '0 0 0 1px rgba(59, 130, 246, 0.14), 0 20px 56px -28px rgba(37, 99, 235, 0.38)',
       },
       maxWidth: {
         content: '76rem',
