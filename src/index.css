@@ -1,21 +1,37 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: dark;
+  }
+
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 5rem;
   }
 
   @media (min-width: 768px) {
     html {
-      scroll-padding-top: 7rem;
+      scroll-padding-top: 6rem;
     }
   }
 
   body {
     @apply bg-bg-base font-sans text-text-primary antialiased;
+    overflow-x: clip;
+    background-image:
+      radial-gradient(circle at 12% 14%, rgba(59, 130, 246, 0.16), transparent 24%),
+      radial-gradient(circle at 88% 8%, rgba(37, 99, 235, 0.12), transparent 22%),
+      linear-gradient(180deg, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0.99) 48%, rgba(8, 14, 28, 1) 100%);
+  }
+
+  a,
+  button,
+  input,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::selection {
@@ -25,35 +41,35 @@
 
 @layer components {
   .content-shell {
-    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-content px-4 min-[420px]:px-5 sm:px-6 lg:px-8;
   }
 
   .section-shell {
-    @apply bg-bg-base py-14 sm:py-16 lg:py-20;
+    @apply relative py-16 sm:py-20 lg:py-24 xl:py-28;
   }
 
   .section-shell-alt {
-    @apply bg-bg-surface py-14 sm:py-16 lg:py-20;
+    @apply relative border-y border-white/5 bg-white/[0.02] py-16 sm:py-20 lg:py-24 xl:py-28;
   }
 
   .section-header {
-    @apply mx-auto mb-10 max-w-3xl text-center sm:mb-12 lg:mb-16;
+    @apply mx-auto mb-10 max-w-3xl text-center sm:mb-12 lg:mb-14;
   }
 
   .section-eyebrow {
-    @apply mb-4 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-600/10 px-4 py-2 text-caption font-semibold text-brand-400;
+    @apply inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-400/20 bg-brand-400/10 px-4 py-2 text-center text-caption font-semibold uppercase tracking-[0.16em] text-brand-400;
   }
 
   .section-title {
-    @apply text-h2 tracking-tight text-text-primary;
+    @apply mt-5 text-balance font-display text-h2 tracking-tight text-text-primary;
   }
 
   .section-subtitle {
-    @apply mt-3 text-body text-text-muted sm:mt-4 md:text-body-lg;
+    @apply mx-auto mt-4 max-w-3xl text-body text-text-secondary sm:text-body-lg;
   }
 
   .section-anchor {
-    @apply scroll-mt-24 md:scroll-mt-28;
+    @apply scroll-mt-20 md:scroll-mt-24;
   }
 
   .focus-ring {
@@ -61,11 +77,11 @@
   }
 
   .card-base {
-    @apply rounded-card border border-slate-800/90 bg-bg-elevated/65 shadow-soft;
+    @apply min-w-0 rounded-card border border-white/10 bg-white/[0.04] shadow-soft backdrop-blur-md;
   }
 
   .card-interactive {
-    @apply transition-all duration-200 hover:-translate-y-1 hover:border-brand-500/55 hover:shadow-brand focus-within:ring-2 focus-within:ring-brand-400 focus-within:ring-offset-2 focus-within:ring-offset-bg-base;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-brand-400/35 hover:shadow-brand focus-within:ring-2 focus-within:ring-brand-400 focus-within:ring-offset-2 focus-within:ring-offset-bg-base;
   }
 
   .card-link {
@@ -73,31 +89,31 @@
   }
 
   .btn-base {
-    @apply focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-button px-6 py-3 text-body font-semibold transition-all duration-200;
+    @apply focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-button px-5 py-3 text-body font-semibold transition-all duration-200 sm:w-auto sm:px-6;
   }
 
   .btn-primary {
-    @apply btn-base border border-brand-500/90 bg-brand-600 text-white shadow-soft hover:-translate-y-0.5 hover:bg-brand-500 hover:shadow-brand;
+    @apply btn-base border border-brand-500/90 bg-brand-500 text-white shadow-brand hover:-translate-y-0.5 hover:bg-brand-400;
   }
 
   .btn-secondary {
-    @apply btn-base border border-slate-700 bg-bg-elevated text-text-primary hover:-translate-y-0.5 hover:border-brand-500/60 hover:bg-bg-surface;
+    @apply btn-base border border-white/10 bg-white/[0.04] text-text-primary hover:-translate-y-0.5 hover:border-brand-400/40 hover:bg-white/[0.07];
   }
 
   .btn-whatsapp {
-    @apply btn-base border border-state-success/60 bg-state-success text-slate-950 shadow-soft hover:-translate-y-0.5 hover:bg-green-400 hover:shadow-brand;
+    @apply btn-base border border-state-success/70 bg-state-success text-slate-950 shadow-brand hover:-translate-y-0.5 hover:bg-green-400;
   }
 
   .chip-base {
-    @apply inline-flex items-center rounded-full border border-brand-500/35 bg-brand-600/10 px-3 py-1 text-caption font-medium text-brand-400;
+    @apply inline-flex max-w-full items-center rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-caption font-medium text-text-secondary;
   }
 
   .input-base {
-    @apply focus-ring min-h-11 w-full rounded-button border border-slate-700/90 bg-bg-elevated px-4 py-3 text-body text-text-primary placeholder:text-text-muted/75;
+    @apply focus-ring min-h-12 w-full rounded-button border border-white/10 bg-white/[0.04] px-4 py-3 text-body text-text-primary placeholder:text-text-muted;
   }
 
   .nav-link {
-    @apply focus-ring relative text-caption font-semibold text-text-secondary transition-colors hover:text-brand-400;
+    @apply focus-ring relative text-caption font-semibold text-text-secondary transition-colors hover:text-text-primary;
   }
 
   .nav-link::after {
@@ -111,7 +127,7 @@
   }
 
   .nav-link-active {
-    @apply text-brand-400;
+    @apply text-text-primary;
   }
 
   .nav-link-active::after {
@@ -119,15 +135,11 @@
   }
 
   .icon-link {
-    @apply focus-ring inline-flex h-11 w-11 items-center justify-center rounded-button border border-slate-700 bg-bg-elevated text-text-secondary transition-colors hover:border-brand-500/60 hover:text-brand-400;
-  }
-
-  .link-action {
-    @apply focus-ring inline-flex items-center gap-2 text-caption font-semibold text-brand-400 transition-colors hover:text-brand-500;
+    @apply focus-ring inline-flex h-11 w-11 items-center justify-center rounded-button border border-white/10 bg-white/[0.04] text-text-secondary transition-colors hover:border-brand-400/40 hover:text-brand-400;
   }
 
   .skip-link {
-    @apply focus-ring fixed left-4 top-1 z-[70] -translate-y-16 rounded-button border border-slate-700 bg-bg-elevated px-4 py-2 text-caption font-semibold text-text-primary shadow-soft;
+    @apply focus-ring fixed left-4 top-1 z-[70] -translate-y-16 rounded-button border border-white/10 bg-bg-elevated px-4 py-2 text-caption font-semibold text-text-primary shadow-soft;
   }
 
   .skip-link:focus-visible {
@@ -136,44 +148,29 @@
 }
 
 @layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out both;
+  .text-balance {
+    text-wrap: balance;
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.65s ease-out both;
+  .text-pretty {
+    text-wrap: pretty;
   }
 
-  .delay-200 {
-    animation-delay: 0.2s;
+  .safe-break {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
-  .delay-300 {
-    animation-delay: 0.3s;
-  }
-
-  .delay-500 {
-    animation-delay: 0.5s;
-  }
-}
-
-@keyframes fadeIn {
-  from {
+  .reveal {
     opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
   }
 
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  to {
+  .reveal[data-visible='true'] {
     opacity: 1;
     transform: translateY(0);
   }
@@ -189,10 +186,9 @@
     transition-duration: 0.01ms !important;
   }
 
-  .animate-fade-in,
-  .animate-fade-in-up,
-  .animate-pulse {
-    animation: none !important;
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
-

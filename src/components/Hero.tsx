@@ -1,81 +1,116 @@
-﻿import { ArrowRight, Code2, MessageCircle } from 'lucide-react';
-import avatar120 from '../assets/marcelo-henrique-avatar-y120.jpg';
-import avatar170 from '../assets/marcelo-henrique-avatar-y170.jpg';
-import avatar220 from '../assets/marcelo-henrique-avatar-y220.jpg';
+import { ArrowRight, MessageCircle } from 'lucide-react';
+import profilePhoto from '../assets/marcelo-henrique-portrait.jpg';
+import Reveal from './Reveal';
 import { contactInfo } from '../data/contact';
-import { getScrollBehavior } from '../utils/motion';
+import { siteMetadata } from '../data/site';
+import { buildWhatsappUrl } from '../utils/contact';
+import { scrollToSection } from '../utils/motion';
 
 const Hero = () => {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: getScrollBehavior() });
-    }
-  };
-
-  const whatsappUrl = `https://wa.me/${contactInfo.whatsappNumber}?text=${encodeURIComponent(
-    'Olá! Gostaria de solicitar um orçamento para desenvolvimento de site.'
-  )}`;
+  const budgetUrl = buildWhatsappUrl(contactInfo.whatsappNumber, siteMetadata.budgetMessage);
 
   return (
     <section
-      id="hero"
+      id="inicio"
       aria-labelledby="hero-title"
-      className="section-anchor relative flex min-h-[100svh] items-center overflow-hidden bg-gradient-to-b from-bg-surface via-bg-base to-bg-base pt-24 sm:pt-28"
+      className="section-anchor relative overflow-hidden pt-24 sm:pt-28 lg:pt-32"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.16),transparent_40%),radial-gradient(circle_at_80%_78%,rgba(59,130,246,0.12),transparent_42%)]" />
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI0IiBjeT0iNCIgcj0iMSIgZmlsbD0iIzI1NjNlYiIgb3BhY2l0eT0iMC4yIi8+PC9zdmc+')] opacity-30" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(59,130,246,0.2),transparent_26%),radial-gradient(circle_at_85%_18%,rgba(37,99,235,0.18),transparent_24%),linear-gradient(180deg,rgba(15,23,42,0.18),rgba(15,23,42,0))]" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-bg-base via-bg-base/75 to-transparent" />
 
-      <div className="content-shell relative z-10 py-12 sm:py-16 lg:py-20">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mx-auto mb-6 h-20 w-20 overflow-hidden rounded-full border border-brand-500/45 shadow-brand animate-fade-in sm:h-24 sm:w-24">
-            <img
-              src={avatar220}
-              srcSet={`${avatar120} 120w, ${avatar170} 170w, ${avatar220} 220w`}
-              sizes="(max-width: 640px) 80px, 96px"
-              width={220}
-              height={220}
-              alt="Foto de Marcelo Henrique"
-              className="h-full w-full object-cover object-center"
-              loading="eager"
-              decoding="async"
-            />
+      <div className="content-shell relative z-10 pb-14 pt-4 sm:pb-16 lg:pb-20 xl:pb-24">
+        <div className="grid gap-10 lg:gap-12 xl:grid-cols-[minmax(0,1.04fr)_minmax(20rem,0.96fr)] xl:items-center">
+          <div className="min-w-0">
+            <Reveal>
+              <div className="section-eyebrow">
+                <span>{siteMetadata.heroEyebrow}</span>
+              </div>
+            </Reveal>
+
+            <Reveal delay={90}>
+              <h1
+                id="hero-title"
+                className="mt-4 max-w-4xl text-balance font-display text-display text-text-primary"
+              >
+                {siteMetadata.personName}
+              </h1>
+            </Reveal>
+
+            <Reveal delay={180}>
+              <p className="mt-4 font-display text-h2 text-brand-400">{siteMetadata.role}</p>
+            </Reveal>
+
+            <Reveal delay={260}>
+              <p className="mt-5 max-w-2xl text-pretty text-body-lg text-text-secondary">
+                {siteMetadata.heroDescription}
+              </p>
+            </Reveal>
+
+            <Reveal delay={320}>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+                <a
+                  href={budgetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary sm:min-w-[13rem]"
+                >
+                  {siteMetadata.heroPrimaryCtaLabel}
+                  <MessageCircle size={18} aria-hidden="true" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('projetos')}
+                  className="btn-secondary sm:min-w-[12rem]"
+                >
+                  {siteMetadata.heroSecondaryCtaLabel}
+                  <ArrowRight size={18} aria-hidden="true" />
+                </button>
+              </div>
+            </Reveal>
+
+            <Reveal delay={400}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                {siteMetadata.heroHighlights.map((item) => (
+                  <span key={item} className="chip-base">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
           </div>
 
-          <div className="section-eyebrow animate-fade-in">
-            <Code2 size={16} aria-hidden="true" />
-            <span>Desenvolvedor Web</span>
-          </div>
+          <Reveal className="xl:justify-self-end" delay={220}>
+            <aside className="card-base relative mx-auto w-full max-w-[31rem] overflow-hidden p-4 sm:p-5">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.18),transparent_38%)]" />
+              <div className="relative">
+                <div className="aspect-[4/5] overflow-hidden rounded-[1.35rem] border border-white/10 bg-bg-surface/80">
+                  <img
+                    src={profilePhoto}
+                    alt="Foto profissional de Marcelo Henrique"
+                    className="h-full w-full object-cover object-top"
+                    loading="eager"
+                    decoding="async"
+                    width={900}
+                    height={1200}
+                    fetchPriority="high"
+                  />
+                </div>
 
-          <h1 id="hero-title" className="mx-auto max-w-3xl text-display text-text-primary animate-fade-in-up">
-            Marcelo Henrique
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-3xl text-body-lg font-medium text-text-secondary animate-fade-in-up delay-200 sm:text-h3">
-            Criação de sites modernos que geram <span className="text-brand-400">autoridade</span>{' '}
-            e <span className="text-brand-400">clientes</span> para o seu negócio
-          </p>
-
-          <div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center animate-fade-in-up delay-300">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp sm:min-w-[13rem]"
-            >
-              Solicitar Orçamento
-              <MessageCircle size={18} aria-hidden="true" />
-            </a>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection('projetos')}
-              className="btn-secondary sm:min-w-[13rem]"
-            >
-              Ver Projetos
-              <ArrowRight size={18} aria-hidden="true" />
-            </button>
-          </div>
+                <div className="mt-4 flex items-center justify-between gap-4 rounded-[1.1rem] border border-white/10 bg-bg-base/72 px-4 py-3">
+                  <div className="min-w-0">
+                    <p className="text-caption uppercase tracking-[0.18em] text-text-muted">
+                      Disponibilidade
+                    </p>
+                    <p className="mt-1 font-display text-body-lg font-semibold text-text-primary">
+                      {siteMetadata.heroAvailability}
+                    </p>
+                  </div>
+                  <span className="chip-base shrink-0">Resposta rápida</span>
+                </div>
+              </div>
+            </aside>
+          </Reveal>
         </div>
       </div>
     </section>

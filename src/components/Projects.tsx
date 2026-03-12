@@ -1,132 +1,103 @@
-﻿import { useMemo, useState } from 'react';
-import { Code2, ExternalLink } from 'lucide-react';
-import { projects } from '../data/projects';
+import { useMemo, useState } from 'react';
+import { ArrowUpRight, FolderKanban } from 'lucide-react';
+import Reveal from './Reveal';
+import { projects, type ProjectRecord } from '../data/projects';
+import { siteMetadata } from '../data/site';
 
-const isValidSiteUrl = (link?: string) => Boolean(link && /^https?:\/\//i.test(link));
+const ProjectPreview = ({ project }: { project: ProjectRecord }) => {
+  const [hasImageError, setHasImageError] = useState(false);
 
-const getPreviewCandidates = (link: string) => {
-  const encodedLink = encodeURIComponent(link);
-  return [
-    `https://s.wordpress.com/mshots/v1/${encodedLink}?w=1200`,
-    `https://image.thum.io/get/width/1200/crop/760/noanimate/${link}`,
-    `https://image.thum.io/get/width/1200/crop/760/${link}`,
-  ];
-};
-
-const getSiteHostname = (link: string) => {
-  try {
-    return new URL(link).hostname.replace(/^www\./, '');
-  } catch {
-    return link;
-  }
-};
-
-type ProjectPreviewProps = {
-  title: string;
-  link: string;
-};
-
-const ProjectPreview = ({ title, link }: ProjectPreviewProps) => {
-  const previewCandidates = useMemo(() => getPreviewCandidates(link), [link]);
-  const [candidateIndex, setCandidateIndex] = useState(0);
-  const [allSourcesFailed, setAllSourcesFailed] = useState(false);
-
-  const currentSource = previewCandidates[candidateIndex];
-
-  const handleImageError = () => {
-    setCandidateIndex((currentIndex) => {
-      if (currentIndex < previewCandidates.length - 1) {
-        return currentIndex + 1;
-      }
-
-      setAllSourcesFailed(true);
-      return currentIndex;
-    });
-  };
-
-  if (allSourcesFailed) {
+  if (!project.previewImage || hasImageError) {
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-center">
-        <Code2 size={46} className="text-brand-400/80" />
-        <p className="text-caption font-semibold text-text-secondary">{getSiteHostname(link)}</p>
-        <p className="text-caption text-text-muted">Preview indisponível no momento</p>
+      <div className="flex h-full w-full flex-col justify-end bg-[linear-gradient(145deg,rgba(59,130,246,0.2),rgba(15,23,42,0.98))] p-5 sm:p-6">
+        <p className="text-caption font-semibold uppercase tracking-[0.18em] text-brand-400">
+          {project.category}
+        </p>
+        <h3 className="mt-2 font-display text-h3 text-text-primary">{project.name}</h3>
       </div>
     );
   }
 
   return (
     <img
-      src={currentSource}
-      alt={`Preview do projeto ${title}`}
-      className="h-full w-full object-cover object-top"
+      src={project.previewImage}
+      alt={`Preview do projeto ${project.name}`}
+      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
       loading="lazy"
-      referrerPolicy="no-referrer"
-      onError={handleImageError}
+      decoding="async"
+      onError={() => setHasImageError(true)}
     />
   );
 };
 
 const Projects = () => {
+  const sortedProjects = useMemo(
+    () =>
+      [...projects].sort(
+        (left, right) => new Date(right.date).getTime() - new Date(left.date).getTime()
+      ),
+    []
+  );
+
   return (
     <section id="projetos" aria-labelledby="projetos-title" className="section-shell-alt section-anchor">
       <div className="content-shell">
-        <header className="section-header">
-          <h2 id="projetos-title" className="section-title">Projetos Realizados</h2>
-          <p className="section-subtitle">
-            Confira alguns dos projetos desenvolvidos com foco em performance e conversão.
-          </p>
-        </header>
+        <Reveal>
+          <header className="section-header">
+            <div className="section-eyebrow">
+              <FolderKanban size={16} aria-hidden="true" />
+              <span>{siteMetadata.projectsEyebrow}</span>
+            </div>
+            <h2 id="projetos-title" className="section-title">
+              {siteMetadata.projectsTitle}
+            </h2>
+            <p className="section-subtitle text-pretty">{siteMetadata.projectsDescription}</p>
+          </header>
+        </Reveal>
 
-        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project) => {
-            const hasPreview = isValidSiteUrl(project.link);
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          {sortedProjects.map((project, index) => {
+            const content = (
+              <>
+                <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10 bg-bg-base/70">
+                  <ProjectPreview project={project} />
+                  {project.projectUrl ? (
+                    <div className="pointer-events-none absolute inset-0 flex items-start justify-end bg-gradient-to-t from-bg-base/10 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-bg-base/78 text-brand-400">
+                        <ArrowUpRight size={18} aria-hidden="true" />
+                      </span>
+                    </div>
+                  ) : null}
+                </div>
+                <div className="flex flex-1 flex-col justify-end p-5">
+                  <p className="text-caption font-semibold uppercase tracking-[0.18em] text-brand-400">
+                    {project.category}
+                  </p>
+                  <h3 className="mt-3 text-balance font-display text-h3 text-text-primary">
+                    {project.name}
+                  </h3>
+                </div>
+              </>
+            );
 
             return (
-              <article key={project.id} className="card-base card-interactive flex h-full flex-col overflow-hidden">
-                <div className="aspect-[16/10] border-b border-slate-700/70 bg-gradient-to-br from-brand-600/20 to-bg-elevated">
-                  {hasPreview ? (
-                    <ProjectPreview title={project.title} link={project.link!} />
-                  ) : (
-                    <div className="flex h-full items-center justify-center">
-                      <Code2 size={58} className="text-brand-400/70" />
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex flex-1 flex-col p-6">
-                  <div>
-                    <h3 className="text-h3 text-text-primary">{project.title}</h3>
-                    <p className="mt-1 text-caption font-semibold text-brand-400">{project.client}</p>
-                  </div>
-
-                  <p className="mt-4 text-body text-text-secondary">{project.description}</p>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span key={tech} className="chip-base">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto pt-6">
-                    {hasPreview ? (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="link-action"
-                        aria-label={`Abrir projeto ${project.title} em nova aba`}
-                      >
-                        Ver Projeto
-                        <ExternalLink size={16} aria-hidden="true" />
-                      </a>
-                    ) : (
-                      <p className="text-caption text-text-muted">Link público em breve</p>
-                    )}
-                  </div>
-                </div>
-              </article>
+              <Reveal key={project.id} delay={index * 70}>
+                {project.projectUrl ? (
+                  <a
+                    href={project.projectUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group card-link flex h-full min-w-0 flex-col overflow-hidden p-0"
+                    aria-label={`Abrir projeto ${project.name} em nova aba`}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <article className="group card-base flex h-full min-w-0 flex-col overflow-hidden">
+                    {content}
+                  </article>
+                )}
+              </Reveal>
             );
           })}
         </div>

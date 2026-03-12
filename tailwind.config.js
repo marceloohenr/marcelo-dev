@@ -5,58 +5,59 @@ export default {
     extend: {
       colors: {
         bg: {
-          base: '#020617',
-          surface: '#0b1220',
-          elevated: '#121c2f',
+          base: '#0f172a',
+          surface: '#111c34',
+          elevated: '#182544',
         },
         text: {
-          primary: '#e2e8f0',
-          secondary: '#cbd5e1',
-          muted: '#94a3b8',
+          primary: '#f1f5f9',
+          secondary: '#94a3b8',
+          muted: '#64748b',
         },
         brand: {
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
+          400: '#3b82f6',
+          500: '#2563eb',
+          600: '#1d4ed8',
         },
         state: {
           success: '#22c55e',
         },
       },
       fontFamily: {
-        sans: ['Manrope', 'Inter', 'Segoe UI', 'system-ui', 'sans-serif'],
+        sans: ['Manrope', 'Segoe UI', 'system-ui', 'sans-serif'],
+        display: ['Sora', 'Segoe UI', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         display: [
-          'clamp(2.4rem, 6vw, 4.8rem)',
-          { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '800' },
+          'clamp(2.45rem, 7vw, 5.1rem)',
+          { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '700' },
         ],
         h1: [
-          'clamp(2rem, 4.2vw, 3.4rem)',
-          { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '800' },
+          'clamp(1.95rem, 5vw, 3.35rem)',
+          { lineHeight: '1.06', letterSpacing: '-0.03em', fontWeight: '700' },
         ],
         h2: [
-          'clamp(1.65rem, 2.8vw, 2.45rem)',
-          { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '700' },
+          'clamp(1.55rem, 4vw, 2.5rem)',
+          { lineHeight: '1.12', letterSpacing: '-0.025em', fontWeight: '700' },
         ],
         h3: [
-          'clamp(1.25rem, 1.8vw, 1.6rem)',
-          { lineHeight: '1.3', letterSpacing: '-0.01em', fontWeight: '700' },
+          'clamp(1.08rem, 2.2vw, 1.45rem)',
+          { lineHeight: '1.28', letterSpacing: '-0.01em', fontWeight: '700' },
         ],
-        'body-lg': ['1.125rem', { lineHeight: '1.75' }],
+        'body-lg': ['clamp(1rem, 2vw, 1.125rem)', { lineHeight: '1.72' }],
         body: ['1rem', { lineHeight: '1.7' }],
         caption: ['0.875rem', { lineHeight: '1.55' }],
       },
       borderRadius: {
-        card: '1rem',
-        button: '0.875rem',
+        card: '1.5rem',
+        button: '0.95rem',
       },
       boxShadow: {
-        soft: '0 16px 34px -20px rgba(2, 6, 23, 0.85)',
-        brand: '0 20px 45px -18px rgba(37, 99, 235, 0.5)',
+        soft: '0 24px 60px -32px rgba(8, 14, 28, 0.82)',
+        brand: '0 28px 64px -30px rgba(37, 99, 235, 0.5)',
       },
       maxWidth: {
-        content: '72rem',
+        content: '74rem',
       },
     },
   },

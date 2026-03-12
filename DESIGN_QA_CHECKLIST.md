@@ -1,63 +1,50 @@
-﻿# Design QA Checklist
+# Design QA Checklist
 
 ## How to run
 1. `npm install`
 2. `npm run dev`
 3. Open browser devtools responsive mode.
-4. Validate each section at widths: `360`, `390`, `768`, `1280`, `1440`.
+4. Validate widths: `360`, `390`, `768`, `1024`, `1280`, `1440`.
 
 ## Global checks
 - [ ] No horizontal scroll at any breakpoint.
-- [ ] Navbar remains fixed and does not overlap section titles after anchor navigation.
-- [ ] Main CTA hierarchy: WhatsApp button is visually primary in Hero, Navbar and CTA section.
-- [ ] Typography hierarchy is consistent: title > subtitle > body > metadata.
-- [ ] Focus ring appears clearly on all interactive elements when using keyboard only.
-- [ ] `Tab` order is logical across navbar, content and footer.
-- [ ] Reduced motion mode (`prefers-reduced-motion`) keeps navigation usable and readable.
+- [ ] Dark palette remains consistent across sections and hover states.
+- [ ] Typography hierarchy is clear: hero > section titles > card titles > body.
+- [ ] Focus ring is visible on nav, project cards, CTA buttons and footer links.
+- [ ] Reduced motion mode keeps reveal animation and navigation usable.
 
-## Navbar and navigation
+## Navbar
+- [ ] Fixed navbar does not overlap section titles after anchor navigation.
 - [ ] Active section highlight updates while scrolling.
-- [ ] Clicking menu items updates URL hash and scrolls to correct section.
-- [ ] Mobile menu closes on:
-  - [ ] section click
-  - [ ] outside overlay click
-  - [ ] `Esc`
-  - [ ] resize to desktop
-- [ ] While mobile menu is open, background page does not scroll.
+- [ ] Mobile menu opens and closes via button, overlay, `Esc` and desktop resize.
+- [ ] Mobile menu locks background scroll.
+- [ ] Main WhatsApp CTA remains visible and easy to tap.
 
 ## Hero
-- [ ] Avatar loads sharp but not oversized on mobile.
-- [ ] Title and subtitle never wrap awkwardly (no orphan words in very small widths).
-- [ ] Primary and secondary CTA buttons align and keep minimum tap target size.
+- [ ] Name, role and main value proposition are clear above the fold.
+- [ ] Portrait keeps `4:5` framing without distortion.
+- [ ] Primary and secondary CTAs keep minimum touch target size.
+- [ ] Offer chips wrap cleanly without breaking layout.
 
-## Problem, Projects, Services, Differentials, About
-- [ ] Section spacing feels balanced between mobile and desktop.
-- [ ] Cards have consistent corner radius, border contrast and hover behavior.
-- [ ] Project cards keep action link aligned near bottom despite different text sizes.
-- [ ] Differentials grid does not look cramped at `1280` and `1440`.
+## Projects
+- [ ] Grid uses 1 column on mobile, 2 on tablet, 3 on desktop and 4 only on wide screens.
+- [ ] Project covers keep `16:10` ratio with `object-cover`.
+- [ ] Hover animation is subtle and does not shift surrounding cards.
+- [ ] Cards without external URL still render with the same height and spacing.
+- [ ] Adding one more project entry in `src/data/projects.ts` does not require layout changes.
 
-## CTA section
-- [ ] CTA title is emphasized but does not visually overpower Hero.
-- [ ] WhatsApp CTA remains primary relative to secondary action.
+## Services and Differentials
+- [ ] Services section keeps exactly 3 cards and preserves equal height feel.
+- [ ] Differentials section keeps 4 compact cards with comfortable spacing.
+- [ ] Titles and descriptions stay readable on narrow mobile widths.
 
-## Contact
-- [ ] Contact cards are keyboard focusable and focus-visible is clear.
-- [ ] Form blocks submit when fields contain only spaces.
-- [ ] Form submit opens WhatsApp with trimmed content.
-- [ ] Input autofill works for `name` and `email`.
+## CTA and Footer
+- [ ] Final CTA is visually stronger than secondary sections, but does not overpower hero.
+- [ ] WhatsApp button in CTA remains full-width on mobile and compact on larger screens.
+- [ ] Footer stacks cleanly on mobile and aligns in one row on larger screens.
+- [ ] Floating WhatsApp button stays circular on mobile and pill-shaped on desktop.
 
-## Footer and floating WhatsApp
-- [ ] Footer icon links have visible hover and focus states.
-- [ ] Floating WhatsApp button does not overlap critical content.
-- [ ] Floating button respects safe area on mobile devices.
-
-## Performance sanity
-- [ ] Hero avatar loads using responsive `srcset` assets.
-- [ ] No obvious layout shifts during first render.
-- [ ] Build passes: `npm run build`.
-
-## Final acceptance criteria
+## Technical validation
 - [ ] `npm run lint` passes.
 - [ ] `npm run typecheck` passes.
 - [ ] `npm run build` passes.
-- [ ] All checklist items above validated at required breakpoints.

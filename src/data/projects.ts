@@ -1,38 +1,51 @@
-﻿export interface Project {
-  id: number;
-  title: string;
-  client: string;
-  description: string;
-  technologies: string[];
-  link?: string;
+export const projectCategories = [
+  'Portfólio profissional',
+  'Catálogo online',
+  'Site institucional',
+  'Sistema web',
+] as const;
+
+export type ProjectCategory = (typeof projectCategories)[number];
+
+export interface ProjectRecord {
+  id: string;
+  name: string;
+  category: ProjectCategory;
+  previewImage?: string;
+  projectUrl?: string;
+  date: string;
 }
 
-export const projects: Project[] = [
+export const projects: ProjectRecord[] = [
   {
-    id: 1,
-    title: 'Nuvle',
-    client: 'Marca de roupa',
-    description:
-      'E-commerce desenvolvido para a marca Nuvle, com foco em apresentação estratégica dos produtos, fortalecimento da identidade visual e otimização da conversão em vendas.',
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
-    link: 'https://nuvle.vercel.app',
+    id: 'cosme-racoes',
+    name: 'Cosme Rações',
+    category: 'Catálogo online',
+    previewImage: '/projects/cosme-preview.svg',
+    projectUrl: 'https://cosme-racoes.vercel.app',
+    date: '2026-03-11',
   },
   {
-    id: 2,
-    title: 'Portfólio Profissional',
-    client: 'Nutricionista',
-    description:
-      'Portfólio institucional desenvolvido para fortalecer o posicionamento da nutricionista Gabriela Mendes, ampliar sua autoridade no mercado e gerar novos contatos comerciais.',
-    technologies: ['React', 'Tailwind CSS', 'Vite'],
-    link: 'https://portifoliogabriela.vercel.app',
+    id: 'nuvle',
+    name: 'Nuvle',
+    category: 'Catálogo online',
+    previewImage: '/projects/nuvle-preview.svg',
+    projectUrl: 'https://nuvle.vercel.app',
+    date: '2026-02-14',
   },
   {
-    id: 3,
-    title: 'Landing Page Comercial',
-    client: 'E-commerce',
-    description:
-      'Landing page de alta conversão com foco em vendas e captação de leads qualificados.',
-    technologies: ['React', 'Tailwind CSS', 'Performance Otimizada'],
+    id: 'gabriela-mendes',
+    name: 'Gabriela Mendes',
+    category: 'Portfólio profissional',
+    previewImage: '/projects/gabriela-preview.svg',
+    projectUrl: 'https://portifoliogabriela.vercel.app',
+    date: '2025-11-08',
+  },
+  {
+    id: 'site-institucional-comercial',
+    name: 'Site Institucional Comercial',
+    category: 'Site institucional',
+    previewImage: '/projects/site-preview.svg',
+    date: '2025-05-27',
   },
 ];
-

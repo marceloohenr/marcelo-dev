@@ -1,57 +1,49 @@
-﻿import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
+import Reveal from './Reveal';
 import { contactInfo } from '../data/contact';
-import { getScrollBehavior } from '../utils/motion';
+import { siteMetadata } from '../data/site';
+import { buildWhatsappUrl } from '../utils/contact';
 
-export default function CTA() {
-  const scrollToContact = () => {
-    const element = document.getElementById('contato');
-    if (element) {
-      element.scrollIntoView({ behavior: getScrollBehavior() });
-    }
-  };
-
-  const whatsappUrl = `https://wa.me/${contactInfo.whatsappNumber}?text=${encodeURIComponent(
-    'Olá! Gostaria de solicitar um orçamento para desenvolvimento de site.'
-  )}`;
+const CtaSection = () => {
+  const budgetUrl = buildWhatsappUrl(contactInfo.whatsappNumber, siteMetadata.budgetMessage);
 
   return (
-    <section id="cta" aria-labelledby="cta-title" className="section-shell-alt section-anchor relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(37,99,235,0.18),transparent_42%),radial-gradient(circle_at_85%_80%,rgba(59,130,246,0.16),transparent_44%)]" />
+    <section id="contato" aria-labelledby="cta-title" className="section-shell section-anchor">
+      <div className="content-shell">
+        <Reveal>
+          <div className="card-base relative overflow-hidden px-5 py-10 text-center sm:px-8 sm:py-12 lg:px-12 lg:py-14">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_48%),linear-gradient(135deg,rgba(59,130,246,0.08),rgba(15,23,42,0.02))]" />
+            <div className="relative">
+              <div className="section-eyebrow">
+                <MessageCircle size={16} aria-hidden="true" />
+                <span>{siteMetadata.ctaEyebrow}</span>
+              </div>
 
-      <div className="content-shell relative z-10">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="section-eyebrow">
-            <Sparkles size={16} aria-hidden="true" />
-            <span>Vamos trabalhar juntos</span>
+              <h2
+                id="cta-title"
+                className="mx-auto max-w-3xl text-balance font-display text-h1 text-text-primary"
+              >
+                {siteMetadata.ctaTitle}
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-pretty text-body-lg text-text-secondary">
+                {siteMetadata.ctaDescription}
+              </p>
+
+              <a
+                href={budgetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-whatsapp mt-8 min-h-14 px-7 text-body-lg sm:min-w-[16rem]"
+              >
+                {siteMetadata.budgetLabel}
+                <MessageCircle size={18} aria-hidden="true" />
+              </a>
+            </div>
           </div>
-
-          <h2 id="cta-title" className="text-h2 text-text-primary md:text-h1">Vamos criar um site profissional para o seu negócio?</h2>
-
-          <p className="mx-auto mt-6 max-w-2xl text-body-lg text-text-secondary">
-            Transforme sua presença digital e comece a conquistar mais clientes com um site moderno e
-            estratégico.
-          </p>
-
-          <div className="mt-8 flex flex-col items-stretch justify-center gap-4 sm:mt-10 sm:flex-row sm:items-center">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp sm:min-w-[13rem]"
-            >
-              Solicitar Orçamento
-              <MessageCircle size={18} aria-hidden="true" />
-            </a>
-
-            <button type="button" onClick={scrollToContact} className="btn-secondary sm:min-w-[13rem]">
-              Ir para Contato
-              <ArrowRight size={18} aria-hidden="true" />
-            </button>
-          </div>
-
-          <p className="mt-6 text-caption text-text-muted">Resposta em até 24 horas</p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
-}
+};
+
+export default CtaSection;

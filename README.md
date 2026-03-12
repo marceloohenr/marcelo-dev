@@ -1,146 +1,88 @@
-# Marcelo Henrique - Desenvolvedor Web
+# Marcelo Henrique | Home Comercial
 
-Site profissional completo para captação de clientes e apresentação de portfólio.
+Landing page em React + TypeScript criada para captação de clientes interessados em sites, catálogos online e sistemas web.
 
-## 🚀 Tecnologias
+## Stack
 
-- **React 18** - Biblioteca JavaScript para interfaces
-- **TypeScript** - Tipagem estática
-- **Vite** - Build tool moderna e rápida
-- **Tailwind CSS** - Framework CSS utilitário
-- **Lucide React** - Ícones modernos
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Lucide React
 
-## 📋 Pré-requisitos
-
-- Node.js 18+ instalado
-- npm ou yarn
-
-## 🔧 Instalação
+## Scripts
 
 ```bash
-# Instalar dependências
 npm install
-```
-
-## 🏃 Executando o projeto
-
-```bash
-# Modo desenvolvimento
 npm run dev
-
-# Build para produção
+npm run lint
+npm run typecheck
 npm run build
-
-# Preview do build
-npm run preview
 ```
 
-## 📁 Estrutura do Projeto
+## Estrutura principal
 
-```
+```text
 src/
-├── components/          # Componentes React
-│   ├── Navbar.tsx      # Navegação fixa
-│   ├── Hero.tsx        # Seção principal
-│   ├── Problem.tsx     # Problema que resolve
-│   ├── Projects.tsx    # Portfólio de projetos
-│   ├── Services.tsx    # Serviços oferecidos
-│   ├── Differentials.tsx # Diferenciais
-│   ├── About.tsx       # Sobre
-│   ├── CTA.tsx         # Call to Action
-│   ├── Contact.tsx     # Contato e formulário
-│   ├── Footer.tsx      # Rodapé
-│   └── WhatsAppButton.tsx # Botão flutuante
-├── data/               # Dados da aplicação
-│   ├── projects.ts     # Lista de projetos
-│   └── services.ts     # Lista de serviços
-├── App.tsx             # Componente principal
-├── main.tsx           # Entrada da aplicação
-└── index.css          # Estilos globais
+├── components/
+│   ├── Navbar.tsx
+│   ├── Hero.tsx
+│   ├── Projects.tsx
+│   ├── Services.tsx
+│   ├── Differentials.tsx
+│   ├── CTA.tsx
+│   ├── Footer.tsx
+│   └── WhatsAppButton.tsx
+├── data/
+│   ├── site.ts
+│   ├── contact.ts
+│   ├── projects.ts
+│   ├── services.ts
+│   └── differentials.ts
+└── index.css
 ```
 
-## ✏️ Personalizando o Conteúdo
+## Personalização rápida
 
-### Adicionar Novos Projetos
+- `src/data/site.ts`: copy principal da página, labels dos CTAs e itens da navegação.
+- `src/data/contact.ts`: WhatsApp, e-mail e LinkedIn.
+- `src/data/projects.ts`: vitrine dinâmica de projetos. Novos cards entram automaticamente no grid.
+- `src/data/services.ts`: três serviços principais exibidos na home.
+- `src/data/differentials.ts`: diferenciais curtos da entrega.
 
-Edite o arquivo `src/data/projects.ts`:
+## Projetos dinâmicos
 
-```typescript
+Cada projeto usa a estrutura abaixo:
+
+```ts
 {
-  id: 4,
-  title: 'Nome do Projeto',
-  client: 'Tipo de Cliente',
-  description: 'Descrição do projeto...',
-  technologies: ['React', 'Tailwind CSS'],
-  link: 'https://url-do-projeto.com',
+  id: 'slug-do-projeto',
+  name: 'Nome do projeto',
+  category: 'Portfólio profissional',
+  previewImage: '/projects/capa-do-projeto.svg',
+  projectUrl: 'https://url-do-projeto.com',
+  date: '2026-03-12',
 }
 ```
 
-### Atualizar Informações de Contato
+Campos:
 
-No arquivo `src/components/Contact.tsx`, atualize:
-- Email
-- LinkedIn
-- Número do WhatsApp
+- `category`: `Portfólio profissional`, `Catálogo online`, `Site institucional` ou `Sistema web`.
+- `previewImage`: capa usada no card; se falhar, o componente gera fallback visual.
+- `projectUrl`: opcional. Sem ele, o card continua visível, mas não clicável.
 
-No arquivo `src/components/WhatsAppButton.tsx`, atualize:
-- Número do WhatsApp
+## Direção visual
 
-### Personalizar Cores
+- Fundo base: `#0f172a`
+- Azul primário: `#2563eb`
+- Azul destaque: `#3b82f6`
+- Texto principal: `#f1f5f9`
+- Texto secundário: `#94a3b8`
+- Tipografia: `Sora` para títulos e `Manrope` para texto
 
-As cores principais estão definidas no Tailwind CSS:
-- Fundo: `bg-slate-900`, `bg-slate-950`
-- Azul primário: `bg-blue-600`
-- Azul destaque: `bg-blue-500`, `text-blue-400`
+## Deploy
 
-## 🌐 Deploy
+Deploy padrão com Vercel ou Netlify usando:
 
-### Vercel (Recomendado)
-
-1. Faça login na [Vercel](https://vercel.com)
-2. Importe o repositório
-3. Configure build:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-4. Deploy!
-
-### Netlify
-
-1. Faça login na [Netlify](https://netlify.com)
-2. Arraste a pasta `dist` após rodar `npm run build`
-3. Site no ar!
-
-## 📱 Funcionalidades
-
-- ✅ Design responsivo (mobile-first)
-- ✅ Navegação suave entre seções
-- ✅ Animações sutis
-- ✅ Botão flutuante WhatsApp
-- ✅ Formulário de contato integrado
-- ✅ SEO otimizado
-- ✅ Performance otimizada
-- ✅ Código limpo e organizado
-
-## 🎨 Paleta de Cores
-
-- **Fundo:** `#0f172a` (slate-900)
-- **Azul Primário:** `#2563eb` (blue-600)
-- **Azul Destaque:** `#3b82f6` (blue-500)
-- **Texto Principal:** `#f1f5f9` (slate-100)
-- **Texto Secundário:** `#94a3b8` (slate-400)
-
-## 📝 Licença
-
-© 2026 Marcelo Henrique - Todos os direitos reservados
-
-## 💡 Dicas de Uso
-
-1. Mantenha a lista de projetos atualizada
-2. Atualize as informações de contato
-3. Adicione links reais para projetos concluídos
-4. Personalize o número do WhatsApp
-5. Teste em diferentes dispositivos
-
----
-
-**Desenvolvido por Marcelo Henrique**
+- Build command: `npm run build`
+- Output directory: `dist`

@@ -1,55 +1,47 @@
-﻿import { Code2, Zap, Palette, TrendingUp, FolderTree } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import Reveal from './Reveal';
+import { differentials } from '../data/differentials';
+import { siteMetadata } from '../data/site';
 
 const Differentials = () => {
-  const differentials = [
-    {
-      icon: Code2,
-      title: 'Código Organizado',
-      description: 'Estrutura limpa e bem documentada para fácil manutenção.',
-    },
-    {
-      icon: Zap,
-      title: 'Performance Otimizada',
-      description: 'Sites rápidos que oferecem a melhor experiência ao usuário.',
-    },
-    {
-      icon: Palette,
-      title: 'Design Moderno',
-      description: 'Layouts atuais que transmitem profissionalismo e confiança.',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Foco em Conversão',
-      description: 'Estratégia voltada para gerar resultados reais para o negócio.',
-    },
-    {
-      icon: FolderTree,
-      title: 'Estrutura Escalável',
-      description: 'Preparado para crescer junto com seu negócio.',
-    },
-  ];
-
   return (
-    <section id="diferenciais" aria-labelledby="diferenciais-title" className="section-shell-alt section-anchor">
+    <section
+      id="diferenciais"
+      aria-labelledby="diferenciais-title"
+      className="section-shell-alt section-anchor"
+    >
       <div className="content-shell">
-        <header className="section-header">
-          <h2 id="diferenciais-title" className="section-title">Diferenciais</h2>
-          <p className="section-subtitle">O que faz meus projetos se destacarem.</p>
-        </header>
+        <Reveal>
+          <header className="section-header">
+            <div className="section-eyebrow">
+              <Sparkles size={16} aria-hidden="true" />
+              <span>{siteMetadata.differentialsEyebrow}</span>
+            </div>
+            <h2 id="diferenciais-title" className="section-title">
+              {siteMetadata.differentialsTitle}
+            </h2>
+            <p className="section-subtitle text-pretty">
+              {siteMetadata.differentialsDescription}
+            </p>
+          </header>
+        </Reveal>
 
-        <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {differentials.map((item) => {
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {differentials.map((item, index) => {
             const Icon = item.icon;
 
             return (
-              <article key={item.title} className="card-base card-interactive p-5 sm:p-6 text-center">
-                <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full border border-brand-500/25 bg-brand-600/10">
-                  <Icon className="text-brand-400" size={24} />
-                </div>
-
-                <h3 className="text-h3 text-text-primary">{item.title}</h3>
-                <p className="mt-3 text-body text-text-secondary">{item.description}</p>
-              </article>
+              <Reveal key={item.id} delay={index * 65}>
+                <article className="card-base card-interactive h-full min-w-0 p-5 sm:p-6">
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-400/25 bg-brand-400/10">
+                    <Icon className="text-brand-400" size={24} />
+                  </div>
+                  <h3 className="text-balance font-display text-h3 text-text-primary">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-pretty text-body text-text-secondary">{item.description}</p>
+                </article>
+              </Reveal>
             );
           })}
         </div>

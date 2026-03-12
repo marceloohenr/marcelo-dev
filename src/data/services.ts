@@ -1,8 +1,8 @@
-﻿import type { LucideIcon } from 'lucide-react';
-import { Briefcase, Code2, LayoutTemplate, Rocket, Wrench, Zap } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { BookImage, Building2, Monitor } from 'lucide-react';
 
 export interface Service {
-  id: number;
+  id: string;
   title: string;
   description: string;
   icon: LucideIcon;
@@ -10,41 +10,24 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    id: 1,
-    title: 'Desenvolvimento de Site Institucional',
+    id: 'sites-profissionais',
+    title: 'Sites profissionais',
     description:
-      'Sites profissionais completos para empresas e negócios que buscam autoridade digital.',
-    icon: Code2,
+      'Sites institucionais e páginas comerciais com visual moderno, mensagem clara e foco em contato.',
+    icon: Building2,
   },
   {
-    id: 2,
-    title: 'Landing Pages',
-    description: 'Páginas de alta conversão focadas em captação de leads e vendas online.',
-    icon: Rocket,
-  },
-  {
-    id: 3,
-    title: 'Portfólio Profissional',
-    description: 'Portfólios elegantes para profissionais que querem se destacar no mercado.',
-    icon: Briefcase,
-  },
-  {
-    id: 4,
-    title: 'Otimização de Performance',
-    description: 'Análise e otimização de sites existentes para melhor velocidade e experiência.',
-    icon: Zap,
-  },
-  {
-    id: 5,
-    title: 'Manutenção e Suporte',
-    description: 'Suporte contínuo para manter seu site sempre atualizado e funcionando perfeitamente.',
-    icon: Wrench,
-  },
-  {
-    id: 6,
-    title: 'Redesign de Sites',
+    id: 'catalogos-online',
+    title: 'Catálogos online',
     description:
-      'Atualização visual e estrutural de sites antigos para um layout moderno, responsivo e focado em conversão.',
-    icon: LayoutTemplate,
+      'Estruturas para apresentar produtos com organização, boa navegação e apoio direto ao atendimento.',
+    icon: BookImage,
+  },
+  {
+    id: 'sistemas-web',
+    title: 'Sistemas web personalizados',
+    description:
+      'Painéis, áreas internas e ferramentas sob medida para organizar processos e operar com mais eficiência.',
+    icon: Monitor,
   },
 ];
