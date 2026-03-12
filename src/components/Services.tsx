@@ -37,11 +37,14 @@ const Services = () => {
                   <h3 className="mt-6 text-balance font-display text-h3 text-text-primary">
                     {service.title}
                   </h3>
-                  <p className="card-copy mt-3 text-pretty text-body text-text-secondary">
+                  <p className="card-copy mt-3 text-pretty text-[0.98rem] leading-[1.72] text-text-secondary">
                     {service.description}
                   </p>
 
-                  <div className="mt-auto pt-6">
+                  <div className="mt-auto space-y-3 pt-6">
+                    <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
+                      Entregas comuns
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       {service.deliverables.map((item) => (
                         <span key={item} className="chip-base text-text-primary">

@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { BadgeCheck, MessageCircle, Sparkles } from 'lucide-react';
+import { LayoutTemplate, MessageCircle, Sparkles } from 'lucide-react';
 
 export interface HeroProof {
   icon: LucideIcon;
@@ -8,15 +8,15 @@ export interface HeroProof {
 
 export const heroProofs: HeroProof[] = [
   {
-    icon: Sparkles,
-    label: 'Entrega',
-  },
-  {
-    icon: BadgeCheck,
-    label: 'Qualidade',
-  },
-  {
     icon: MessageCircle,
-    label: 'Atendimento',
+    label: 'Atendimento direto',
+  },
+  {
+    icon: LayoutTemplate,
+    label: 'Estrutura clara',
+  },
+  {
+    icon: Sparkles,
+    label: 'Visual profissional',
   },
 ];

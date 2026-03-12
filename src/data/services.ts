@@ -16,7 +16,7 @@ export const services: Service[] = [
     eyebrow: 'Presença digital',
     title: 'Sites profissionais',
     description:
-      'Sites institucionais, páginas comerciais e páginas de serviço com mensagem clara, visual forte e foco em gerar contato.',
+      'Páginas para apresentar serviço, reforçar autoridade e facilitar contato com mais clareza.',
     deliverables: ['Institucionais', 'Landing pages', 'Portfólios'],
     icon: Building2,
   },
@@ -25,7 +25,7 @@ export const services: Service[] = [
     eyebrow: 'Produtos e vendas',
     title: 'Catálogos online',
     description:
-      'Estruturas para apresentar produtos com organização, busca clara, hierarquia visual e apoio direto ao atendimento.',
+      'Estruturas para organizar produtos, destacar categorias e apoiar o atendimento comercial.',
     deliverables: ['Vitrines digitais', 'Catálogos por categoria', 'Listagens com busca'],
     icon: BookImage,
   },
@@ -34,7 +34,7 @@ export const services: Service[] = [
     eyebrow: 'Operação e gestão',
     title: 'Sistemas web personalizados',
     description:
-      'Painéis, áreas internas e ferramentas sob medida para organizar processos, consultas e rotinas com mais clareza.',
+      'Painéis e áreas internas para reunir rotinas, consultas e fluxos em uma interface clara.',
     deliverables: ['Áreas internas', 'Painéis administrativos', 'Fluxos sob medida'],
     icon: Monitor,
   },

@@ -12,25 +12,25 @@ export const differentials: Differential[] = [
   {
     id: 'atendimento-direto',
     title: 'Atendimento direto',
-    description: 'Você fala comigo de forma direta, sem repasse e sem ruído no projeto.',
+    description: 'Você fala direto comigo do início aos ajustes finais.',
     icon: MessageCircle,
   },
   {
-    id: 'visual-profissional',
-    title: 'Visual profissional',
-    description: 'Layout pensado para transmitir mais confiança e apresentar melhor o negócio.',
-    icon: Sparkles,
-  },
-  {
-    id: 'estrutura-clara',
-    title: 'Estrutura clara',
-    description: 'Seções e conteúdo organizados para facilitar leitura, navegação e contato.',
+    id: 'clareza-na-estrutura',
+    title: 'Clareza na estrutura',
+    description: 'Seções pensadas para o visitante entender rápido o que está sendo oferecido.',
     icon: LayoutTemplate,
   },
   {
-    id: 'entrega-responsiva',
-    title: 'Entrega responsiva',
-    description: 'Projeto preparado para funcionar bem no desktop e no mobile.',
+    id: 'visual-que-passa-confianca',
+    title: 'Visual que passa confiança',
+    description: 'Interface organizada para valorizar serviço, produto ou operação.',
+    icon: Sparkles,
+  },
+  {
+    id: 'desktop-e-mobile-bem-resolvidos',
+    title: 'Desktop e mobile bem resolvidos',
+    description: 'Layout adaptado para leitura, navegação e contato nas telas mais usadas.',
     icon: MonitorSmartphone,
   },
 ];

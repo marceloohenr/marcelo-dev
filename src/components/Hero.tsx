@@ -59,7 +59,7 @@ const Hero = () => {
             <Reveal delay={110}>
               <h1
                 id="hero-title"
-                className="mx-auto mt-3 max-w-[12ch] text-balance font-display text-display text-text-primary"
+                className="mx-auto mt-3 max-w-[12ch] text-balance font-sans text-[clamp(2.45rem,7vw,5.1rem)] font-extrabold leading-[0.98] tracking-[-0.018em] text-text-primary sm:tracking-[-0.022em]"
               >
                 {siteMetadata.heroHeadline}
               </h1>
@@ -78,11 +78,13 @@ const Hero = () => {
 
               return (
                 <Reveal key={item.label} delay={230 + index * 70}>
-                  <div className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-white/10 bg-bg-elevated/88 px-3.5 py-2 text-caption font-semibold uppercase tracking-[0.14em] text-text-primary shadow-soft backdrop-blur-xl sm:min-h-11 sm:px-4">
+                  <div className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-white/10 bg-bg-elevated/88 px-3.5 py-2 text-[0.82rem] font-semibold text-text-primary shadow-soft backdrop-blur-xl sm:min-h-11 sm:px-4">
                     <Icon
-                      size={15}
+                      size={16}
                       aria-hidden="true"
-                      className={item.label === 'Atendimento' ? 'text-state-success' : 'text-brand-300'}
+                      className={
+                        item.label.startsWith('Atendimento') ? 'text-state-success' : 'text-brand-300'
+                      }
                     />
                     <span>{item.label}</span>
                   </div>

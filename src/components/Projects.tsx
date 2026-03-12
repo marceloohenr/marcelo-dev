@@ -105,19 +105,28 @@ const Projects = () => {
                   </div>
 
                   <div className="flex flex-1 flex-col gap-5 p-5 sm:p-6">
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       <div className="space-y-2">
-                        <p className="text-caption uppercase tracking-[0.16em] text-text-secondary">
-                          {project.projectType}
+                        <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
+                          {project.segment}
                         </p>
                         <h3 className="text-balance font-display text-h3 text-text-primary">
                           {project.title}
                         </h3>
                       </div>
 
-                      <p className="text-pretty text-body text-text-secondary">
+                      <p className="text-pretty text-[0.98rem] leading-[1.72] text-text-secondary">
                         {project.description}
                       </p>
+
+                      <div className="info-card space-y-2.5">
+                        <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
+                          Foco do projeto
+                        </p>
+                        <p className="text-[0.98rem] font-medium leading-[1.65] text-text-primary">
+                          {project.focus}
+                        </p>
+                      </div>
                     </div>
 
                     <div className="mt-auto space-y-4">
