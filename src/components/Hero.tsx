@@ -1,9 +1,13 @@
 import {
   ArrowRight,
+  BadgeCheck,
   BookImage,
   Building2,
+  Code2,
+  LayoutTemplate,
   MessageCircle,
   MonitorSmartphone,
+  Sparkles,
 } from 'lucide-react';
 import profilePhoto from '../assets/marcelo-henrique-portrait.jpg';
 import Reveal from './Reveal';
@@ -18,16 +22,38 @@ const Hero = () => {
   const heroOrbs = [
     {
       icon: Building2,
-      className: 'float-soft left-3 top-[16%] h-12 w-12 lg:-left-3 lg:top-[18%] lg:h-14 lg:w-14',
+      className:
+        'float-soft -left-[2%] top-[16%] h-10 w-10 sm:-left-[1%] sm:top-[16%] sm:h-11 sm:w-11 lg:-left-[6%] lg:top-[18%] lg:h-14 lg:w-14',
     },
     {
       icon: BookImage,
-      className: 'float-soft-delay right-2 top-[18%] h-12 w-12 lg:-right-1 lg:top-[20%] lg:h-14 lg:w-14',
+      className:
+        'float-soft-delay -right-[1%] top-[16%] h-10 w-10 sm:right-0 sm:top-[16%] sm:h-11 sm:w-11 lg:-right-[5%] lg:top-[20%] lg:h-14 lg:w-14',
     },
     {
       icon: MonitorSmartphone,
       className:
-        'float-soft-slow bottom-[10%] right-4 h-12 w-12 lg:-right-4 lg:bottom-[16%] lg:h-14 lg:w-14',
+        'float-soft-slow bottom-[9%] -right-[1%] h-10 w-10 sm:bottom-[9%] sm:right-0 sm:h-11 sm:w-11 lg:-right-[8%] lg:bottom-[16%] lg:h-14 lg:w-14',
+    },
+    {
+      icon: LayoutTemplate,
+      className:
+        'float-soft-delay left-[1%] bottom-[10%] h-9 w-9 sm:left-[2%] sm:bottom-[11%] sm:h-10 sm:w-10 lg:-left-[2%] lg:bottom-[20%] lg:h-12 lg:w-12',
+    },
+    {
+      icon: Sparkles,
+      className:
+        'float-soft right-[10%] top-[1%] h-9 w-9 sm:right-[11%] sm:top-[2%] sm:h-10 sm:w-10 lg:right-[14%] lg:top-[4%] lg:h-11 lg:w-11',
+    },
+    {
+      icon: BadgeCheck,
+      className:
+        'float-soft-slow left-[10%] top-[1%] h-9 w-9 sm:left-[11%] sm:top-[2%] sm:h-10 sm:w-10 lg:left-[14%] lg:top-[4%] lg:h-11 lg:w-11',
+    },
+    {
+      icon: Code2,
+      className:
+        'float-soft-delay right-[17%] bottom-[3%] h-9 w-9 sm:right-[18%] sm:bottom-[4%] sm:h-10 sm:w-10 lg:right-[18%] lg:bottom-[8%] lg:h-11 lg:w-11',
     },
   ] as const;
 
@@ -44,14 +70,18 @@ const Hero = () => {
       <div className="content-shell relative z-10 pb-14 pt-0 sm:pb-16 lg:pb-20 xl:pb-24">
         <div className="mx-auto flex max-w-[42rem] flex-col items-center text-center">
           <Reveal>
-            <div className="relative flex w-full max-w-[28rem] justify-center">
+            <div className="relative flex w-full max-w-[32rem] justify-center sm:max-w-[34rem] lg:max-w-[38rem]">
               <div className="absolute inset-0 mx-auto h-[16rem] w-[16rem] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.2),transparent_68%)] blur-3xl sm:h-[18rem] sm:w-[18rem] lg:h-[20rem] lg:w-[20rem]" />
               {heroOrbs.map((item, index) => {
                 const Icon = item.icon;
 
                 return (
                   <div key={index} className={`floating-orb ${item.className}`}>
-                    <Icon size={20} aria-hidden="true" />
+                    <Icon
+                      size={20}
+                      aria-hidden="true"
+                      className={item.icon === BadgeCheck ? 'text-state-success' : undefined}
+                    />
                   </div>
                 );
               })}
