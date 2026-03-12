@@ -24,27 +24,10 @@ const Hero = () => {
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-bg-base via-bg-base/80 to-transparent" />
 
       <div className="content-shell relative z-10 pb-14 pt-0 sm:pb-16 lg:pb-20 xl:pb-24">
-        <div className="mx-auto flex max-w-[58rem] flex-col items-center text-center">
-          <div className="min-w-0">
-            <Reveal>
-              <h1
-                id="hero-title"
-                className="mx-auto max-w-[12ch] text-balance font-display text-display text-text-primary"
-              >
-                {siteMetadata.heroHeadline}
-              </h1>
-            </Reveal>
-
-            <Reveal delay={80}>
-              <p className="mx-auto mt-4 max-w-[24ch] text-pretty font-display text-h2 text-gradient">
-                {siteMetadata.heroDescription}
-              </p>
-            </Reveal>
-          </div>
-
-          <Reveal delay={140}>
-            <aside className="relative mt-8 flex w-full max-w-[30rem] flex-col items-center text-center">
-              <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.18),transparent_68%)] blur-3xl" />
+        <div className="mx-auto flex max-w-[42rem] flex-col items-center text-center">
+          <Reveal>
+            <div className="relative flex w-full justify-center">
+              <div className="absolute inset-0 mx-auto h-[16rem] w-[16rem] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.2),transparent_68%)] blur-3xl sm:h-[18rem] sm:w-[18rem] lg:h-[20rem] lg:w-[20rem]" />
               <div className="relative z-10">
                 <div className="relative mx-auto">
                   <div className="absolute inset-0 scale-[0.88] rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.18),transparent_72%)] blur-2xl" />
@@ -63,34 +46,53 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="mt-5 flex flex-wrap justify-center gap-3">
-                {heroProofs.map((item, index) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <Reveal key={item.label} delay={280 + index * 70}>
-                      <div className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-bg-elevated/88 px-4 py-2 text-body font-medium text-text-primary shadow-soft backdrop-blur-xl">
-                        <Icon
-                          size={17}
-                          aria-hidden="true"
-                          className={item.label === 'Atendimento' ? 'text-state-success' : 'text-brand-300'}
-                        />
-                        <span>{item.label}</span>
-                      </div>
-                    </Reveal>
-                  );
-                })}
-              </div>
-
-              <p className="mt-4 text-caption uppercase tracking-[0.18em] text-text-muted">
-                {siteMetadata.role}
-              </p>
-            </aside>
+            </div>
           </Reveal>
 
-          <Reveal delay={210}>
-            <div className="mt-7 flex w-full flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
+          <Reveal delay={70}>
+            <p className="mt-7 text-caption uppercase tracking-[0.2em] text-text-muted">
+              {siteMetadata.role}
+            </p>
+          </Reveal>
+
+          <div className="min-w-0">
+            <Reveal delay={110}>
+              <h1
+                id="hero-title"
+                className="mx-auto mt-3 max-w-[12ch] text-balance font-display text-display text-text-primary"
+              >
+                {siteMetadata.heroHeadline}
+              </h1>
+            </Reveal>
+
+            <Reveal delay={170}>
+              <p className="mx-auto mt-4 max-w-[24ch] text-pretty font-display text-h2 text-gradient">
+                {siteMetadata.heroDescription}
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-2.5 sm:gap-3">
+            {heroProofs.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <Reveal key={item.label} delay={230 + index * 70}>
+                  <div className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-white/10 bg-bg-elevated/88 px-3.5 py-2 text-caption font-semibold uppercase tracking-[0.14em] text-text-primary shadow-soft backdrop-blur-xl sm:min-h-11 sm:px-4">
+                    <Icon
+                      size={15}
+                      aria-hidden="true"
+                      className={item.label === 'Atendimento' ? 'text-state-success' : 'text-brand-300'}
+                    />
+                    <span>{item.label}</span>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          <Reveal delay={320}>
+            <div className="mt-8 flex w-full flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
               <button
                 type="button"
                 onClick={() => scrollToSection('projetos')}
