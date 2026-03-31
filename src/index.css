@@ -251,6 +251,21 @@
     -webkit-user-select: none;
   }
 
+  .project-marquee-viewport-mobile {
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-block: 0.35rem 0.65rem;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0.35rem;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .project-marquee-viewport-mobile::-webkit-scrollbar {
+    display: none;
+  }
+
   .project-marquee-viewport-dragging {
     cursor: grabbing;
   }
@@ -269,6 +284,10 @@
   .project-marquee-track-static {
     width: 100%;
     justify-content: center;
+  }
+
+  .project-marquee-track-mobile {
+    padding-right: 0.35rem;
   }
 
   .project-marquee-slide {
@@ -759,10 +778,15 @@
     padding-block: 0.35rem 0.75rem;
   }
 
+  .project-marquee-viewport-mobile .project-marquee-track {
+    width: max-content;
+  }
+
   .project-marquee-slide {
-    flex-basis: calc(100vw - 1rem);
-    min-width: calc(100vw - 1rem);
-    padding-inline: 0.3rem;
+    flex-basis: min(86vw, 22rem);
+    min-width: min(86vw, 22rem);
+    padding-inline: 0.35rem;
+    scroll-snap-align: start;
   }
 }
 

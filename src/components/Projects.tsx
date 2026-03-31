@@ -63,6 +63,9 @@ const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('Todos');
   const [isDragging, setIsDragging] = useState(false);
   const [isInteracting, setIsInteracting] = useState(false);
+  const [isCompactViewport, setIsCompactViewport] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
+  );
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const loopWidthRef = useRef(0);
@@ -81,11 +84,39 @@ const Projects = () => {
       ? sortedProjects
       : sortedProjects.filter((project) => project.category === activeFilter);
 
-  const shouldAnimate = visibleProjects.length > 1 && !prefersReducedMotion();
+  const shouldAnimate =
+    !isCompactViewport && visibleProjects.length > 1 && !prefersReducedMotion();
   const marqueeProjects = shouldAnimate
     ? [...visibleProjects, ...visibleProjects, ...visibleProjects]
     : visibleProjects;
   const projectLoopDuration = Math.max(24, visibleProjects.length * 8);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const updateViewportMode = (event?: MediaQueryListEvent) => {
+      setIsCompactViewport(event ? event.matches : mediaQuery.matches);
+    };
+
+    updateViewportMode();
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updateViewportMode);
+
+      return () => {
+        mediaQuery.removeEventListener('change', updateViewportMode);
+      };
+    }
+
+    mediaQuery.addListener(updateViewportMode);
+
+    return () => {
+      mediaQuery.removeListener(updateViewportMode);
+    };
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -225,6 +256,10 @@ const Projects = () => {
   };
 
   const handleMarqueePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (isCompactViewport) {
+      return;
+    }
+
     if (!shouldAnimate || (event.pointerType === 'mouse' && event.button !== 0)) {
       return;
     }
@@ -362,7 +397,11 @@ const Projects = () => {
             <div
               ref={viewportRef}
               className={`project-marquee-viewport ${
-                shouldAnimate ? 'project-marquee-viewport-draggable' : ''
+                isCompactViewport
+                  ? 'project-marquee-viewport-mobile'
+                  : shouldAnimate
+                    ? 'project-marquee-viewport-draggable'
+                    : ''
               } ${isDragging ? 'project-marquee-viewport-dragging' : ''}`.trim()}
               onPointerDown={handleMarqueePointerDown}
               onPointerMove={handleMarqueePointerMove}
@@ -373,7 +412,11 @@ const Projects = () => {
               <div
                 ref={trackRef}
                 className={`project-marquee-track ${
-                  shouldAnimate ? '' : 'project-marquee-track-static'
+                  shouldAnimate
+                    ? ''
+                    : isCompactViewport
+                      ? 'project-marquee-track-mobile'
+                      : 'project-marquee-track-static'
                 }`.trim()}
               >
                 {marqueeProjects.map((project, index) => {
