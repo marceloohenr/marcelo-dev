@@ -20,27 +20,28 @@ import { prefersReducedMotion } from '../utils/motion';
 
 type ProjectFilter = 'Todos' | ProjectCategory;
 
-const normalizeLoopOffset = (value: number, loopWidth: number) => {
+const normalizeLoopOffset = (value: number, loopWidth: number, baseOffset: number) => {
   if (!Number.isFinite(loopWidth) || loopWidth <= 0) {
     return 0;
   }
 
-  const loopStart = loopWidth;
-  return (((value - loopStart) % loopWidth) + loopWidth) % loopWidth + loopStart;
+  return (((value - baseOffset) % loopWidth) + loopWidth) % loopWidth + baseOffset;
 };
 
 const applyMarqueeOffset = ({
+  baseOffset,
   loopWidth,
   shouldAnimate,
   track,
   value,
 }: {
+  baseOffset: number;
   loopWidth: number;
   shouldAnimate: boolean;
   track: HTMLDivElement | null;
   value: number;
 }) => {
-  const nextValue = shouldAnimate ? normalizeLoopOffset(value, loopWidth) : 0;
+  const nextValue = shouldAnimate ? normalizeLoopOffset(value, loopWidth, baseOffset) : 0;
 
   if (track) {
     track.style.transform = `translate3d(${-nextValue}px, 0, 0)`;
@@ -85,13 +86,14 @@ const Projects = () => {
       : sortedProjects.filter((project) => project.category === activeFilter);
 
   const shouldAnimate = visibleProjects.length > 1 && !prefersReducedMotion();
-  const marqueeProjects = shouldAnimate
-    ? [...visibleProjects, ...visibleProjects, ...visibleProjects]
-    : visibleProjects;
+  const marqueeSetCount = shouldAnimate ? (isCompactViewport ? 2 : 3) : 1;
+  const marqueeProjects = Array.from({ length: marqueeSetCount }, () => visibleProjects).flat();
   const projectLoopDuration = isCompactViewport
     ? Math.max(30, visibleProjects.length * 10)
     : Math.max(24, visibleProjects.length * 8);
   const horizontalIntentThreshold = isCompactViewport ? 8 : 10;
+  const getLoopBaseOffset = (loopWidth: number) =>
+    shouldAnimate && !isCompactViewport ? loopWidth : 0;
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -127,9 +129,10 @@ const Projects = () => {
     }
 
     const measureLoopWidth = () => {
-      const nextLoopWidth = shouldAnimate ? track.scrollWidth / 3 : 0;
+      const nextLoopWidth = shouldAnimate ? track.scrollWidth / marqueeSetCount : 0;
       loopWidthRef.current = nextLoopWidth;
       offsetRef.current = applyMarqueeOffset({
+        baseOffset: getLoopBaseOffset(nextLoopWidth),
         loopWidth: nextLoopWidth,
         shouldAnimate,
         track,
@@ -159,17 +162,18 @@ const Projects = () => {
       resizeObserver?.disconnect();
       window.removeEventListener('resize', measureLoopWidth);
     };
-  }, [activeFilter, shouldAnimate, visibleProjects.length]);
+  }, [activeFilter, isCompactViewport, marqueeSetCount, shouldAnimate, visibleProjects.length]);
 
   useEffect(() => {
     offsetRef.current = applyMarqueeOffset({
+      baseOffset: getLoopBaseOffset(loopWidthRef.current),
       loopWidth: loopWidthRef.current,
       shouldAnimate,
       track: trackRef.current,
-      value: shouldAnimate ? loopWidthRef.current : 0,
+      value: getLoopBaseOffset(loopWidthRef.current),
     });
     lastAnimationTimestampRef.current = null;
-  }, [activeFilter, shouldAnimate]);
+  }, [activeFilter, isCompactViewport, shouldAnimate]);
 
   useEffect(() => {
     if (!shouldAnimate || isInteracting) {
@@ -186,6 +190,7 @@ const Projects = () => {
         const pixelsPerMillisecond = loopWidth / (projectLoopDuration * 1000);
 
         offsetRef.current = applyMarqueeOffset({
+          baseOffset: getLoopBaseOffset(loopWidth),
           loopWidth,
           shouldAnimate: true,
           track: trackRef.current,
@@ -207,7 +212,7 @@ const Projects = () => {
       animationFrameRef.current = undefined;
       lastAnimationTimestampRef.current = null;
     };
-  }, [isInteracting, projectLoopDuration, shouldAnimate]);
+  }, [isCompactViewport, isInteracting, projectLoopDuration, shouldAnimate]);
 
   const pauseAutoLoop = () => {
     if (animationFrameRef.current !== undefined) {
@@ -314,6 +319,7 @@ const Projects = () => {
     }
 
     offsetRef.current = applyMarqueeOffset({
+      baseOffset: getLoopBaseOffset(loopWidthRef.current),
       loopWidth: loopWidthRef.current,
       shouldAnimate: true,
       track: trackRef.current,
@@ -423,7 +429,10 @@ const Projects = () => {
                   const isReversed = projectIndex % 2 === 1;
                   const isClone =
                     shouldAnimate &&
-                    (index < visibleProjects.length || index >= visibleProjects.length * 2);
+                    (isCompactViewport
+                      ? index >= visibleProjects.length
+                      : index < visibleProjects.length ||
+                        index >= visibleProjects.length * 2);
                   const projectFacts = [
                     {
                       label: 'Categoria',
