@@ -68,9 +68,11 @@ const Projects = () => {
   const animationFrameRef = useRef<number>();
   const lastAnimationTimestampRef = useRef<number | null>(null);
   const dragStartXRef = useRef(0);
+  const dragStartYRef = useRef(0);
   const dragStartOffsetRef = useRef(0);
   const dragMovedRef = useRef(false);
   const activePointerIdRef = useRef<number | null>(null);
+  const dragPhaseRef = useRef<'idle' | 'pending' | 'dragging'>('idle');
 
   const visibleProjects =
     activeFilter === 'Todos'
@@ -173,22 +175,26 @@ const Projects = () => {
   const finishDrag = (pointerId?: number) => {
     const viewport = viewportRef.current;
 
-    if (pointerId !== undefined && viewport?.hasPointerCapture(pointerId)) {
+    if (
+      pointerId !== undefined &&
+      viewport &&
+      typeof viewport.hasPointerCapture === 'function' &&
+      viewport.hasPointerCapture(pointerId) &&
+      typeof viewport.releasePointerCapture === 'function'
+    ) {
       viewport.releasePointerCapture(pointerId);
     }
 
     activePointerIdRef.current = null;
+    dragPhaseRef.current = 'idle';
     dragStartXRef.current = 0;
+    dragStartYRef.current = 0;
     dragStartOffsetRef.current = offsetRef.current;
     setIsDragging(false);
     lastAnimationTimestampRef.current = null;
   };
 
-  const handleMarqueePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!shouldAnimate || event.pointerType === 'touch' || event.button !== 0) {
-      return;
-    }
-
+  const beginDragInteraction = (pointerId: number) => {
     const viewport = viewportRef.current;
     if (!viewport) {
       return;
@@ -199,13 +205,34 @@ const Projects = () => {
       animationFrameRef.current = undefined;
     }
 
-    activePointerIdRef.current = event.pointerId;
-    dragStartXRef.current = event.clientX;
-    dragStartOffsetRef.current = offsetRef.current;
+    dragPhaseRef.current = 'dragging';
     dragMovedRef.current = false;
     lastAnimationTimestampRef.current = null;
     setIsDragging(true);
-    viewport.setPointerCapture(event.pointerId);
+
+    if (typeof viewport.setPointerCapture === 'function') {
+      viewport.setPointerCapture(pointerId);
+    }
+  };
+
+  const handleMarqueePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!shouldAnimate || (event.pointerType === 'mouse' && event.button !== 0)) {
+      return;
+    }
+
+    activePointerIdRef.current = event.pointerId;
+    dragStartXRef.current = event.clientX;
+    dragStartYRef.current = event.clientY;
+    dragStartOffsetRef.current = offsetRef.current;
+    dragMovedRef.current = false;
+    lastAnimationTimestampRef.current = null;
+
+    if (event.pointerType === 'touch') {
+      dragPhaseRef.current = 'pending';
+      return;
+    }
+
+    beginDragInteraction(event.pointerId);
   };
 
   const handleMarqueePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -214,8 +241,28 @@ const Projects = () => {
     }
 
     const deltaX = event.clientX - dragStartXRef.current;
+    const deltaY = event.clientY - dragStartYRef.current;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
 
-    if (Math.abs(deltaX) > 4) {
+    if (dragPhaseRef.current === 'pending') {
+      if (absDeltaY > 10 && absDeltaY > absDeltaX) {
+        finishDrag();
+        return;
+      }
+
+      if (absDeltaX <= 10 || absDeltaX <= absDeltaY) {
+        return;
+      }
+
+      beginDragInteraction(event.pointerId);
+    }
+
+    if (dragPhaseRef.current !== 'dragging') {
+      return;
+    }
+
+    if (absDeltaX > 4) {
       dragMovedRef.current = true;
       event.preventDefault();
     }
@@ -354,8 +401,12 @@ const Projects = () => {
                         tabIndex={isClone ? -1 : 0}
                       >
                         <div className="project-showcase-outline" aria-hidden="true" />
-                        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-12">
-                          <div className={`space-y-6 lg:space-y-7 ${isReversed ? 'lg:order-2' : ''}`}>
+                        <div className="grid items-start gap-6 sm:gap-7 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-12">
+                          <div
+                            className={`order-2 space-y-5 sm:space-y-6 lg:space-y-7 ${
+                              isReversed ? 'lg:order-2' : 'lg:order-1'
+                            }`}
+                          >
                             <div className="flex flex-wrap items-center gap-3">
                               <span className="status-pill-primary">
                                 <CategoryIcon size={14} aria-hidden="true" />
@@ -367,10 +418,10 @@ const Projects = () => {
                               <p className="text-caption uppercase tracking-[0.18em] text-brand-300">
                                 {project.segment}
                               </p>
-                              <h3 className="max-w-[13ch] text-balance font-sans text-[clamp(2rem,4.6vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.03em] text-text-primary">
+                              <h3 className="max-w-[13ch] text-balance font-sans text-[clamp(1.75rem,9vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.03em] text-text-primary sm:text-[clamp(2rem,6.8vw,3.8rem)]">
                                 {project.title}
                               </h3>
-                              <p className="max-w-[34ch] text-pretty text-[1rem] leading-[1.8] text-text-secondary sm:text-[1.05rem]">
+                              <p className="max-w-none text-pretty text-[0.98rem] leading-[1.75] text-text-secondary sm:max-w-[34ch] sm:text-[1.05rem]">
                                 {project.description}
                               </p>
                             </div>
@@ -417,7 +468,11 @@ const Projects = () => {
                             </div>
                           </div>
 
-                          <div className={`space-y-4 ${isReversed ? 'lg:order-1' : ''}`}>
+                          <div
+                            className={`order-1 space-y-3 sm:space-y-4 ${
+                              isReversed ? 'lg:order-1' : 'lg:order-2'
+                            }`}
+                          >
                             <div className="project-showcase-panel overflow-hidden">
                               <div className="mt-1 flex items-center gap-1 border-b border-white/10 px-2.5 py-1.5 sm:mt-1.5 sm:px-3 sm:py-1.5">
                                 <span className="h-2 w-2 rounded-full bg-rose-400/85" aria-hidden="true" />
@@ -436,7 +491,7 @@ const Projects = () => {
                                 </span>
                               </div>
 
-                              <div className="relative aspect-[16/10] overflow-hidden rounded-[1.45rem] border border-white/10 bg-bg-base/80">
+                              <div className="relative aspect-[16/11] overflow-hidden rounded-[1.3rem] border border-white/10 bg-bg-base/80 sm:aspect-[16/10] sm:rounded-[1.45rem]">
                                 <img
                                   src={project.previewImage}
                                   alt={`Preview do projeto ${project.title}`}
@@ -453,7 +508,7 @@ const Projects = () => {
                               </div>
                             </div>
 
-                            <div className="grid gap-3 sm:grid-cols-3">
+                            <div className="grid gap-3 min-[560px]:grid-cols-3">
                               {projectFacts.map((fact) => {
                                 const FactIcon = fact.icon;
 
