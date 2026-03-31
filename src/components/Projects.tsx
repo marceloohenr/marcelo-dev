@@ -25,7 +25,8 @@ const normalizeLoopOffset = (value: number, loopWidth: number) => {
     return 0;
   }
 
-  return ((value % loopWidth) + loopWidth) % loopWidth;
+  const loopStart = loopWidth;
+  return (((value - loopStart) % loopWidth) + loopWidth) % loopWidth + loopStart;
 };
 
 const applyMarqueeOffset = ({
@@ -61,6 +62,7 @@ const categoryIcons: Record<ProjectCategory, typeof UserRound> = {
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('Todos');
   const [isDragging, setIsDragging] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const loopWidthRef = useRef(0);
@@ -80,7 +82,9 @@ const Projects = () => {
       : sortedProjects.filter((project) => project.category === activeFilter);
 
   const shouldAnimate = visibleProjects.length > 1 && !prefersReducedMotion();
-  const marqueeProjects = shouldAnimate ? [...visibleProjects, ...visibleProjects] : visibleProjects;
+  const marqueeProjects = shouldAnimate
+    ? [...visibleProjects, ...visibleProjects, ...visibleProjects]
+    : visibleProjects;
   const projectLoopDuration = Math.max(24, visibleProjects.length * 8);
 
   useEffect(() => {
@@ -90,7 +94,7 @@ const Projects = () => {
     }
 
     const measureLoopWidth = () => {
-      const nextLoopWidth = shouldAnimate ? track.scrollWidth / 2 : 0;
+      const nextLoopWidth = shouldAnimate ? track.scrollWidth / 3 : 0;
       loopWidthRef.current = nextLoopWidth;
       offsetRef.current = applyMarqueeOffset({
         loopWidth: nextLoopWidth,
@@ -129,13 +133,13 @@ const Projects = () => {
       loopWidth: loopWidthRef.current,
       shouldAnimate,
       track: trackRef.current,
-      value: 0,
+      value: shouldAnimate ? loopWidthRef.current : 0,
     });
     lastAnimationTimestampRef.current = null;
   }, [activeFilter, shouldAnimate]);
 
   useEffect(() => {
-    if (!shouldAnimate || isDragging) {
+    if (!shouldAnimate || isInteracting) {
       lastAnimationTimestampRef.current = null;
       return undefined;
     }
@@ -170,7 +174,16 @@ const Projects = () => {
       animationFrameRef.current = undefined;
       lastAnimationTimestampRef.current = null;
     };
-  }, [isDragging, projectLoopDuration, shouldAnimate]);
+  }, [isInteracting, projectLoopDuration, shouldAnimate]);
+
+  const pauseAutoLoop = () => {
+    if (animationFrameRef.current !== undefined) {
+      window.cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    animationFrameRef.current = undefined;
+    lastAnimationTimestampRef.current = null;
+  };
 
   const finishDrag = (pointerId?: number) => {
     const viewport = viewportRef.current;
@@ -190,6 +203,7 @@ const Projects = () => {
     dragStartXRef.current = 0;
     dragStartYRef.current = 0;
     dragStartOffsetRef.current = offsetRef.current;
+    setIsInteracting(false);
     setIsDragging(false);
     lastAnimationTimestampRef.current = null;
   };
@@ -200,13 +214,8 @@ const Projects = () => {
       return;
     }
 
-    if (animationFrameRef.current !== undefined) {
-      window.cancelAnimationFrame(animationFrameRef.current);
-      animationFrameRef.current = undefined;
-    }
-
+    pauseAutoLoop();
     dragPhaseRef.current = 'dragging';
-    dragMovedRef.current = false;
     lastAnimationTimestampRef.current = null;
     setIsDragging(true);
 
@@ -225,7 +234,8 @@ const Projects = () => {
     dragStartYRef.current = event.clientY;
     dragStartOffsetRef.current = offsetRef.current;
     dragMovedRef.current = false;
-    lastAnimationTimestampRef.current = null;
+    setIsInteracting(true);
+    pauseAutoLoop();
 
     if (event.pointerType === 'touch') {
       dragPhaseRef.current = 'pending';
@@ -255,6 +265,9 @@ const Projects = () => {
         return;
       }
 
+      dragStartXRef.current = event.clientX;
+      dragStartYRef.current = event.clientY;
+      dragStartOffsetRef.current = offsetRef.current;
       beginDragInteraction(event.pointerId);
     }
 
@@ -367,7 +380,9 @@ const Projects = () => {
                   const CategoryIcon = categoryIcons[project.category];
                   const projectIndex = index % visibleProjects.length;
                   const isReversed = projectIndex % 2 === 1;
-                  const isClone = shouldAnimate && index >= visibleProjects.length;
+                  const isClone =
+                    shouldAnimate &&
+                    (index < visibleProjects.length || index >= visibleProjects.length * 2);
                   const projectFacts = [
                     {
                       label: 'Categoria',
