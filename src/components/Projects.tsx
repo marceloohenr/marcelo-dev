@@ -84,12 +84,14 @@ const Projects = () => {
       ? sortedProjects
       : sortedProjects.filter((project) => project.category === activeFilter);
 
-  const shouldAnimate =
-    !isCompactViewport && visibleProjects.length > 1 && !prefersReducedMotion();
+  const shouldAnimate = visibleProjects.length > 1 && !prefersReducedMotion();
   const marqueeProjects = shouldAnimate
     ? [...visibleProjects, ...visibleProjects, ...visibleProjects]
     : visibleProjects;
-  const projectLoopDuration = Math.max(24, visibleProjects.length * 8);
+  const projectLoopDuration = isCompactViewport
+    ? Math.max(30, visibleProjects.length * 10)
+    : Math.max(24, visibleProjects.length * 8);
+  const horizontalIntentThreshold = isCompactViewport ? 8 : 10;
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -256,10 +258,6 @@ const Projects = () => {
   };
 
   const handleMarqueePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (isCompactViewport) {
-      return;
-    }
-
     if (!shouldAnimate || (event.pointerType === 'mouse' && event.button !== 0)) {
       return;
     }
@@ -291,12 +289,12 @@ const Projects = () => {
     const absDeltaY = Math.abs(deltaY);
 
     if (dragPhaseRef.current === 'pending') {
-      if (absDeltaY > 10 && absDeltaY > absDeltaX) {
+      if (absDeltaY > horizontalIntentThreshold && absDeltaY > absDeltaX) {
         finishDrag();
         return;
       }
 
-      if (absDeltaX <= 10 || absDeltaX <= absDeltaY) {
+      if (absDeltaX <= horizontalIntentThreshold || absDeltaX <= absDeltaY) {
         return;
       }
 
@@ -397,10 +395,10 @@ const Projects = () => {
             <div
               ref={viewportRef}
               className={`project-marquee-viewport ${
-                isCompactViewport
-                  ? 'project-marquee-viewport-mobile'
-                  : shouldAnimate
-                    ? 'project-marquee-viewport-draggable'
+                shouldAnimate
+                  ? 'project-marquee-viewport-draggable'
+                  : isCompactViewport
+                    ? 'project-marquee-viewport-mobile'
                     : ''
               } ${isDragging ? 'project-marquee-viewport-dragging' : ''}`.trim()}
               onPointerDown={handleMarqueePointerDown}
