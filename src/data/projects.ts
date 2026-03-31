@@ -18,6 +18,20 @@ interface ProjectRecord {
 
 export const projects: ProjectRecord[] = [
   {
+    id: 'monopolio-pods',
+    title: 'Monop\u00F3lio Pods',
+    category: 'Cat\u00E1logos',
+    description:
+      'Cat\u00E1logo online para apresentar modelos, sabores, frete em Recife e Olinda e pedido direto no WhatsApp.',
+    previewImage: '/projects/monopolio-preview.png',
+    projectUrl: 'https://monopoliopods.vercel.app',
+    segment: 'Pods em Recife',
+    focus: 'Consulta r\u00E1pida de modelos, sabores e entrega por regi\u00E3o',
+    technologies: ['React', 'Tailwind', 'Vite'],
+    date: '2026-03-31',
+    imageObjectPosition: 'center center',
+  },
+  {
     id: 'cosme-racoes',
     title: 'Cosme Rações',
     category: 'Catálogos',
