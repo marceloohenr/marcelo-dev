@@ -5,18 +5,22 @@ type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  style?: CSSProperties;
 };
 
-const Reveal = ({ children, className = '', delay = 0 }: RevealProps) => {
+const Reveal = ({ children, className = '', delay = 0, style }: RevealProps) => {
   const { ref, isVisible } = useRevealOnScroll<HTMLDivElement>();
-  const style = delay > 0 ? ({ transitionDelay: `${delay}ms` } as CSSProperties) : undefined;
+  const mergedStyle = {
+    ...(style ?? {}),
+    ...(delay > 0 ? { transitionDelay: `${delay}ms` } : {}),
+  } as CSSProperties;
 
   return (
     <div
       ref={ref}
       data-visible={isVisible ? 'true' : 'false'}
       className={`reveal ${className}`.trim()}
-      style={style}
+      style={mergedStyle}
     >
       {children}
     </div>
