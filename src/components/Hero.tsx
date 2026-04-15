@@ -3,8 +3,12 @@ import {
   BadgeCheck,
   BookImage,
   Building2,
+  Code2,
+  LayoutTemplate,
   MessageCircle,
   MonitorSmartphone,
+  Sparkles,
+  Terminal,
 } from 'lucide-react';
 import profilePhoto from '../assets/marcelo-henrique-portrait.jpg';
 import Reveal from './Reveal';
@@ -16,32 +20,46 @@ import { scrollToSection } from '../utils/motion';
 
 const Hero = () => {
   const whatsappUrl = buildWhatsappUrl(contactInfo.whatsappNumber, siteMetadata.budgetMessage);
-
-  // Elementos visuais mais sutis para reforçar o contexto sem parecer bloco de template.
-  const heroHighlights = [
+  const heroOrbs = [
     {
       icon: Building2,
-      label: 'Sites',
       className:
-        '-left-[1%] top-[16%] h-10 w-10 sm:left-[4%] sm:top-[18%] sm:h-11 sm:w-11 lg:left-[8%] lg:top-[18%] lg:h-12 lg:w-12',
+        'float-soft -left-[2%] top-[16%] h-10 w-10 sm:-left-[1%] sm:top-[16%] sm:h-11 sm:w-11 lg:-left-[6%] lg:top-[18%] lg:h-14 lg:w-14',
     },
     {
       icon: BookImage,
-      label: 'Catálogos',
       className:
-        '-right-[1%] top-[18%] h-10 w-10 sm:right-[4%] sm:top-[18%] sm:h-11 sm:w-11 lg:right-[8%] lg:top-[20%] lg:h-12 lg:w-12',
+        'float-soft-delay -right-[1%] top-[16%] h-10 w-10 sm:right-0 sm:top-[16%] sm:h-11 sm:w-11 lg:-right-[5%] lg:top-[20%] lg:h-14 lg:w-14',
     },
     {
       icon: MonitorSmartphone,
-      label: 'Sistemas',
       className:
-        'right-[6%] bottom-[10%] h-10 w-10 sm:right-[10%] sm:bottom-[12%] sm:h-11 sm:w-11 lg:right-[14%] lg:bottom-[16%] lg:h-12 lg:w-12',
+        'float-soft-slow bottom-[9%] -right-[1%] h-10 w-10 sm:bottom-[9%] sm:right-0 sm:h-11 sm:w-11 lg:-right-[8%] lg:bottom-[16%] lg:h-14 lg:w-14',
+    },
+    {
+      icon: LayoutTemplate,
+      className:
+        'float-soft-delay left-[1%] bottom-[10%] h-9 w-9 sm:left-[2%] sm:bottom-[11%] sm:h-10 sm:w-10 lg:-left-[2%] lg:bottom-[20%] lg:h-12 lg:w-12',
+    },
+    {
+      icon: Sparkles,
+      className:
+        'float-soft right-[10%] top-[1%] h-9 w-9 sm:right-[11%] sm:top-[2%] sm:h-10 sm:w-10 lg:right-[14%] lg:top-[4%] lg:h-11 lg:w-11',
     },
     {
       icon: BadgeCheck,
-      label: 'Projetos reais',
       className:
-        'left-[7%] bottom-[10%] h-10 w-10 sm:left-[10%] sm:bottom-[12%] sm:h-11 sm:w-11 lg:left-[14%] lg:bottom-[16%] lg:h-12 lg:w-12',
+        'float-soft-slow left-[10%] top-[1%] h-9 w-9 sm:left-[11%] sm:top-[2%] sm:h-10 sm:w-10 lg:left-[14%] lg:top-[4%] lg:h-11 lg:w-11',
+    },
+    {
+      icon: Code2,
+      className:
+        'float-soft-delay right-[17%] bottom-[3%] h-9 w-9 sm:right-[18%] sm:bottom-[4%] sm:h-10 sm:w-10 lg:right-[18%] lg:bottom-[8%] lg:h-11 lg:w-11',
+    },
+    {
+      icon: Terminal,
+      className:
+        'float-soft-delay left-[3%] top-[34%] h-9 w-9 sm:left-[4%] sm:top-[35%] sm:h-10 sm:w-10 lg:-left-[4%] lg:top-[38%] lg:h-11 lg:w-11',
     },
   ] as const;
 
@@ -57,20 +75,14 @@ const Hero = () => {
 
       <div className="content-shell relative z-10 pb-14 pt-0 sm:pb-16 lg:pb-20 xl:pb-24">
         <div className="mx-auto flex max-w-[42rem] flex-col items-center text-center">
-          {/* Foto e destaques visuais do topo */}
           <Reveal>
             <div className="relative flex w-full max-w-[32rem] justify-center sm:max-w-[34rem] lg:max-w-[38rem]">
               <div className="absolute inset-0 mx-auto h-[16rem] w-[16rem] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.2),transparent_68%)] blur-3xl sm:h-[18rem] sm:w-[18rem] lg:h-[20rem] lg:w-[20rem]" />
-              {heroHighlights.map((item) => {
+              {heroOrbs.map((item, index) => {
                 const Icon = item.icon;
 
                 return (
-                  <div
-                    key={item.label}
-                    className={`floating-orb ${item.className}`}
-                    aria-label={item.label}
-                    title={item.label}
-                  >
+                  <div key={index} className={`floating-orb ${item.className}`}>
                     <Icon
                       size={20}
                       aria-hidden="true"
@@ -79,7 +91,6 @@ const Hero = () => {
                   </div>
                 );
               })}
-
               <div className="relative z-10">
                 <div className="relative mx-auto">
                   <div className="absolute inset-0 scale-[0.88] rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.18),transparent_72%)] blur-2xl" />
@@ -108,7 +119,6 @@ const Hero = () => {
           </Reveal>
 
           <div className="min-w-0">
-            {/* Nome e proposta principal */}
             <Reveal delay={110}>
               <h1
                 id="hero-title"
@@ -125,7 +135,6 @@ const Hero = () => {
             </Reveal>
           </div>
 
-          {/* Provas rápidas de posicionamento */}
           <div className="mt-7 flex flex-wrap justify-center gap-2.5 sm:gap-3">
             {heroProofs.map((item, index) => {
               const Icon = item.icon;
@@ -138,7 +147,7 @@ const Hero = () => {
                         size={14}
                         aria-hidden="true"
                         className={
-                          item.label.startsWith('Contato')
+                          item.label.startsWith('Atendimento')
                             ? 'text-state-success transition-transform duration-300 group-hover:scale-110'
                             : 'transition-transform duration-300 group-hover:scale-110'
                         }
@@ -151,7 +160,6 @@ const Hero = () => {
             })}
           </div>
 
-          {/* Chamadas para ação principais */}
           <Reveal delay={320}>
             <div className="mt-7 flex w-full flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
               <button
