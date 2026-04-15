@@ -26,6 +26,7 @@ const Differentials = () => {
           </header>
         </Reveal>
 
+        {/* Pontos que ajudam a reforçar o posicionamento do trabalho */}
         <div className="grid auto-rows-fr gap-6 md:grid-cols-2 xl:grid-cols-4">
           {differentials.map((item, index) => {
             const Icon = item.icon;

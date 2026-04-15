@@ -10,6 +10,7 @@ const Footer = () => {
         <div className="card-base px-5 py-7 sm:px-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="min-w-0">
+              {/* Resumo final de posicionamento */}
               <p className="text-caption uppercase tracking-[0.2em] text-brand-300">
                 {siteMetadata.personName}
               </p>
@@ -19,6 +20,7 @@ const Footer = () => {
               </p>
             </div>
 
+            {/* Links rápidos para os canais principais */}
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href={contactInfo.githubUrl}

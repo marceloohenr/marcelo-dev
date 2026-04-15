@@ -12,11 +12,13 @@ function App() {
   return (
     <div className="min-h-screen overflow-x-clip bg-bg-base text-text-primary">
       <SiteHead />
+      {/* Link de acessibilidade para pular direto para o conteúdo principal */}
       <a href="#conteudo-principal" className="skip-link">
         Pular para o conteúdo principal
       </a>
 
       <Navbar />
+      {/* Blocos principais da página inicial */}
       <main id="conteudo-principal">
         <Hero />
         <Projects />

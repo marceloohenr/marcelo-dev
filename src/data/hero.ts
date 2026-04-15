@@ -9,14 +9,14 @@ interface HeroProof {
 export const heroProofs: HeroProof[] = [
   {
     icon: MessageCircle,
-    label: 'Atendimento direto',
+    label: 'Contato direto',
   },
   {
     icon: LayoutTemplate,
-    label: 'Estrutura clara',
+    label: 'Estrutura bem organizada',
   },
   {
     icon: Sparkles,
-    label: 'Visual profissional',
+    label: 'Visual bem resolvido',
   },
 ];

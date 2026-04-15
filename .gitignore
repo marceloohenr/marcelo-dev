@@ -21,3 +21,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.bolt
+DESIGN_QA_CHECKLIST.md
+RELATORIO_AUDITORIA_PORTFOLIO.md

@@ -1,8 +1,4 @@
-import {
-  ArrowUpRight,
-  Mail,
-  MessageCircle,
-} from 'lucide-react';
+import { ArrowUpRight, Mail, MessageCircle } from 'lucide-react';
 import Reveal from './Reveal';
 import { contactChannels, contactInfo } from '../data/contact';
 import { siteMetadata } from '../data/site';
@@ -23,6 +19,7 @@ const Contact = () => {
 
             <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(18rem,24rem)] lg:gap-12">
               <div className="min-w-0 text-center lg:text-left">
+                {/* Texto principal e botões de contato */}
                 <div className="flex flex-col gap-6 lg:gap-7">
                   <div className="section-eyebrow self-center lg:self-start">
                     <MessageCircle size={16} aria-hidden="true" />
@@ -76,6 +73,7 @@ const Contact = () => {
               </div>
 
               <div className="mx-auto w-full max-w-[24rem] lg:ml-auto lg:mr-0">
+                {/* Lista de canais e redes profissionais */}
                 <div className="card-base p-6 sm:p-7">
                   <div className="space-y-3">
                     <p className="text-caption uppercase tracking-[0.16em] text-brand-300">

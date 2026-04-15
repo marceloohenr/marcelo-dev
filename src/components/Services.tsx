@@ -20,6 +20,7 @@ const Services = () => {
           </header>
         </Reveal>
 
+        {/* Cards com os serviços principais oferecidos */}
         <div className="grid auto-rows-fr gap-6 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service, index) => {
             const Icon = service.icon;

@@ -1,43 +1,45 @@
 export const siteMetadata = {
   personName: 'Marcelo Henrique',
   role: 'Desenvolvedor Web',
-  title: 'Marcelo Henrique | Sites, catálogos e sistemas web sob medida',
+  title: 'Marcelo Henrique | Desenvolvimento de sites, catálogos e sistemas web',
   description:
-    'Desenvolvedor web focado em sites, catálogos online e sistemas web com visual profissional, estrutura clara e foco em conversão.',
+    'Desenvolvedor web focado em criar sites, catálogos online e sistemas com visual bem resolvido, navegação clara e estrutura pensada para o negócio.',
   canonicalUrl: 'https://marcelo-webdev.vercel.app/',
   siteName: 'Marcelo Henrique - Desenvolvedor Web',
   keywords:
-    'desenvolvedor web, criação de sites, catálogo online, site institucional, sistema web, desenvolvedor de sites',
+    'desenvolvedor web, criação de sites, catálogo online, site institucional, sistema web, landing page',
   ogImageUrl: 'https://marcelo-webdev.vercel.app/og-cover.svg',
   locale: 'pt_BR',
   themeColor: '#08111d',
   budgetLabel: 'Falar no WhatsApp',
   budgetMessage:
-    'Olá, Marcelo! Quero conversar sobre um projeto de site, catálogo online ou sistema web.',
+    'Olá, Marcelo! Quero conversar sobre um projeto e entender como você pode me ajudar.',
   heroHeadline: 'Marcelo Henrique',
-  heroDescription: 'Sites, catálogos e sistemas com visual profissional e estrutura clara.',
+  heroDescription:
+    'Crio sites, catálogos e sistemas web com visual forte e estrutura pensada para funcionar bem no dia a dia.',
   heroPrimaryCtaLabel: 'Ver projetos reais',
   heroSecondaryCtaLabel: 'Conversar no WhatsApp',
   projectsEyebrow: 'Projetos publicados',
-  projectsTitle: 'Projetos publicados para mostrar o trabalho em funcionamento.',
-  projectsDescription: 'Cada card leva para um projeto real, já publicado e navegável.',
+  projectsTitle: 'Projetos reais que ajudam a mostrar como eu construo cada solução.',
+  projectsDescription: 'Todos os projetos abaixo estão publicados e podem ser acessados normalmente.',
   projectsFilterLabel: 'Filtrar projetos por categoria',
-  servicesEyebrow: 'Soluções principais',
-  servicesTitle: 'O que eu desenvolvo para apresentar melhor, vender melhor ou organizar melhor.',
+  servicesEyebrow: 'Serviços',
+  servicesTitle:
+    'Soluções que desenvolvo para apresentar melhor, vender melhor ou organizar melhor a rotina.',
   servicesDescription:
-    'Sites, catálogos e estruturas web pensados para negócios que precisam de mais clareza no digital.',
-  differentialsEyebrow: 'O que faz diferença',
-  differentialsTitle: 'O que eu priorizo para o projeto passar mais confiança.',
+    'Cada projeto é pensado para unir visual, clareza de navegação e facilidade no contato ou na operação.',
+  differentialsEyebrow: 'Meu foco no projeto',
+  differentialsTitle: 'Alguns pontos que eu priorizo em cada entrega.',
   differentialsDescription:
-    'Clareza na estrutura, visual mais limpo e uma entrega mais fácil de acompanhar.',
-  contactEyebrow: 'Contato e briefing',
-  contactTitle: 'Vamos conversar sobre o seu próximo projeto.',
+    'Busco entregar páginas mais organizadas, com boa leitura e uma experiência simples para quem vai usar.',
+  contactEyebrow: 'Contato',
+  contactTitle: 'Se quiser conversar sobre um projeto, me chama.',
   contactDescription:
-    'Me envie uma mensagem e eu retorno com os próximos passos pelo canal mais prático.',
+    'Pode me chamar pelo WhatsApp, e-mail ou redes profissionais. Assim eu entendo a ideia e respondo pelo canal mais prático.',
   emailCtaLabel: 'Enviar e-mail',
   finalAvailabilityLabel: 'Atendimento online para todo o Brasil',
   footerDescription:
-    'Desenvolvimento web com foco em sites, catálogos online e sistemas web para profissionais e empresas que precisam de mais presença e confiança no digital.',
+    'Desenvolvimento web para quem precisa apresentar melhor um serviço, organizar produtos ou colocar uma operação digital para funcionar com mais clareza.',
   footerCopyright: 'Marcelo Henrique © 2026. Todos os direitos reservados.',
 } as const;
 

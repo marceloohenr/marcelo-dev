@@ -18,6 +18,7 @@ export const useRevealOnScroll = <T extends HTMLElement>(
       return;
     }
 
+    // Observa o elemento e libera a animação só quando ele entra na área visível.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

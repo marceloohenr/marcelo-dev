@@ -12,6 +12,7 @@ export const contactInfo = {
   linkedinLabel: 'Marcelo Henrique Malagueta',
 } as const;
 
+// Canais exibidos na seção de contato e no rodapé.
 interface ContactChannel {
   id: string;
   label: string;

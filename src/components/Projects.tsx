@@ -50,16 +50,20 @@ const applyMarqueeOffset = ({
   return nextValue;
 };
 
+const getLoopBaseOffset = (loopWidth: number, shouldAnimate: boolean, isCompactViewport: boolean) =>
+  shouldAnimate && !isCompactViewport ? loopWidth : 0;
+
 const sortedProjects = [...projects].sort(
   (left, right) => new Date(right.date).getTime() - new Date(left.date).getTime()
 );
 const availableCategories = getAvailableProjectCategories(sortedProjects);
 const filters: ProjectFilter[] = ['Todos', ...availableCategories];
 const categoryIcons: Record<ProjectCategory, typeof UserRound> = {
-  'Portfólio': UserRound,
-  'Catálogos': BookImage,
+  Portfólio: UserRound,
+  Catálogos: BookImage,
   Sistemas: MonitorSmartphone,
 };
+
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('Todos');
   const [isDragging, setIsDragging] = useState(false);
@@ -92,10 +96,9 @@ const Projects = () => {
     ? Math.max(30, visibleProjects.length * 10)
     : Math.max(24, visibleProjects.length * 8);
   const horizontalIntentThreshold = isCompactViewport ? 8 : 10;
-  const getLoopBaseOffset = (loopWidth: number) =>
-    shouldAnimate && !isCompactViewport ? loopWidth : 0;
 
   useEffect(() => {
+    // Ajusta o comportamento do carrossel entre mobile e desktop.
     if (typeof window === 'undefined') {
       return undefined;
     }
@@ -123,6 +126,7 @@ const Projects = () => {
   }, []);
 
   useEffect(() => {
+    // Mede a largura útil do loop para manter o carrossel contínuo.
     const track = trackRef.current;
     if (!track) {
       return undefined;
@@ -130,9 +134,11 @@ const Projects = () => {
 
     const measureLoopWidth = () => {
       const nextLoopWidth = shouldAnimate ? track.scrollWidth / marqueeSetCount : 0;
+      const baseOffset = getLoopBaseOffset(nextLoopWidth, shouldAnimate, isCompactViewport);
+
       loopWidthRef.current = nextLoopWidth;
       offsetRef.current = applyMarqueeOffset({
-        baseOffset: getLoopBaseOffset(nextLoopWidth),
+        baseOffset,
         loopWidth: nextLoopWidth,
         shouldAnimate,
         track,
@@ -165,17 +171,21 @@ const Projects = () => {
   }, [activeFilter, isCompactViewport, marqueeSetCount, shouldAnimate, visibleProjects.length]);
 
   useEffect(() => {
+    // Reinicia a posição quando o filtro muda.
+    const baseOffset = getLoopBaseOffset(loopWidthRef.current, shouldAnimate, isCompactViewport);
+
     offsetRef.current = applyMarqueeOffset({
-      baseOffset: getLoopBaseOffset(loopWidthRef.current),
+      baseOffset,
       loopWidth: loopWidthRef.current,
       shouldAnimate,
       track: trackRef.current,
-      value: getLoopBaseOffset(loopWidthRef.current),
+      value: baseOffset,
     });
     lastAnimationTimestampRef.current = null;
   }, [activeFilter, isCompactViewport, shouldAnimate]);
 
   useEffect(() => {
+    // Faz a rolagem automática quando há mais de um projeto visível.
     if (!shouldAnimate || isInteracting) {
       lastAnimationTimestampRef.current = null;
       return undefined;
@@ -190,7 +200,7 @@ const Projects = () => {
         const pixelsPerMillisecond = loopWidth / (projectLoopDuration * 1000);
 
         offsetRef.current = applyMarqueeOffset({
-          baseOffset: getLoopBaseOffset(loopWidth),
+          baseOffset: getLoopBaseOffset(loopWidth, true, isCompactViewport),
           loopWidth,
           shouldAnimate: true,
           track: trackRef.current,
@@ -319,7 +329,7 @@ const Projects = () => {
     }
 
     offsetRef.current = applyMarqueeOffset({
-      baseOffset: getLoopBaseOffset(loopWidthRef.current),
+      baseOffset: getLoopBaseOffset(loopWidthRef.current, true, isCompactViewport),
       loopWidth: loopWidthRef.current,
       shouldAnimate: true,
       track: trackRef.current,
@@ -375,6 +385,7 @@ const Projects = () => {
 
         {availableCategories.length > 1 ? (
           <Reveal delay={90}>
+            {/* Filtros por tipo de projeto */}
             <div
               className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:mb-10 lg:mb-12"
               aria-label={siteMetadata.projectsFilterLabel}
@@ -398,6 +409,7 @@ const Projects = () => {
 
         {visibleProjects.length ? (
           <div className="project-marquee">
+            {/* Área arrastável com os cards de projeto */}
             <div
               ref={viewportRef}
               className={`project-marquee-viewport ${
@@ -540,8 +552,14 @@ const Projects = () => {
                           >
                             <div className="project-showcase-panel overflow-hidden">
                               <div className="mt-1 flex items-center gap-1 border-b border-white/10 px-2.5 py-1.5 sm:mt-1.5 sm:px-3 sm:py-1.5">
-                                <span className="h-2 w-2 rounded-full bg-rose-400/85" aria-hidden="true" />
-                                <span className="h-2 w-2 rounded-full bg-amber-300/85" aria-hidden="true" />
+                                <span
+                                  className="h-2 w-2 rounded-full bg-rose-400/85"
+                                  aria-hidden="true"
+                                />
+                                <span
+                                  className="h-2 w-2 rounded-full bg-amber-300/85"
+                                  aria-hidden="true"
+                                />
                                 <span
                                   className="h-2 w-2 rounded-full bg-emerald-400/85"
                                   aria-hidden="true"
@@ -561,7 +579,9 @@ const Projects = () => {
                                   src={project.previewImage}
                                   alt={`Preview do projeto ${project.title}`}
                                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-                                  style={{ objectPosition: project.imageObjectPosition ?? 'center top' }}
+                                  style={{
+                                    objectPosition: project.imageObjectPosition ?? 'center top',
+                                  }}
                                   draggable={false}
                                   loading="lazy"
                                   decoding="async"
@@ -580,7 +600,11 @@ const Projects = () => {
                                 return (
                                   <div key={fact.label} className="project-metric">
                                     <div className="inline-flex items-center gap-2 text-caption uppercase tracking-[0.14em] text-text-muted">
-                                      <FactIcon size={14} aria-hidden="true" className="text-brand-300" />
+                                      <FactIcon
+                                        size={14}
+                                        aria-hidden="true"
+                                        className="text-brand-300"
+                                      />
                                       <span>{fact.label}</span>
                                     </div>
                                     <p className="mt-3 text-balance text-[1rem] font-semibold leading-[1.45] text-text-primary">

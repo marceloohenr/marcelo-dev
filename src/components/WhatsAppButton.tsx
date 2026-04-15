@@ -7,6 +7,7 @@ const WhatsAppButton = () => {
   const whatsappUrl = buildWhatsappUrl(contactInfo.whatsappNumber, siteMetadata.budgetMessage);
 
   return (
+    // Botão flutuante para contato rápido em qualquer ponto da página.
     <a
       href={whatsappUrl}
       target="_blank"

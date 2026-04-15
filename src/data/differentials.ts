@@ -11,26 +11,26 @@ interface Differential {
 export const differentials: Differential[] = [
   {
     id: 'atendimento-direto',
-    title: 'Atendimento direto',
-    description: 'Você fala direto comigo do início aos ajustes finais.',
+    title: 'Contato sem intermediário',
+    description: 'Você fala direto comigo do início do projeto até os ajustes finais.',
     icon: MessageCircle,
   },
   {
     id: 'clareza-na-estrutura',
-    title: 'Clareza na estrutura',
-    description: 'Seções pensadas para o visitante entender rápido o que está sendo oferecido.',
+    title: 'Estrutura pensada com clareza',
+    description: 'As seções são organizadas para a pessoa entender rápido o que está sendo apresentado.',
     icon: LayoutTemplate,
   },
   {
     id: 'visual-que-passa-confianca',
-    title: 'Visual que passa confiança',
-    description: 'Interface organizada para valorizar serviço, produto ou operação.',
+    title: 'Visual que valoriza o projeto',
+    description: 'O layout é construído para destacar o que importa e deixar a navegação mais agradável.',
     icon: Sparkles,
   },
   {
     id: 'desktop-e-mobile-bem-resolvidos',
     title: 'Desktop e mobile bem resolvidos',
-    description: 'Layout adaptado para leitura, navegação e contato nas telas mais usadas.',
+    description: 'A interface é ajustada para funcionar bem tanto no celular quanto em telas maiores.',
     icon: MonitorSmartphone,
   },
 ];

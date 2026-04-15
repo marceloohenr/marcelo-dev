@@ -12,6 +12,7 @@ const Reveal = ({ children, className = '', delay = 0, style }: RevealProps) => 
   const { ref, isVisible } = useRevealOnScroll<HTMLDivElement>();
   const mergedStyle = {
     ...(style ?? {}),
+    // Permite controlar o atraso da animação sem repetir CSS em cada seção.
     ...(delay > 0 ? { transitionDelay: `${delay}ms` } : {}),
   } as CSSProperties;
 
