@@ -4,11 +4,11 @@ export const siteMetadata = {
   title: 'Marcelo Henrique | Desenvolvimento de sites, catálogos e sistemas web',
   description:
     'Desenvolvedor web focado em criar sites, catálogos online e sistemas com visual bem resolvido, navegação clara e estrutura pensada para o negócio.',
-  canonicalUrl: 'https://marcelo-webdev.vercel.app/',
+  canonicalUrl: 'https://marcelodev.online/',
   siteName: 'Marcelo Henrique - Desenvolvedor Web',
   keywords:
     'desenvolvedor web, criação de sites, catálogo online, site institucional, sistema web, landing page',
-  ogImageUrl: 'https://marcelo-webdev.vercel.app/og-cover.svg',
+  ogImageUrl: 'https://marcelodev.online/og-cover.svg',
   locale: 'pt_BR',
   themeColor: '#08111d',
   budgetLabel: 'Falar no WhatsApp',
