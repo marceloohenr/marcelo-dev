@@ -21,6 +21,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.codex_vps_key
+.codex_vps_key.pub
 .bolt
 DESIGN_QA_CHECKLIST.md
 RELATORIO_AUDITORIA_PORTFOLIO.md

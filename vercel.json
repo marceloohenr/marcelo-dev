@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://marcelodev.online/:path*",
+      "permanent": true
+    }
+  ]
+}
