@@ -2,6 +2,20 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        var legacyHosts = ['marcelo-webdev.vercel.app', 'devmarcelo.vercel.app'];
+        if (legacyHosts.indexOf(window.location.hostname) === -1) return;
+
+        var target =
+          'https://marcelodev.online' +
+          window.location.pathname +
+          window.location.search +
+          window.location.hash;
+
+        window.location.replace(target);
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#08111d" />
