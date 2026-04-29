@@ -1,16 +1,20 @@
 export const siteMetadata = {
   personName: 'Marcelo Henrique',
   role: 'Desenvolvedor Web',
-  title: 'Marcelo Henrique | Desenvolvimento de sites, catálogos e sistemas web',
+  title: 'Marcelo Henrique | Desenvolvedor Web para sites, landing pages e sistemas',
   description:
-    'Desenvolvedor web focado em criar sites, catálogos online e sistemas com visual bem resolvido, navegação clara e estrutura pensada para o negócio.',
+    'Desenvolvedor web freelancer para criação de sites, landing pages, catálogos online e sistemas web. Atendo empresas e profissionais que querem atrair clientes e vender mais pela internet.',
   canonicalUrl: 'https://marcelodev.online/',
   siteName: 'Marcelo Henrique - Desenvolvedor Web',
   keywords:
-    'desenvolvedor web, criação de sites, catálogo online, site institucional, sistema web, landing page',
+    'desenvolvedor web, desenvolvedor web freelancer, criacao de sites, criação de sites, criacao de site profissional, site profissional, desenvolvimento de sites, desenvolvedor frontend, landing page, criacao de landing page, catálogo online, catalogo online, site institucional, sistema web, freelance web developer, criacao de sites para empresas, desenvolvedor para pequenas empresas, criar site para negocio, site para empresa, portfolio desenvolvedor web',
   ogImageUrl: 'https://marcelodev.online/og-cover.svg',
   locale: 'pt_BR',
   themeColor: '#08111d',
+  businessType: 'ProfessionalService',
+  serviceType:
+    'Criação de sites, landing pages, catálogos online, sites institucionais e sistemas web sob medida',
+  serviceArea: 'Brasil',
   budgetLabel: 'Falar no WhatsApp',
   budgetMessage:
     'Olá, Marcelo! Quero conversar sobre um projeto e entender como você pode me ajudar.',

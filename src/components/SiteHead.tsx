@@ -64,7 +64,7 @@ const SiteHead = () => {
     upsertMetaByName('keywords', siteMetadata.keywords);
     upsertMetaByName('author', siteMetadata.personName);
     upsertMetaByName('theme-color', siteMetadata.themeColor);
-    upsertMetaByName('robots', 'index, follow');
+    upsertMetaByName('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
     upsertMetaByName('twitter:card', 'summary_large_image');
     upsertMetaByName('twitter:title', siteMetadata.title);
     upsertMetaByName('twitter:description', siteMetadata.description);
@@ -78,14 +78,38 @@ const SiteHead = () => {
     upsertMetaByProperty('og:site_name', siteMetadata.siteName);
     upsertMetaByProperty('og:image', siteMetadata.ogImageUrl);
 
-    upsertJsonLd('site-schema', {
+    upsertJsonLd('website-schema', {
       '@context': 'https://schema.org',
-      '@type': 'Person',
+      '@type': 'WebSite',
+      name: siteMetadata.siteName,
+      url: siteMetadata.canonicalUrl,
+      inLanguage: siteMetadata.locale,
+      description: siteMetadata.description,
+    });
+
+    upsertJsonLd('professional-service-schema', {
+      '@context': 'https://schema.org',
+      '@type': siteMetadata.businessType,
       name: siteMetadata.personName,
+      alternateName: siteMetadata.siteName,
       jobTitle: siteMetadata.role,
       url: siteMetadata.canonicalUrl,
       image: siteMetadata.ogImageUrl,
+      description: siteMetadata.description,
+      areaServed: siteMetadata.serviceArea,
+      serviceType: siteMetadata.serviceType,
+      knowsAbout: siteMetadata.keywords.split(',').map((keyword) => keyword.trim()),
       sameAs: [contactInfo.githubUrl, contactInfo.linkedinUrl, contactInfo.instagramUrl],
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          contactType: 'customer support',
+          areaServed: siteMetadata.serviceArea,
+          availableLanguage: ['Portuguese'],
+          email: contactInfo.email,
+          telephone: contactInfo.whatsappNumber,
+        },
+      ],
     });
   }, []);
 
