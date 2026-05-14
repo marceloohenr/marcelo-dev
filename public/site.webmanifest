@@ -1,0 +1,21 @@
+﻿{
+  "name": "Marcelo Henrique Dev - Desenvolvimento Web, UI/UX e Sistemas",
+  "short_name": "Marcelo Dev",
+  "description": "Portfólio de Marcelo Henrique, desenvolvedor full stack em Recife especializado em sites, UI/UX e sistemas web personalizados.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#08111d",
+  "theme_color": "#08111d",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity", "developer", "portfolio"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -14,10 +14,10 @@ export const services: Service[] = [
   {
     id: 'sites-profissionais',
     eyebrow: 'Presença digital',
-    title: 'Sites profissionais',
+    title: 'Criação de sites profissionais',
     description:
-      'Sites para apresentar um serviço com mais clareza, passar confiança e facilitar o próximo passo de quem visita.',
-    deliverables: ['Institucionais', 'Landing pages', 'Portfólios'],
+      'Sites modernos em Recife e no Brasil para apresentar serviços com clareza, design premium, performance e foco em conversão.',
+    deliverables: ['Institucionais', 'Landing pages', 'Portfólios profissionais'],
     icon: Building2,
   },
   {
@@ -25,8 +25,8 @@ export const services: Service[] = [
     eyebrow: 'Produtos e vendas',
     title: 'Catálogos online',
     description:
-      'Catálogos pensados para organizar produtos, valorizar categorias e tornar o atendimento comercial mais simples.',
-    deliverables: ['Vitrines digitais', 'Catálogos por categoria', 'Listagens com busca'],
+      'Vitrines digitais e catálogos online com UI/UX, organização por categorias e navegação simples para melhorar o atendimento comercial.',
+    deliverables: ['Vitrines digitais', 'Catálogos por categoria', 'Busca e filtros'],
     icon: BookImage,
   },
   {
@@ -34,8 +34,8 @@ export const services: Service[] = [
     eyebrow: 'Operação e gestão',
     title: 'Sistemas web personalizados',
     description:
-      'Sistemas e painéis para reunir rotinas internas em uma interface mais organizada e prática de usar.',
-    deliverables: ['Áreas internas', 'Painéis administrativos', 'Fluxos sob medida'],
+      'Desenvolvimento de sistemas web personalizados, dashboards e painéis administrativos com React, TypeScript e interfaces escaláveis.',
+    deliverables: ['Áreas internas', 'Dashboards', 'Fluxos sob medida'],
     icon: Monitor,
   },
 ];

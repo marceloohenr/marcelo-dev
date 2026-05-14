@@ -97,7 +97,7 @@ const Hero = () => {
                   <div className="pulse-brand relative rounded-full border border-brand-300/20 bg-bg-elevated/80 p-3 shadow-glow sm:p-4">
                     <img
                       src={profilePhoto}
-                      alt="Foto profissional de Marcelo Henrique"
+                      alt="Foto profissional de Marcelo Henrique, desenvolvedor full stack em Recife"
                       className="h-[16rem] w-[16rem] rounded-full object-cover object-center sm:h-[18rem] sm:w-[18rem] lg:h-[20rem] lg:w-[20rem]"
                       loading="eager"
                       decoding="async"

@@ -147,8 +147,8 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
 
             <div className="relative aspect-[16/11] overflow-hidden rounded-[1.3rem] border border-white/10 bg-bg-base/80 sm:aspect-[16/10] sm:rounded-[1.45rem]">
               <img
-                src={project.previewImage}
-                alt={`Preview do projeto ${project.title}`}
+                                src={project.previewImage}
+                                alt={`Preview do projeto ${project.title}, case de desenvolvimento web com ${project.technologies.join(', ')}`}
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
                 style={{
                   objectPosition: project.imageObjectPosition ?? 'center top',

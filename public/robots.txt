@@ -1,0 +1,5 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://marcelodev.online/sitemap.xml
+Host: https://marcelodev.online
