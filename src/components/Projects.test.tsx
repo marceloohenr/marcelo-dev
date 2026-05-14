@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import Projects from './Projects';
 
 describe('Projects', () => {
-  it('shows projects in a looping horizontal showcase and filters by category', () => {
+  it('shows projects in a stacked scroll showcase and filters by category', () => {
     render(<Projects />);
 
     expect(screen.getByRole('heading', { name: 'Monop\u00F3lio Pods' })).toBeInTheDocument();
@@ -12,6 +12,7 @@ describe('Projects', () => {
     expect(screen.getByRole('heading', { name: 'Gabriela Mendes' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Sistemas/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Projeto seguinte/i })).not.toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /Abrir projeto/i })).toHaveLength(4);
 
     fireEvent.click(screen.getByRole('button', { name: /Portf\u00F3lio/i }));
 
