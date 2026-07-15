@@ -62,7 +62,7 @@
   projectsFilterLabel: 'Filtrar projetos por categoria',
   servicesEyebrow: 'Serviços de desenvolvimento web',
   servicesTitle:
-    'Criação de sites, landing pages e sistemas personalizados para Recife, Pernambuco e Brasil.',
+    'Criação de sites, landing pages e sistemas personalizados para empresas e profissionais.',
   servicesDescription:
     'Desenvolvo soluções web com estratégia, UI/UX, performance, SEO técnico e código moderno para empresas, profissionais e marcas em crescimento.',
   differentialsEyebrow: 'Meu foco no projeto',

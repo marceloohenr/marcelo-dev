@@ -26,16 +26,16 @@ const sortedProjects = [...projects].sort(
 );
 const availableCategories = getAvailableProjectCategories(sortedProjects);
 const filters: ProjectFilter[] = ['Todos', ...availableCategories];
-const categoryIcons: Record<ProjectCategory, typeof UserRound> = {
-  Portfólio: UserRound,
-  Catálogos: BookImage,
-  Sistemas: MonitorSmartphone,
+const getCategoryIcon = (category: ProjectCategory) => {
+  if (category.startsWith('Cat')) return BookImage;
+  if (category === 'Sistemas') return MonitorSmartphone;
+  return UserRound;
 };
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 
 const ProjectShowcase = ({ index, project }: { index: number; project: Project }) => {
-  const CategoryIcon = categoryIcons[project.category];
+  const CategoryIcon = getCategoryIcon(project.category);
   const isReversed = index % 2 === 1;
   const projectFacts = [
     {
@@ -66,7 +66,7 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
       <div className="project-showcase-outline" aria-hidden="true" />
       <div className="grid items-start gap-6 sm:gap-7 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-12">
         <div
-          className={`order-2 space-y-5 sm:space-y-6 lg:space-y-7 ${
+          className={`project-copy-panel order-2 space-y-5 sm:space-y-6 lg:space-y-7 ${
             isReversed ? 'lg:order-2' : 'lg:order-1'
           }`}
         >
@@ -84,20 +84,23 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
             <h3 className="max-w-[13ch] text-balance font-sans text-[clamp(1.75rem,9vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.03em] text-text-primary sm:text-[clamp(2rem,6.8vw,3.8rem)]">
               {project.title}
             </h3>
-            <p className="max-w-none text-pretty text-[0.98rem] leading-[1.75] text-text-secondary sm:max-w-[34ch] sm:text-[1.05rem]">
+            <p className="project-description max-w-none text-pretty text-[0.98rem] leading-[1.75] text-text-secondary sm:max-w-[34ch] sm:text-[1.05rem]">
               {project.description}
+            </p>
+            <p className="project-focus-inline text-[0.78rem] font-medium leading-relaxed text-text-secondary">
+              {project.focus}
             </p>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="project-metric">
+          <div className="project-detail-grid grid gap-3 sm:grid-cols-2">
+            <div className="project-metric project-focus-card">
               <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
                 Foco principal
               </p>
               <p className="mt-3 text-[1rem] leading-[1.7] text-text-primary">{project.focus}</p>
             </div>
 
-            <div className="project-metric">
+            <div className="project-metric project-tech-card">
               <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
                 Tecnologias
               </p>
@@ -118,7 +121,7 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
             <span className="status-pill border-white/10 bg-white/[0.04] text-text-secondary">
               Acesso online
             </span>
-            <span className="inline-flex items-center gap-2 text-body font-semibold text-text-primary">
+            <span className="project-access-cta inline-flex items-center gap-2 text-body font-semibold text-text-primary">
               Confira o projeto
               <ArrowUpRight
                 size={18}
@@ -130,7 +133,7 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
         </div>
 
         <div
-          className={`order-1 space-y-3 sm:space-y-4 ${
+          className={`project-media-panel order-1 space-y-3 sm:space-y-4 ${
             isReversed ? 'lg:order-1' : 'lg:order-2'
           }`}
         >
@@ -154,17 +157,17 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
                   objectPosition: project.imageObjectPosition ?? 'center top',
                 }}
                 draggable={false}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 width={1280}
                 height={800}
-                sizes="(min-width: 1280px) 46rem, (min-width: 1024px) 54vw, 100vw"
+                sizes="(min-width: 1280px) 46rem, (min-width: 1024px) 54vw, (min-width: 768px) 88vw, 92vw"
               />
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0)_44%,rgba(8,17,29,0.16)_100%)]" />
             </div>
           </div>
 
-          <div className="grid gap-3 min-[560px]:grid-cols-3">
+          <div className="project-facts-grid grid gap-3 min-[560px]:grid-cols-3">
             {projectFacts.map((fact) => {
               const FactIcon = fact.icon;
 
@@ -210,8 +213,7 @@ const Projects = () => {
     if (
       typeof window === 'undefined' ||
       !shouldUseStackEffect ||
-      prefersReducedMotion() ||
-      !window.matchMedia('(min-width: 768px)').matches
+      prefersReducedMotion()
     ) {
       return undefined;
     }

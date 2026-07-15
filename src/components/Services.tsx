@@ -21,13 +21,13 @@ const Services = () => {
         </Reveal>
 
         {/* Cards com os serviços principais oferecidos */}
-        <div className="grid auto-rows-fr gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="card-grid-3up">
           {services.map((service, index) => {
             const Icon = service.icon;
 
             return (
               <Reveal key={service.id} className="h-full" delay={index * 70}>
-                <article className="group card-balanced card-interactive">
+                <article className="service-card group card-balanced card-interactive">
                   <div className="flex items-start justify-between gap-4">
                     <div className="icon-shell icon-shell-lg">
                       <Icon

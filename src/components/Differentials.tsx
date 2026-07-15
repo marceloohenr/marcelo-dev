@@ -27,13 +27,13 @@ const Differentials = () => {
         </Reveal>
 
         {/* Pontos que ajudam a reforçar o posicionamento do trabalho */}
-        <div className="grid auto-rows-fr gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="card-grid-4up">
           {differentials.map((item, index) => {
             const Icon = item.icon;
 
             return (
               <Reveal key={item.id} delay={index * 70}>
-                <article className="group card-balanced card-interactive h-full">
+                <article className="differential-card group card-balanced card-interactive h-full">
                   <div className="icon-shell icon-shell-md">
                     <Icon
                       size={20}
