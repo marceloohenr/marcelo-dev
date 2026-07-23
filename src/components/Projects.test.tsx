@@ -18,6 +18,8 @@ describe('Projects', () => {
     expect(projectLinks).toHaveLength(5);
     expect(projectLinks[0].style.getPropertyValue('--stack-offset')).toBe('0px');
     expect(projectLinks[1].style.getPropertyValue('--stack-offset')).toBe('12px');
+    expect(projectLinks[0].style.getPropertyValue('--stack-scale')).toBe('1');
+    expect(projectLinks[4].style.getPropertyValue('--stack-scale')).toBe('1');
     expect(projectLinks.every((link) => link.parentElement?.classList.contains('project-stack-list')))
       .toBe(true);
 

@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   BookImage,
@@ -16,6 +16,7 @@ import {
   type ProjectCategory,
 } from '../data/projects';
 import { siteMetadata } from '../data/site';
+import { prefersReducedMotion } from '../utils/motion';
 
 type ProjectFilter = 'Todos' | ProjectCategory;
 type Project = (typeof projects)[number];
@@ -25,6 +26,7 @@ const sortedProjects = [...projects].sort(
 );
 const availableCategories = getAvailableProjectCategories(sortedProjects);
 const filters: ProjectFilter[] = ['Todos', ...availableCategories];
+const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 const getCategoryIcon = (category: ProjectCategory) => {
   if (category.startsWith('Cat')) return BookImage;
   if (category === 'Sistemas') return MonitorSmartphone;
@@ -35,10 +37,12 @@ const ProjectShowcase = ({
   index,
   project,
   stackStyle,
+  elementRef,
 }: {
   index: number;
   project: Project;
   stackStyle: CSSProperties;
+  elementRef: (element: HTMLAnchorElement | null) => void;
 }) => {
   const CategoryIcon = getCategoryIcon(project.category);
   const isReversed = index % 2 === 1;
@@ -68,6 +72,7 @@ const ProjectShowcase = ({
       className="focus-ring project-showcase project-showcase-sticky group block min-w-0"
       aria-label={`Abrir projeto ${project.title} em nova aba`}
       style={stackStyle}
+      ref={elementRef}
     >
       <div className="project-showcase-outline" aria-hidden="true" />
       <div className="grid items-start gap-6 sm:gap-7 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-12">
@@ -198,12 +203,90 @@ const ProjectShowcase = ({
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('Todos');
+  const projectRefs = useRef<Array<HTMLAnchorElement | null>>([]);
 
   const visibleProjects =
     activeFilter === 'Todos'
       ? sortedProjects
       : sortedProjects.filter((project) => project.category === activeFilter);
   const shouldUseStackEffect = visibleProjects.length > 1;
+
+  useEffect(() => {
+    const cards = projectRefs.current.slice(0, visibleProjects.length).filter(Boolean) as HTMLAnchorElement[];
+
+    cards.forEach((card) => {
+      card.style.setProperty('--stack-scale', '1');
+      card.style.setProperty('--stack-tilt', '0deg');
+      card.style.setProperty('--stack-recede-y', '0px');
+    });
+
+    if (!shouldUseStackEffect || prefersReducedMotion()) {
+      return undefined;
+    }
+
+    let animationFrame: number | undefined;
+    let stickyTops: number[] = [];
+
+    const measureStickyTops = () => {
+      stickyTops = cards.map((card, index) => {
+        const computedTop = Number.parseFloat(window.getComputedStyle(card).top);
+        const fallbackTop = (window.innerWidth >= 768 ? 88 : 76) + index * 12;
+
+        return Number.isFinite(computedTop) ? computedTop : fallbackTop;
+      });
+    };
+
+    const updateDepth = () => {
+      animationFrame = undefined;
+
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const entryStart = viewportHeight * 0.9;
+      const cardRects = cards.map((card) => card.getBoundingClientRect());
+      const arrivalProgress = cardRects.map((rect, index) => {
+        if (index === 0) return 0;
+
+        const entryEnd = stickyTops[index] ?? viewportHeight * 0.16;
+        return clamp((entryStart - rect.top) / Math.max(entryStart - entryEnd, 1));
+      });
+
+      cards.forEach((card, index) => {
+        const depth = clamp(
+          arrivalProgress.slice(index + 1).reduce((total, progress) => total + progress, 0),
+          0,
+          4
+        );
+
+        card.style.setProperty('--stack-scale', (1 - depth * 0.012).toFixed(4));
+        card.style.setProperty('--stack-tilt', `${(depth * 0.45).toFixed(3)}deg`);
+        card.style.setProperty('--stack-recede-y', `${(depth * -4).toFixed(2)}px`);
+      });
+    };
+
+    const scheduleDepthUpdate = () => {
+      if (animationFrame === undefined) {
+        animationFrame = window.requestAnimationFrame(updateDepth);
+      }
+    };
+
+    const handleResize = () => {
+      measureStickyTops();
+      scheduleDepthUpdate();
+    };
+
+    measureStickyTops();
+    scheduleDepthUpdate();
+    window.addEventListener('scroll', scheduleDepthUpdate, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('scroll', scheduleDepthUpdate);
+      window.removeEventListener('resize', handleResize);
+
+      if (animationFrame !== undefined) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [activeFilter, shouldUseStackEffect, visibleProjects.length]);
 
   return (
     <section
@@ -260,6 +343,9 @@ const Projects = () => {
               const stackStyle = {
                 '--stack-depth': index,
                 '--stack-offset': shouldUseStackEffect ? `${Math.min(index, 4) * 12}px` : '0px',
+                '--stack-scale': '1',
+                '--stack-tilt': '0deg',
+                '--stack-recede-y': '0px',
                 '--stack-progress': 1,
                 '--stack-recede': 0,
                 '--stack-visibility': 1,
@@ -272,6 +358,9 @@ const Projects = () => {
                   index={index}
                   project={project}
                   stackStyle={stackStyle}
+                  elementRef={(element) => {
+                    projectRefs.current[index] = element;
+                  }}
                 />
               );
             })}
