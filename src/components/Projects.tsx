@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   ArrowUpRight,
   BookImage,
@@ -16,7 +16,6 @@ import {
   type ProjectCategory,
 } from '../data/projects';
 import { siteMetadata } from '../data/site';
-import { prefersReducedMotion } from '../utils/motion';
 
 type ProjectFilter = 'Todos' | ProjectCategory;
 type Project = (typeof projects)[number];
@@ -32,9 +31,15 @@ const getCategoryIcon = (category: ProjectCategory) => {
   return UserRound;
 };
 
-const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
-
-const ProjectShowcase = ({ index, project }: { index: number; project: Project }) => {
+const ProjectShowcase = ({
+  index,
+  project,
+  stackStyle,
+}: {
+  index: number;
+  project: Project;
+  stackStyle: CSSProperties;
+}) => {
   const CategoryIcon = getCategoryIcon(project.category);
   const isReversed = index % 2 === 1;
   const projectFacts = [
@@ -62,6 +67,7 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
       rel="noopener noreferrer"
       className="focus-ring project-showcase project-showcase-sticky group block min-w-0"
       aria-label={`Abrir projeto ${project.title} em nova aba`}
+      style={stackStyle}
     >
       <div className="project-showcase-outline" aria-hidden="true" />
       <div className="grid items-start gap-6 sm:gap-7 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-12">
@@ -157,7 +163,7 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
                   objectPosition: project.imageObjectPosition ?? 'center top',
                 }}
                 draggable={false}
-                loading="eager"
+                loading="lazy"
                 decoding="async"
                 width={1280}
                 height={800}
@@ -192,100 +198,12 @@ const ProjectShowcase = ({ index, project }: { index: number; project: Project }
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('Todos');
-  const stackSlotRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   const visibleProjects =
     activeFilter === 'Todos'
       ? sortedProjects
       : sortedProjects.filter((project) => project.category === activeFilter);
   const shouldUseStackEffect = visibleProjects.length > 1;
-
-  useEffect(() => {
-    const slots = stackSlotRefs.current.filter(Boolean) as HTMLDivElement[];
-
-    slots.forEach((slot) => {
-      slot.style.setProperty('--stack-progress', '1');
-      slot.style.setProperty('--stack-settle', '1');
-      slot.style.setProperty('--stack-recede', '0');
-      slot.style.setProperty('--stack-visibility', '1');
-    });
-
-    if (
-      typeof window === 'undefined' ||
-      !shouldUseStackEffect ||
-      prefersReducedMotion()
-    ) {
-      return undefined;
-    }
-
-    const visibleSlots = new Set<HTMLDivElement>();
-    let animationFrame: number | undefined;
-
-    const updateSlot = (slot: HTMLDivElement) => {
-      const rect = slot.getBoundingClientRect();
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const enterStart = viewportHeight * 0.96;
-      const enterEnd = viewportHeight * 0.2;
-      const recedeStart = viewportHeight * 0.16;
-      const recedeEnd = -viewportHeight * 0.68;
-      const fadeEnd = -viewportHeight * 1.12;
-      const progress = clamp((enterStart - rect.top) / (enterStart - enterEnd));
-      const recede = clamp((recedeStart - rect.top) / (recedeStart - recedeEnd));
-      const visibility = 1 - clamp((recedeEnd - rect.top) / (recedeEnd - fadeEnd)) * 0.32;
-      const settle = 1 - recede * 0.2;
-
-      slot.style.setProperty('--stack-progress', progress.toFixed(3));
-      slot.style.setProperty('--stack-recede', recede.toFixed(3));
-      slot.style.setProperty('--stack-visibility', visibility.toFixed(3));
-      slot.style.setProperty('--stack-settle', settle.toFixed(3));
-    };
-
-    const updateVisibleSlots = () => {
-      animationFrame = undefined;
-      visibleSlots.forEach(updateSlot);
-    };
-
-    const scheduleUpdate = () => {
-      if (animationFrame === undefined) {
-        animationFrame = window.requestAnimationFrame(updateVisibleSlots);
-      }
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const slot = entry.target as HTMLDivElement;
-
-          if (entry.isIntersecting) {
-            visibleSlots.add(slot);
-            updateSlot(slot);
-            return;
-          }
-
-          visibleSlots.delete(slot);
-        });
-      },
-      {
-        rootMargin: '24% 0px 34% 0px',
-        threshold: [0, 0.1, 0.35, 0.65, 1],
-      }
-    );
-
-    slots.forEach((slot) => observer.observe(slot));
-    window.addEventListener('scroll', scheduleUpdate, { passive: true });
-    window.addEventListener('resize', scheduleUpdate);
-    scheduleUpdate();
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', scheduleUpdate);
-      window.removeEventListener('resize', scheduleUpdate);
-
-      if (animationFrame !== undefined) {
-        window.cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, [activeFilter, shouldUseStackEffect, visibleProjects.length]);
 
   return (
     <section
@@ -339,25 +257,22 @@ const Projects = () => {
             aria-live="polite"
           >
             {visibleProjects.map((project, index) => {
-              const slotStyle = {
+              const stackStyle = {
                 '--stack-depth': index,
-                '--stack-progress': shouldUseStackEffect ? 0 : 1,
+                '--stack-offset': shouldUseStackEffect ? `${Math.min(index, 4) * 12}px` : '0px',
+                '--stack-progress': 1,
                 '--stack-recede': 0,
                 '--stack-visibility': 1,
                 '--stack-settle': 1,
               } as CSSProperties;
 
               return (
-                <div
+                <ProjectShowcase
                   key={project.id}
-                  ref={(element) => {
-                    stackSlotRefs.current[index] = element;
-                  }}
-                  className="project-stack-slot"
-                  style={slotStyle}
-                >
-                  <ProjectShowcase index={index} project={project} />
-                </div>
+                  index={index}
+                  project={project}
+                  stackStyle={stackStyle}
+                />
               );
             })}
           </div>

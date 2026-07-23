@@ -13,7 +13,13 @@ describe('Projects', () => {
     expect(screen.getByRole('heading', { name: 'Ronaldo Le\u00E3o' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Sistemas/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Projeto seguinte/i })).not.toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /Abrir projeto/i })).toHaveLength(5);
+    const projectLinks = screen.getAllByRole('link', { name: /Abrir projeto/i });
+
+    expect(projectLinks).toHaveLength(5);
+    expect(projectLinks[0].style.getPropertyValue('--stack-offset')).toBe('0px');
+    expect(projectLinks[1].style.getPropertyValue('--stack-offset')).toBe('12px');
+    expect(projectLinks.every((link) => link.parentElement?.classList.contains('project-stack-list')))
+      .toBe(true);
 
     fireEvent.click(screen.getByRole('button', { name: /Portf\u00F3lio/i }));
 

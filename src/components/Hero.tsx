@@ -10,7 +10,7 @@ import {
   Sparkles,
   Terminal,
 } from 'lucide-react';
-import profilePhoto from '../assets/marcelo-henrique-portrait.jpg';
+import profilePhoto from '../assets/marcelo-henrique-portrait.webp';
 import Reveal from './Reveal';
 import { contactInfo } from '../data/contact';
 import { heroProofs } from '../data/hero';
@@ -101,8 +101,8 @@ const Hero = () => {
                       className="h-[16rem] w-[16rem] rounded-full object-cover object-center sm:h-[18rem] sm:w-[18rem] lg:h-[20rem] lg:w-[20rem]"
                       loading="eager"
                       decoding="async"
-                      width={900}
-                      height={1200}
+                      width={640}
+                      height={640}
                       sizes="(min-width: 1280px) 30rem, (min-width: 768px) 24rem, 18rem"
                       fetchPriority="high"
                     />

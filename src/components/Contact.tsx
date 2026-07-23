@@ -10,7 +10,11 @@ const Contact = () => {
   const secondaryChannels = contactChannels.slice(2);
 
   return (
-    <section id="contato" aria-labelledby="contato-title" className="section-shell section-anchor">
+    <section
+      id="contato"
+      aria-labelledby="contato-title"
+      className="deferred-section section-shell section-anchor"
+    >
       <div className="content-shell">
         <Reveal>
           <div className="card-base relative overflow-hidden px-5 py-10 sm:px-8 sm:py-12 lg:px-12">

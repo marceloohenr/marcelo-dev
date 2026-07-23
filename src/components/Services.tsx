@@ -5,7 +5,11 @@ import { siteMetadata } from '../data/site';
 
 const Services = () => {
   return (
-    <section id="servicos" aria-labelledby="servicos-title" className="section-shell section-anchor">
+    <section
+      id="servicos"
+      aria-labelledby="servicos-title"
+      className="deferred-section section-shell section-anchor"
+    >
       <div className="content-shell">
         <Reveal>
           <header className="section-header">

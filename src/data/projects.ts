@@ -23,7 +23,7 @@ export const projects: ProjectRecord[] = [
     category: 'Portfólio',
     description:
       'Landing page profissional criada para apresentar atendimento nutricional, especialidades e caminho direto para agendamento.',
-    previewImage: '/projects/ronaldo-leao-preview.png',
+    previewImage: '/projects/ronaldo-leao-preview.webp',
     projectUrl: 'https://ronaldoleao-nutri.vercel.app',
     segment: 'Nutrição',
     focus: 'Transmitir autoridade profissional e facilitar novos agendamentos',
@@ -37,7 +37,7 @@ export const projects: ProjectRecord[] = [
     category: 'Catálogos',
     description:
       'Catálogo online criado para organizar os modelos, destacar sabores e facilitar o pedido direto pelo WhatsApp.',
-    previewImage: '/projects/monopolio-preview.png',
+    previewImage: '/projects/monopolio-preview.webp',
     projectUrl: 'https://monopoliopods.vercel.app',
     segment: 'Pods e acessórios',
     focus: 'Deixar a consulta mais rápida e simplificar o contato para pedido',
@@ -51,7 +51,7 @@ export const projects: ProjectRecord[] = [
     category: 'Catálogos',
     description:
       'Catálogo com navegação simples para apresentar produtos, separar categorias e agilizar o contato comercial.',
-    previewImage: '/projects/cosme-preview.png',
+    previewImage: '/projects/cosme-preview.webp',
     projectUrl: 'https://cosme-racoes.vercel.app',
     segment: 'Pet shop',
     focus: 'Organizar os produtos para a busca ficar mais direta',
@@ -65,7 +65,7 @@ export const projects: ProjectRecord[] = [
     category: 'Catálogos',
     description:
       'Vitrine digital pensada para valorizar as peças, reforçar identidade visual e deixar a navegação mais fluida.',
-    previewImage: '/projects/nuvle-preview.png',
+    previewImage: '/projects/nuvle-preview.webp',
     projectUrl: 'https://nuvle.vercel.app',
     segment: 'Moda streetwear',
     focus: 'Valorizar produto e facilitar a compra',
@@ -79,7 +79,7 @@ export const projects: ProjectRecord[] = [
     category: 'Portfólio',
     description:
       'Portfólio profissional desenvolvido para apresentar o trabalho com mais clareza e transmitir confiança já no primeiro acesso.',
-    previewImage: '/projects/gabriela-preview.png',
+    previewImage: '/projects/gabriela-preview.webp',
     projectUrl: 'https://portifoliogabriela.vercel.app',
     segment: 'Nutrição infantil',
     focus: 'Fortalecer a presença profissional e incentivar novos agendamentos',

@@ -8,7 +8,7 @@ const Differentials = () => {
     <section
       id="diferenciais"
       aria-labelledby="diferenciais-title"
-      className="section-shell-alt section-anchor"
+      className="deferred-section section-shell-alt section-anchor"
     >
       <div className="content-shell">
         <Reveal>
