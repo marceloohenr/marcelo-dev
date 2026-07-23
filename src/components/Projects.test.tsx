@@ -10,16 +10,18 @@ describe('Projects', () => {
     expect(screen.getByRole('heading', { name: 'Cosme Ra\u00E7\u00F5es' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Nuvle' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Gabriela Mendes' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Ronaldo Le\u00E3o' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Sistemas/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Projeto seguinte/i })).not.toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /Abrir projeto/i })).toHaveLength(4);
+    expect(screen.getAllByRole('link', { name: /Abrir projeto/i })).toHaveLength(5);
 
     fireEvent.click(screen.getByRole('button', { name: /Portf\u00F3lio/i }));
 
     expect(screen.getByRole('heading', { name: 'Gabriela Mendes' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Ronaldo Le\u00E3o' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Cosme Ra\u00E7\u00F5es' })).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Nuvle' })).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Monop\u00F3lio Pods' })).not.toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /Abrir projeto/i })).toHaveLength(1);
+    expect(screen.getAllByRole('link', { name: /Abrir projeto/i })).toHaveLength(2);
   });
 });

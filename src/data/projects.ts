@@ -18,6 +18,20 @@ interface ProjectRecord {
 
 export const projects: ProjectRecord[] = [
   {
+    id: 'ronaldo-leao-nutri',
+    title: 'Ronaldo Leão',
+    category: 'Portfólio',
+    description:
+      'Landing page profissional criada para apresentar atendimento nutricional, especialidades e caminho direto para agendamento.',
+    previewImage: '/projects/ronaldo-leao-preview.png',
+    projectUrl: 'https://ronaldoleao-nutri.vercel.app',
+    segment: 'Nutrição',
+    focus: 'Transmitir autoridade profissional e facilitar novos agendamentos',
+    technologies: ['React', 'TypeScript', 'SEO'],
+    date: '2026-07-22',
+    imageObjectPosition: 'center top',
+  },
+  {
     id: 'monopolio-pods',
     title: 'Monopólio Pods',
     category: 'Catálogos',
