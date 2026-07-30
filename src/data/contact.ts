@@ -6,8 +6,8 @@ export const contactInfo = {
   whatsappNumber: '5581998916570',
   githubUrl: 'https://github.com/marceloohenr',
   githubLabel: 'github.com/marceloohenr',
-  instagramUrl: 'https://instagram.com/marceloohenr',
-  instagramLabel: '@marceloohenr',
+  instagramUrl: 'https://instagram.com/marcelohdev',
+  instagramLabel: '@marcelohhdev',
   linkedinUrl: 'https://www.linkedin.com/in/marcelo-henrique-malagueta-64b35224a/',
   linkedinLabel: 'Marcelo Henrique Malagueta',
 } as const;
