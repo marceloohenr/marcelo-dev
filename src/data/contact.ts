@@ -7,7 +7,7 @@ export const contactInfo = {
   githubUrl: 'https://github.com/marceloohenr',
   githubLabel: 'github.com/marceloohenr',
   instagramUrl: 'https://instagram.com/marcelohdev',
-  instagramLabel: '@marcelohhdev',
+  instagramLabel: '@marcelohdev',
   linkedinUrl: 'https://www.linkedin.com/in/marcelo-henrique-malagueta-64b35224a/',
   linkedinLabel: 'Marcelo Henrique Malagueta',
 } as const;
