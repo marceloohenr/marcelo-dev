@@ -14,9 +14,9 @@ export const services: Service[] = [
   {
     id: 'sites-profissionais',
     eyebrow: 'Presença digital',
-    title: 'Criação de sites profissionais',
+    title: 'Criação de sites e landing pages',
     description:
-      'Sites modernos em Recife e no Brasil para apresentar serviços com clareza, design premium, performance e foco em conversão.',
+      'Landing pages para campanhas, sites institucionais e portfólios responsivos. Design UI/UX, carregamento rápido e estrutura pensada para transformar visitas em contatos.',
     deliverables: ['Institucionais', 'Landing pages', 'Portfólios profissionais'],
     icon: Building2,
   },

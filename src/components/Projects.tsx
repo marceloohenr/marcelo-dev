@@ -1,22 +1,21 @@
 import type { CSSProperties } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   ArrowUpRight,
   BookImage,
-  FolderKanban,
-  Layers3,
   MonitorSmartphone,
-  Target,
   UserRound,
 } from 'lucide-react';
 import Reveal from './Reveal';
+import SectionHeading from './SectionHeading';
+import { useProjectStack } from '../hooks/useProjectStack';
 import {
   getAvailableProjectCategories,
   projects,
   type ProjectCategory,
 } from '../data/projects';
 import { siteMetadata } from '../data/site';
-import { prefersReducedMotion } from '../utils/motion';
+import { useLanguage } from '../i18n/LanguageContext';
 
 type ProjectFilter = 'Todos' | ProjectCategory;
 type Project = (typeof projects)[number];
@@ -26,7 +25,6 @@ const sortedProjects = [...projects].sort(
 );
 const availableCategories = getAvailableProjectCategories(sortedProjects);
 const filters: ProjectFilter[] = ['Todos', ...availableCategories];
-const clamp = (value: number, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 const getCategoryIcon = (category: ProjectCategory) => {
   if (category.startsWith('Cat')) return BookImage;
   if (category === 'Sistemas') return MonitorSmartphone;
@@ -45,156 +43,57 @@ const ProjectShowcase = ({
   elementRef: (element: HTMLAnchorElement | null) => void;
 }) => {
   const CategoryIcon = getCategoryIcon(project.category);
+  const { t } = useLanguage();
   const isReversed = index % 2 === 1;
-  const projectFacts = [
-    {
-      label: 'Categoria',
-      value: project.category,
-      icon: CategoryIcon,
-    },
-    {
-      label: 'Segmento',
-      value: project.segment,
-      icon: Target,
-    },
-    {
-      label: 'Stack',
-      value: project.technologies.slice(0, 2).join(' + '),
-      icon: Layers3,
-    },
-  ] as const;
-
   return (
     <a
       href={project.projectUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="focus-ring project-showcase project-showcase-sticky group block min-w-0"
-      aria-label={`Abrir projeto ${project.title} em nova aba`}
+      className="focus-ring project-showcase project-showcase-sticky group"
+      aria-label={t('Abrir projeto {project} em nova aba').replace('{project}', project.title)}
       style={stackStyle}
       ref={elementRef}
     >
       <div className="project-showcase-outline" aria-hidden="true" />
-      <div className="grid items-start gap-6 sm:gap-7 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-12">
-        <div
-          className={`project-copy-panel order-2 space-y-5 sm:space-y-6 lg:space-y-7 ${
-            isReversed ? 'lg:order-2' : 'lg:order-1'
-          }`}
-        >
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="status-pill-primary">
-              <CategoryIcon size={14} aria-hidden="true" />
-              {project.category}
-            </span>
+      <div className={`project-card-layout ${isReversed ? 'project-card-reversed' : ''}`}>
+        <div className="project-copy-panel">
+          <div className="project-card-top">
+            <span className="status-pill-primary"><CategoryIcon size={13} aria-hidden="true" />{t(project.category)}</span>
+            <span className="project-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
           </div>
-
-          <div className="space-y-4 lg:space-y-5">
-            <p className="text-caption uppercase tracking-[0.18em] text-brand-300">
-              {project.segment}
-            </p>
-            <h3 className="max-w-[13ch] text-balance font-sans text-[clamp(1.75rem,9vw,3.8rem)] font-semibold leading-[0.96] tracking-[-0.03em] text-text-primary sm:text-[clamp(2rem,6.8vw,3.8rem)]">
-              {project.title}
-            </h3>
-            <p className="project-description max-w-none text-pretty text-[0.98rem] leading-[1.75] text-text-secondary sm:max-w-[34ch] sm:text-[1.05rem]">
-              {project.description}
-            </p>
-            <p className="project-focus-inline text-[0.78rem] font-medium leading-relaxed text-text-secondary">
-              {project.focus}
-            </p>
+          <div className="project-card-heading">
+            <p className="eyebrow">{t(project.segment)}</p>
+            <h3>{project.title}</h3>
           </div>
-
-          <div className="project-detail-grid grid gap-3 sm:grid-cols-2">
-            <div className="project-metric project-focus-card">
-              <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
-                Foco principal
-              </p>
-              <p className="mt-3 text-[1rem] leading-[1.7] text-text-primary">{project.focus}</p>
-            </div>
-
-            <div className="project-metric project-tech-card">
-              <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
-                Tecnologias
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="chip-base border-brand-300/10 bg-brand-500/10 text-text-primary"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <p className="project-description">{t(project.description)}</p>
+          <div className="project-focus">
+            <p>{t('O objetivo')}</p>
+            <p>{t(project.focus)}</p>
           </div>
-
-          <div className="flex flex-wrap items-center gap-4 pt-1">
-            <span className="status-pill border-white/10 bg-white/[0.04] text-text-secondary">
-              Acesso online
-            </span>
-            <span className="project-access-cta inline-flex items-center gap-2 text-body font-semibold text-text-primary">
-              Confira o projeto
-              <ArrowUpRight
-                size={18}
-                aria-hidden="true"
-                className="text-brand-300 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-              />
-            </span>
-          </div>
+          <ul className="project-technologies" aria-label={t('Tecnologias do projeto')}>
+            {project.technologies.map(tech => <li key={tech} className="chip-base">{tech}</li>)}
+          </ul>
+          <p className="project-role"><span>{t('Minha atuação')}</span> {t('Design & desenvolvimento')}</p>
+          <span className="project-access-cta">{t('Ver projeto')} <ArrowUpRight size={18} aria-hidden="true" /></span>
         </div>
-
-        <div
-          className={`project-media-panel order-1 space-y-3 sm:space-y-4 ${
-            isReversed ? 'lg:order-1' : 'lg:order-2'
-          }`}
-        >
-          <div className="project-showcase-panel overflow-hidden">
-            <div className="mt-1 flex items-center gap-1 border-b border-white/10 px-2.5 py-1.5 sm:mt-1.5 sm:px-3 sm:py-1.5">
-              <span className="h-2 w-2 rounded-full bg-rose-400/85" aria-hidden="true" />
-              <span className="h-2 w-2 rounded-full bg-amber-300/85" aria-hidden="true" />
-              <span className="h-2 w-2 rounded-full bg-emerald-400/85" aria-hidden="true" />
-              <span className="ml-1.5 inline-flex min-w-0 items-center gap-1.5 truncate rounded-full border border-white/10 bg-bg-base/55 px-2.5 py-0.5 text-[0.64rem] font-semibold uppercase tracking-[0.12em] text-text-muted">
-                <CategoryIcon size={12} aria-hidden="true" className="shrink-0 text-brand-300" />
-                <span className="truncate">{project.title}</span>
-              </span>
-            </div>
-
-            <div className="relative aspect-[16/11] overflow-hidden rounded-[1.3rem] border border-white/10 bg-bg-base/80 sm:aspect-[16/10] sm:rounded-[1.45rem]">
+        <div className="project-media-panel">
+          <div className="project-showcase-panel">
+            <div className="project-browser-bar" aria-hidden="true"><span /><span /><span /><span className="project-browser-label">{new URL(project.projectUrl).hostname}</span><ArrowUpRight size={12} /></div>
+            <div className="project-preview">
               <img
-                                src={project.previewImage}
-                                alt={`Preview do projeto ${project.title}, case de desenvolvimento web com ${project.technologies.join(', ')}`}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-                style={{
-                  objectPosition: project.imageObjectPosition ?? 'center top',
-                }}
+                src={project.previewImage}
+                alt={t('Tela inicial do projeto {project}, desenvolvido com {technologies}').replace('{project}', project.title).replace('{technologies}', project.technologies.join(', '))}
+                style={{ objectPosition: project.imageObjectPosition ?? 'center top' }}
                 draggable={false}
                 loading="lazy"
                 decoding="async"
                 width={1280}
                 height={800}
-                sizes="(min-width: 1280px) 46rem, (min-width: 1024px) 54vw, (min-width: 768px) 88vw, 92vw"
               />
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(8,17,29,0)_44%,rgba(8,17,29,0.16)_100%)]" />
             </div>
           </div>
-
-          <div className="project-facts-grid grid gap-3 min-[560px]:grid-cols-3">
-            {projectFacts.map((fact) => {
-              const FactIcon = fact.icon;
-
-              return (
-                <div key={fact.label} className="project-metric">
-                  <div className="inline-flex items-center gap-2 text-caption uppercase tracking-[0.14em] text-text-muted">
-                    <FactIcon size={14} aria-hidden="true" className="text-brand-300" />
-                    <span>{fact.label}</span>
-                  </div>
-                  <p className="mt-3 text-balance text-[1rem] font-semibold leading-[1.45] text-text-primary">
-                    {fact.value}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+          <div className="project-media-caption"><span>{t('Preview da interface')}</span><span><span className="availability-dot" />{t('Projeto publicado')}</span></div>
         </div>
       </div>
     </a>
@@ -202,182 +101,47 @@ const ProjectShowcase = ({
 };
 
 const Projects = () => {
+  const { t } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>('Todos');
-  const projectRefs = useRef<Array<HTMLAnchorElement | null>>([]);
-
-  const visibleProjects =
-    activeFilter === 'Todos'
-      ? sortedProjects
-      : sortedProjects.filter((project) => project.category === activeFilter);
-  const shouldUseStackEffect = visibleProjects.length > 1;
-
-  useEffect(() => {
-    const cards = projectRefs.current.slice(0, visibleProjects.length).filter(Boolean) as HTMLAnchorElement[];
-
-    cards.forEach((card) => {
-      card.style.setProperty('--stack-scale', '1');
-      card.style.setProperty('--stack-tilt', '0deg');
-      card.style.setProperty('--stack-recede-y', '0px');
-    });
-
-    if (!shouldUseStackEffect || prefersReducedMotion()) {
-      return undefined;
-    }
-
-    let animationFrame: number | undefined;
-    let stickyTops: number[] = [];
-
-    const measureStickyTops = () => {
-      stickyTops = cards.map((card, index) => {
-        const computedTop = Number.parseFloat(window.getComputedStyle(card).top);
-        const fallbackTop = (window.innerWidth >= 768 ? 88 : 76) + index * 12;
-
-        return Number.isFinite(computedTop) ? computedTop : fallbackTop;
-      });
-    };
-
-    const updateDepth = () => {
-      animationFrame = undefined;
-
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const entryStart = viewportHeight * 0.9;
-      const cardRects = cards.map((card) => card.getBoundingClientRect());
-      const arrivalProgress = cardRects.map((rect, index) => {
-        if (index === 0) return 0;
-
-        const entryEnd = stickyTops[index] ?? viewportHeight * 0.16;
-        return clamp((entryStart - rect.top) / Math.max(entryStart - entryEnd, 1));
-      });
-
-      cards.forEach((card, index) => {
-        const depth = clamp(
-          arrivalProgress.slice(index + 1).reduce((total, progress) => total + progress, 0),
-          0,
-          4
-        );
-
-        card.style.setProperty('--stack-scale', (1 - depth * 0.012).toFixed(4));
-        card.style.setProperty('--stack-tilt', `${(depth * 0.45).toFixed(3)}deg`);
-        card.style.setProperty('--stack-recede-y', `${(depth * -4).toFixed(2)}px`);
-      });
-    };
-
-    const scheduleDepthUpdate = () => {
-      if (animationFrame === undefined) {
-        animationFrame = window.requestAnimationFrame(updateDepth);
-      }
-    };
-
-    const handleResize = () => {
-      measureStickyTops();
-      scheduleDepthUpdate();
-    };
-
-    measureStickyTops();
-    scheduleDepthUpdate();
-    window.addEventListener('scroll', scheduleDepthUpdate, { passive: true });
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('scroll', scheduleDepthUpdate);
-      window.removeEventListener('resize', handleResize);
-
-      if (animationFrame !== undefined) {
-        window.cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, [activeFilter, shouldUseStackEffect, visibleProjects.length]);
+  const visibleProjects = activeFilter === 'Todos' ? sortedProjects : sortedProjects.filter(project => project.category === activeFilter);
+  const { listRef, projectRefs, enabled } = useProjectStack(visibleProjects.length, activeFilter);
 
   return (
-    <section
-      id="projetos"
-      aria-labelledby="projetos-title"
-      className="section-shell-alt section-anchor"
-    >
+    <section id="projetos" aria-labelledby="projetos-title" className="section-shell section-anchor projects-section" tabIndex={-1}>
       <div className="content-shell">
-        <Reveal>
-          <header className="section-header">
-            <div className="section-eyebrow">
-              <FolderKanban size={16} aria-hidden="true" />
-              <span>{siteMetadata.projectsEyebrow}</span>
-            </div>
-            <h2 id="projetos-title" className="section-title">
-              {siteMetadata.projectsTitle}
-            </h2>
-            <p className="section-subtitle text-pretty">{siteMetadata.projectsDescription}</p>
-          </header>
-        </Reveal>
-
-        {availableCategories.length > 1 ? (
-          <Reveal delay={90}>
-            {/* Filtros por tipo de projeto */}
-            <div
-              className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:mb-10 lg:mb-12"
-              aria-label={siteMetadata.projectsFilterLabel}
-            >
-              {filters.map((filter) => (
-                <button
-                  key={filter}
-                  type="button"
-                  onClick={() => setActiveFilter(filter)}
-                  className={`filter-chip gap-2 ${
-                    activeFilter === filter ? 'filter-chip-active' : ''
-                  }`}
-                  aria-pressed={activeFilter === filter}
-                >
-                  <span>{filter}</span>
-                </button>
-              ))}
-            </div>
-          </Reveal>
-        ) : null}
-
-        {visibleProjects.length ? (
-          <div
-            className={`project-stack-list ${
-              shouldUseStackEffect ? 'project-stack-list-layered' : 'project-stack-list-single'
-            }`}
-            aria-live="polite"
-          >
-            {visibleProjects.map((project, index) => {
-              const stackStyle = {
-                '--stack-depth': index,
-                '--stack-offset': shouldUseStackEffect ? `${Math.min(index, 4) * 12}px` : '0px',
-                '--stack-scale': '1',
-                '--stack-tilt': '0deg',
-                '--stack-recede-y': '0px',
-                '--stack-progress': 1,
-                '--stack-recede': 0,
-                '--stack-visibility': 1,
-                '--stack-settle': 1,
-              } as CSSProperties;
-
-              return (
-                <ProjectShowcase
-                  key={project.id}
-                  index={index}
-                  project={project}
-                  stackStyle={stackStyle}
-                  elementRef={(element) => {
-                    projectRefs.current[index] = element;
-                  }}
-                />
-              );
-            })}
+        <div id="experiencia" className="section-anchor" tabIndex={-1}>
+          <SectionHeading id="projetos-title" number="03" label={t(siteMetadata.projectsEyebrow)} title={t(siteMetadata.projectsTitle)} description={t(siteMetadata.projectsDescription)} />
+        </div>
+        <div className="project-toolbar">
+          <div className="project-filters" role="group" aria-label={t(siteMetadata.projectsFilterLabel)}>
+            {filters.map(filter => (
+              <button key={filter} type="button" onClick={() => setActiveFilter(filter)} className={`filter-chip ${activeFilter === filter ? 'filter-chip-active' : ''}`} aria-pressed={activeFilter === filter}>
+                {t(filter)}<small aria-hidden="true">{filter === 'Todos' ? projects.length : projects.filter(project => project.category === filter).length}</small>
+              </button>
+            ))}
           </div>
-        ) : (
-          <Reveal>
-            <div className="card-balanced items-center text-center">
-              <h3 className="text-balance font-display text-h3 text-text-primary">
-                Ainda não há projetos publicados nesta categoria.
-              </h3>
-              <p className="card-copy mt-3 text-pretty text-body text-text-secondary">
-                A estrutura já está pronta para receber novos trabalhos. Basta adicionar um novo
-                item na base central de projetos.
-              </p>
-            </div>
-          </Reveal>
-        )}
+          <p className="project-count" role="status" aria-live="polite">{t('{visible} de {total} projetos').replace('{visible}', String(visibleProjects.length)).replace('{total}', String(projects.length))}</p>
+        </div>
+        {visibleProjects.length ? (
+          <div ref={listRef} className={`project-stack-list ${enabled ? 'project-stack-list-layered' : 'project-stack-list-flow'} ${visibleProjects.length === 1 ? 'project-stack-list-single' : ''}`}>
+            {visibleProjects.map((project, index) => (
+              <ProjectShowcase
+                key={project.id}
+                index={index}
+                project={project}
+                stackStyle={{
+                  '--stack-depth': index,
+                  '--stack-offset': `${Math.min(index, 4) * 12}px`,
+                  '--stack-scale': '1',
+                  '--stack-tilt': '0deg',
+                  '--stack-recede-y': '0px',
+                } as CSSProperties}
+                elementRef={element => { projectRefs.current[index] = element; }}
+              />
+            ))}
+          </div>
+        ) : <Reveal><p>{t('Nenhum projeto nesta categoria.')}</p></Reveal>}
+        <div className="project-afterword"><p>{t('Seu negócio pode ser o próximo a ganhar uma nova experiência.')}</p><a href="#contato" className="btn-text">{t('Vamos tirar sua ideia do papel')} <ArrowUpRight size={17} aria-hidden="true" /></a></div>
       </div>
     </section>
   );

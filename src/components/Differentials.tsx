@@ -1,62 +1,19 @@
-import { Sparkles } from 'lucide-react';
 import Reveal from './Reveal';
 import { differentials } from '../data/differentials';
 import { siteMetadata } from '../data/site';
+import { useLanguage } from '../i18n/LanguageContext';
 
-const Differentials = () => {
+export default function Differentials() {
+  const { t } = useLanguage();
   return (
-    <section
-      id="diferenciais"
-      aria-labelledby="diferenciais-title"
-      className="deferred-section section-shell-alt section-anchor"
-    >
-      <div className="content-shell">
-        <Reveal>
-          <header className="section-header">
-            <div className="section-eyebrow">
-              <Sparkles size={16} aria-hidden="true" />
-              <span>{siteMetadata.differentialsEyebrow}</span>
-            </div>
-            <h2 id="diferenciais-title" className="section-title">
-              {siteMetadata.differentialsTitle}
-            </h2>
-            <p className="section-subtitle text-pretty">
-              {siteMetadata.differentialsDescription}
-            </p>
-          </header>
-        </Reveal>
-
-        {/* Pontos que ajudam a reforçar o posicionamento do trabalho */}
-        <div className="card-grid-4up">
-          {differentials.map((item, index) => {
-            const Icon = item.icon;
-
-            return (
-              <Reveal key={item.id} delay={index * 70}>
-                <article className="differential-card group card-balanced card-interactive h-full">
-                  <div className="icon-shell icon-shell-md">
-                    <Icon
-                      size={20}
-                      aria-hidden="true"
-                      className="transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:rotate-3"
-                    />
-                  </div>
-
-                  <h3 className="mt-5 text-balance font-display text-h3 text-text-primary">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 text-pretty text-body leading-[1.72] text-text-secondary">
-                    {item.description}
-                  </p>
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
+    <section id="diferenciais" aria-labelledby="diferenciais-title" className="differentials section-anchor" tabIndex={-1}>
+      <Reveal><div className="differentials-intro"><p className="eyebrow">{t(siteMetadata.differentialsEyebrow)}</p><h3 id="diferenciais-title">{t(siteMetadata.differentialsTitle)}</h3><p>{t(siteMetadata.differentialsDescription)}</p></div></Reveal>
+      <div className="differential-grid">
+        {differentials.map((item, index) => {
+          const Icon = item.icon;
+          return <Reveal key={item.id} delay={index * 45}><article className="differential-card"><Icon size={22} aria-hidden="true" /><h4>{t(item.title)}</h4><p>{t(item.description)}</p></article></Reveal>;
+        })}
       </div>
     </section>
   );
-};
-
-export default Differentials;
+}

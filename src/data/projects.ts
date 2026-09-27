@@ -24,7 +24,7 @@ export const projects: ProjectRecord[] = [
     description:
       'Landing page profissional criada para apresentar atendimento nutricional, especialidades e caminho direto para agendamento.',
     previewImage: '/projects/ronaldo-leao-preview.webp',
-    projectUrl: 'https://ronaldoleao-nutri.vercel.app',
+    projectUrl: 'https://ronaldoleaonutri.online/',
     segment: 'Nutrição',
     focus: 'Transmitir autoridade profissional e facilitar novos agendamentos',
     technologies: ['React', 'TypeScript', 'SEO'],
@@ -38,7 +38,7 @@ export const projects: ProjectRecord[] = [
     description:
       'Catálogo online criado para organizar os modelos, destacar sabores e facilitar o pedido direto pelo WhatsApp.',
     previewImage: '/projects/monopolio-preview.webp',
-    projectUrl: 'https://monopoliopods.vercel.app',
+    projectUrl: 'https://monopoliopods.com/',
     segment: 'Pods e acessórios',
     focus: 'Deixar a consulta mais rápida e simplificar o contato para pedido',
     technologies: ['React', 'Tailwind', 'Vite'],

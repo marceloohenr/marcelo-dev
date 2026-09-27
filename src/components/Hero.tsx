@@ -1,199 +1,62 @@
-import {
-  ArrowRight,
-  BadgeCheck,
-  BookImage,
-  Building2,
-  Code2,
-  LayoutTemplate,
-  MessageCircle,
-  MonitorSmartphone,
-  Sparkles,
-  Terminal,
-} from 'lucide-react';
-import profilePhoto from '../assets/marcelo-henrique-portrait.webp';
-import Reveal from './Reveal';
+import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react';
+import { ReactIcon, TypeScriptIcon, NodeJsIcon } from './TechIcons';
+import profilePortrait from '../assets/marcelo-perfil.webp';
+import illustratedLogo from '../assets/mh-avatar-seal.webp';
 import { contactInfo } from '../data/contact';
 import { heroProofs } from '../data/hero';
 import { siteMetadata } from '../data/site';
 import { buildWhatsappUrl } from '../utils/contact';
-import { scrollToSection } from '../utils/motion';
+import { useLanguage } from '../i18n/LanguageContext';
 
-const Hero = () => {
-  const whatsappUrl = buildWhatsappUrl(contactInfo.whatsappNumber, siteMetadata.budgetMessage);
-  const heroOrbs = [
-    {
-      icon: Building2,
-      className:
-        'float-soft -left-[2%] top-[16%] h-10 w-10 sm:-left-[1%] sm:top-[16%] sm:h-11 sm:w-11 lg:-left-[6%] lg:top-[18%] lg:h-14 lg:w-14',
-    },
-    {
-      icon: BookImage,
-      className:
-        'float-soft-delay -right-[1%] top-[16%] h-10 w-10 sm:right-0 sm:top-[16%] sm:h-11 sm:w-11 lg:-right-[5%] lg:top-[20%] lg:h-14 lg:w-14',
-    },
-    {
-      icon: MonitorSmartphone,
-      className:
-        'float-soft-slow bottom-[9%] -right-[1%] h-10 w-10 sm:bottom-[9%] sm:right-0 sm:h-11 sm:w-11 lg:-right-[8%] lg:bottom-[16%] lg:h-14 lg:w-14',
-    },
-    {
-      icon: LayoutTemplate,
-      className:
-        'float-soft-delay left-[1%] bottom-[10%] h-9 w-9 sm:left-[2%] sm:bottom-[11%] sm:h-10 sm:w-10 lg:-left-[2%] lg:bottom-[20%] lg:h-12 lg:w-12',
-    },
-    {
-      icon: Sparkles,
-      className:
-        'float-soft right-[10%] top-[1%] h-9 w-9 sm:right-[11%] sm:top-[2%] sm:h-10 sm:w-10 lg:right-[14%] lg:top-[4%] lg:h-11 lg:w-11',
-    },
-    {
-      icon: BadgeCheck,
-      className:
-        'float-soft-slow left-[10%] top-[1%] h-9 w-9 sm:left-[11%] sm:top-[2%] sm:h-10 sm:w-10 lg:left-[14%] lg:top-[4%] lg:h-11 lg:w-11',
-    },
-    {
-      icon: Code2,
-      className:
-        'float-soft-delay right-[17%] bottom-[3%] h-9 w-9 sm:right-[18%] sm:bottom-[4%] sm:h-10 sm:w-10 lg:right-[18%] lg:bottom-[8%] lg:h-11 lg:w-11',
-    },
-    {
-      icon: Terminal,
-      className:
-        'float-soft-delay left-[3%] top-[34%] h-9 w-9 sm:left-[4%] sm:top-[35%] sm:h-10 sm:w-10 lg:-left-[4%] lg:top-[38%] lg:h-11 lg:w-11',
-    },
-  ] as const;
+export default function Hero() {
+  const { t, language } = useLanguage();
+  const whatsappUrl = buildWhatsappUrl(contactInfo.whatsappNumber, t(siteMetadata.budgetMessage));
 
   return (
-    <section
-      id="inicio"
-      aria-labelledby="hero-title"
-      className="section-anchor relative overflow-hidden pt-20 sm:pt-24 lg:pt-28"
-    >
-      <div className="surface-grid absolute inset-0 opacity-[0.05]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_16%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_82%_8%,rgba(96,165,250,0.12),transparent_22%),linear-gradient(180deg,rgba(8,17,29,0.08),rgba(8,17,29,0))]" />
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-bg-base via-bg-base/80 to-transparent" />
-
-      <div className="content-shell relative z-10 pb-14 pt-0 sm:pb-16 lg:pb-20 xl:pb-24">
-        <div className="mx-auto flex max-w-[42rem] flex-col items-center text-center">
-          <Reveal>
-            <div className="relative flex w-full max-w-[32rem] justify-center sm:max-w-[34rem] lg:max-w-[38rem]">
-              <div className="absolute inset-0 mx-auto h-[16rem] w-[16rem] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.2),transparent_68%)] blur-3xl sm:h-[18rem] sm:w-[18rem] lg:h-[20rem] lg:w-[20rem]" />
-              {heroOrbs.map((item, index) => {
-                const Icon = item.icon;
-
-                return (
-                  <div key={index} className={`floating-orb ${item.className}`}>
-                    <Icon
-                      size={20}
-                      aria-hidden="true"
-                      className={item.icon === BadgeCheck ? 'text-state-success' : undefined}
-                    />
-                  </div>
-                );
-              })}
-              <div className="relative z-10">
-                <div className="relative mx-auto">
-                  <div className="absolute inset-0 scale-[0.88] rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.18),transparent_72%)] blur-2xl" />
-                  <div className="pulse-brand relative rounded-full border border-brand-300/20 bg-bg-elevated/80 p-3 shadow-glow sm:p-4">
-                    <img
-                      src={profilePhoto}
-                      alt="Foto profissional de Marcelo Henrique, desenvolvedor full stack em Recife"
-                      className="h-[16rem] w-[16rem] rounded-full object-cover object-center sm:h-[18rem] sm:w-[18rem] lg:h-[20rem] lg:w-[20rem]"
-                      loading="eager"
-                      decoding="async"
-                      width={640}
-                      height={640}
-                      sizes="(min-width: 1280px) 30rem, (min-width: 768px) 24rem, 18rem"
-                      fetchPriority="high"
-                    />
-                  </div>
-                </div>
+    <section id="inicio" aria-labelledby="hero-title" className="hero section-anchor" tabIndex={-1}>
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="content-shell">
+        <div className="hero-layout">
+          <div className="hero-visual hero-enter" style={{ animationDelay: '30ms' }}>
+            <div className="portrait-frame">
+              <div className="portrait-photo">
+                <img src={profilePortrait} alt={t('Retrato de Marcelo Henrique')} width={640} height={853} loading="eager" decoding="async" />
               </div>
             </div>
-          </Reveal>
-
-          <Reveal delay={70}>
-            <p className="mt-7 text-caption uppercase tracking-[0.2em] text-text-muted">
-              {siteMetadata.role}
-            </p>
-          </Reveal>
-
-          <div className="min-w-0">
-            <Reveal delay={110}>
-              <h1
-                id="hero-title"
-                className="mx-auto mt-3 max-w-none whitespace-nowrap font-sans text-[clamp(2rem,8.7vw,5.1rem)] font-extrabold leading-[0.98] tracking-[-0.02em] text-text-primary sm:text-[clamp(2.35rem,7vw,5.1rem)]"
-              >
-                {siteMetadata.heroHeadline}
-              </h1>
-            </Reveal>
-
-            <Reveal delay={170}>
-              <p className="mx-auto mt-4 max-w-[24ch] text-pretty font-display text-h2 text-gradient">
-                {siteMetadata.heroDescription}
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="mt-7 flex flex-wrap justify-center gap-2.5 sm:gap-3">
-            {heroProofs.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <Reveal key={item.label} delay={230 + index * 70}>
-                  <div className="group inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-white/10 bg-bg-elevated/88 px-3.5 py-2 text-[0.82rem] font-semibold text-text-primary shadow-soft backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300/25 hover:shadow-brand sm:min-h-11 sm:px-4">
-                    <span className="icon-shell icon-shell-xs">
-                      <Icon
-                        size={14}
-                        aria-hidden="true"
-                        className={
-                          item.label.startsWith('Atendimento')
-                            ? 'text-state-success transition-transform duration-300 group-hover:scale-110'
-                            : 'transition-transform duration-300 group-hover:scale-110'
-                        }
-                      />
-                    </span>
-                    <span>{item.label}</span>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-
-          <Reveal delay={320}>
-            <div className="mt-7 flex w-full flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
-              <button
-                type="button"
-                onClick={() => scrollToSection('projetos')}
-                className="btn-primary group sm:min-w-[13rem]"
-              >
-                {siteMetadata.heroPrimaryCtaLabel}
-                <ArrowRight
-                  size={18}
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </button>
-
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp group sm:min-w-[14rem]"
-              >
-                {siteMetadata.heroSecondaryCtaLabel}
-                <MessageCircle
-                  size={18}
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:scale-110"
-                />
-              </a>
+            <div className="hero-brand-seal">
+              <img src={illustratedLogo} alt={t('Logo ilustrada MH de Marcelo Henrique')} width={192} height={192} decoding="async" />
             </div>
-          </Reveal>
+          </div>
+          <div className="hero-copy">
+            <p className="eyebrow hero-enter" style={{ animationDelay: '90ms' }}>
+              <span className="availability-dot" /> {t('Disponível para projetos')}
+            </p>
+            <p className="hero-name hero-enter" style={{ animationDelay: '140ms' }}>{siteMetadata.personName} <span> / {t('UI/UX & código')}</span></p>
+            <h1 id="hero-title" className="hero-enter" style={{ animationDelay: '190ms' }}>
+              {language === 'en' ? 'Full Stack' : t('Desenvolvedor')}<br /><span className="hero-title-accent">{language === 'en' ? 'Developer' : 'Full Stack'}<span className="title-dot">.</span></span>
+            </h1>
+            <p className="hero-description hero-enter" style={{ animationDelay: '240ms' }}>
+              {t('Crio landing pages, sites profissionais e sistemas web sob medida. Design, tecnologia e SEO técnico para dar forma ao seu próximo projeto.')}
+            </p>
+            <div className="hero-actions hero-enter" style={{ animationDelay: '290ms' }}>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                {t('Conversar sobre meu projeto')} <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+              <a href="#projetos" className="btn-text">{t('Ver projetos')} <ArrowDown size={17} aria-hidden="true" /></a>
+            </div>
+            <p className="hero-location hero-enter" style={{ animationDelay: '340ms' }}>
+              <MapPin size={14} aria-hidden="true" /> {t('Atendimento online')} <span>·</span> {t('Brasil e todo o mundo')}
+            </p>
+          </div>
+        </div>
+        <div className="hero-bottom hero-enter" style={{ animationDelay: '390ms' }}>
+          <div className="hero-proof-list">{heroProofs.map(({ label, icon: Icon }) => <span key={label}><Icon size={15} aria-hidden="true" />{t(label)}</span>)}</div>
+          <div className="hero-tech-strip" aria-label={t('Tecnologias em destaque')}>
+            <span><ReactIcon size={18} />React</span><span><TypeScriptIcon size={17} />TypeScript</span><span><NodeJsIcon size={18} />Node.js</span>
+          </div>
+          <a href="#sobre" className="explore-link">{t('Conheça meu trabalho')} <ArrowDown size={16} aria-hidden="true" /></a>
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

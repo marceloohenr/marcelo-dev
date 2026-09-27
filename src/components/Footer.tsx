@@ -1,86 +1,22 @@
-import { Github, Instagram, Linkedin, Mail, MessageCircle } from 'lucide-react';
-import { contactInfo } from '../data/contact';
+import { ArrowUpRight } from 'lucide-react';
+import { contactChannels } from '../data/contact';
 import { siteMetadata } from '../data/site';
-import { getWhatsappBaseUrl } from '../utils/contact';
+import Reveal from './Reveal';
+import BrandMark from './BrandMark';
+import { useLanguage } from '../i18n/LanguageContext';
 
-const Footer = () => {
+export default function Footer() {
+  const { t } = useLanguage();
   return (
-    <footer className="border-t border-white/10 bg-bg-base py-10">
+    <footer className="site-footer">
       <div className="content-shell">
-        <div className="card-base px-5 py-7 sm:px-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="min-w-0">
-              {/* Resumo final de posicionamento */}
-              <p className="text-caption uppercase tracking-[0.2em] text-brand-300">
-                {siteMetadata.personName}
-              </p>
-              <h2 className="mt-3 font-display text-h2 text-text-primary">{siteMetadata.role}</h2>
-              <p className="mt-3 max-w-2xl text-pretty text-body text-text-secondary">
-                {siteMetadata.footerDescription}
-              </p>
-            </div>
-
-            {/* Links rápidos para os canais principais */}
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href={contactInfo.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="icon-link group"
-                aria-label="GitHub"
-              >
-                <Github size={18} className="transition-transform duration-300 group-hover:scale-110" />
-              </a>
-              <a
-                href={contactInfo.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="icon-link group"
-                aria-label="LinkedIn"
-              >
-                <Linkedin
-                  size={18}
-                  className="transition-transform duration-300 group-hover:scale-110"
-                />
-              </a>
-              <a
-                href={contactInfo.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="icon-link group"
-                aria-label="Instagram"
-              >
-                <Instagram
-                  size={18}
-                  className="transition-transform duration-300 group-hover:scale-110"
-                />
-              </a>
-              <a href={`mailto:${contactInfo.email}`} className="icon-link group" aria-label="Email">
-                <Mail size={18} className="transition-transform duration-300 group-hover:scale-110" />
-              </a>
-              <a
-                href={getWhatsappBaseUrl(contactInfo.whatsappNumber)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="icon-link group floating-cta"
-                aria-label="WhatsApp"
-              >
-                <MessageCircle
-                  size={18}
-                  className="transition-transform duration-300 group-hover:scale-110"
-                />
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-center text-caption text-text-secondary sm:text-left lg:flex-row lg:items-center lg:justify-between">
-            <p className="safe-break">{siteMetadata.footerCopyright}</p>
-            <p>Atendimento online para todo o Brasil.</p>
-          </div>
-        </div>
+        <Reveal><div className="footer-top">
+          <a href="#inicio" className="brand-link" aria-label={t('Marcelo Henrique, voltar ao início')}><BrandMark /><span>Marcelo Henrique<small>{t('DESIGN & DESENVOLVIMENTO')}</small></span></a>
+          <p>{t(siteMetadata.footerDescription)}</p>
+          <a href="#inicio" className="btn-text">{t('Voltar ao início')} <ArrowUpRight size={17} aria-hidden="true" /></a>
+        </div></Reveal>
+        <div className="footer-bottom"><p>{t(siteMetadata.footerCopyright)}</p><div>{contactChannels.map(channel => <a key={channel.id} href={channel.href} target={channel.id !== 'email' ? '_blank' : undefined} rel={channel.id !== 'email' ? 'noopener noreferrer' : undefined}>{channel.label}</a>)}</div></div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,77 +1,38 @@
-import { Briefcase } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Reveal from './Reveal';
+import SectionHeading from './SectionHeading';
+import ServiceFaq from './ServiceFaq';
 import { services } from '../data/services';
-import { siteMetadata } from '../data/site';
+import { contactInfo } from '../data/contact';
+import { buildWhatsappUrl } from '../utils/contact';
+import { useLanguage } from '../i18n/LanguageContext';
 
-const Services = () => {
+export default function Services() {
+  const { t } = useLanguage();
   return (
-    <section
-      id="servicos"
-      aria-labelledby="servicos-title"
-      className="deferred-section section-shell section-anchor"
-    >
+    <section id="servicos" aria-labelledby="servicos-title" className="section-shell section-anchor services-section" tabIndex={-1}>
       <div className="content-shell">
-        <Reveal>
-          <header className="section-header">
-            <div className="section-eyebrow">
-              <Briefcase size={16} aria-hidden="true" />
-              <span>{siteMetadata.servicesEyebrow}</span>
-            </div>
-            <h2 id="servicos-title" className="section-title">
-              {siteMetadata.servicesTitle}
-            </h2>
-            <p className="section-subtitle text-pretty">{siteMetadata.servicesDescription}</p>
-          </header>
-        </Reveal>
-
-        {/* Cards com os serviços principais oferecidos */}
-        <div className="card-grid-3up">
+        <SectionHeading id="servicos-title" number="04" label={t('Como posso ajudar')} title={t('Landing pages, sites e projetos web sob medida.')} description={t('Do primeiro site à sua próxima aplicação: desenvolvimento web com UI/UX, performance e SEO técnico para clientes no Brasil e no mundo.')} />
+        <div className="service-grid">
           {services.map((service, index) => {
             const Icon = service.icon;
-
             return (
-              <Reveal key={service.id} className="h-full" delay={index * 70}>
-                <article className="service-card group card-balanced card-interactive">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="icon-shell icon-shell-lg">
-                      <Icon
-                        size={22}
-                        aria-hidden="true"
-                        className="transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:rotate-3"
-                      />
-                    </div>
-                    <span className="status-pill-primary transition-colors duration-300 group-hover:border-brand-300/30 group-hover:bg-brand-500/15">
-                      {service.eyebrow}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-6 text-balance font-display text-h3 text-text-primary">
-                    {service.title}
-                  </h3>
-                  <p className="card-copy mt-3 text-pretty text-[0.98rem] leading-[1.72] text-text-secondary">
-                    {service.description}
-                  </p>
-
-                  <div className="mt-auto space-y-3 pt-6">
-                    <p className="text-caption uppercase tracking-[0.16em] text-text-muted">
-                      Entregas comuns
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {service.deliverables.map((item) => (
-                        <span key={item} className="chip-base text-text-primary">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+              <Reveal key={service.id} delay={index * 65}>
+                <article id={service.id} className="service-card section-anchor" data-spotlight>
+                  <div className="service-card-top"><Icon size={27} aria-hidden="true" /><span>0{index + 1}</span></div>
+                  <p className="eyebrow">{t(service.eyebrow)}</p>
+                  <h3>{t(service.title)}</h3>
+                  <p>{t(service.description)}</p>
+                  <ul>{service.deliverables.map(item => <li key={item}>{t(item)}</li>)}</ul>
+                  <a href={buildWhatsappUrl(contactInfo.whatsappNumber, t('Olá, Marcelo! Quero conversar sobre {service}.').replace('{service}', t(service.title).toLowerCase()))} target="_blank" rel="noopener noreferrer" className="service-link">{t('Vamos conversar')} <ArrowUpRight size={17} aria-hidden="true" /></a>
                 </article>
               </Reveal>
             );
           })}
         </div>
+        <p className="services-note">{t('Desenvolvimento frontend e backend, acessibilidade, performance e SEO técnico fazem parte do cuidado com cada solução.')}</p>
+        <ServiceFaq />
       </div>
     </section>
   );
-};
-
-export default Services;
+}

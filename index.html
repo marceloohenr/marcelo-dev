@@ -1,134 +1,28 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
       (function () {
         var legacyHosts = ['marcelo-webdev.vercel.app', 'devmarcelo.vercel.app'];
         if (legacyHosts.indexOf(window.location.hostname) === -1) return;
-
-        var target =
-          'https://marcelodev.online' +
-          window.location.pathname +
-          window.location.search +
-          window.location.hash;
-
-        window.location.replace(target);
+        window.location.replace('https://marcelodev.online' + window.location.pathname + window.location.search + window.location.hash);
       })();
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#08111d" />
-    <meta name="color-scheme" content="dark" />
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-    <meta name="googlebot" content="index, follow, max-image-preview:large" />
-
-    <title>Marcelo Henrique | Desenvolvedor Full Stack Recife, UI/UX e Sistemas Web</title>
-    <meta
-      name="description"
-      content="Desenvolvedor full stack em Recife, Pernambuco, especializado em criação de sites profissionais, landing pages, UI/UX, React, Next.js e sistemas web personalizados para empresas no Brasil."
-    />
-    <meta
-      name="keywords"
-      content="desenvolvedor full stack Recife, criação de sites Recife, desenvolvedor web Pernambuco, freelancer programação Recife, desenvolvedor React Recife, desenvolvedor Next.js Brasil, UI UX designer Recife, sistemas personalizados Pernambuco, landing page profissional Recife, portfólio desenvolvedor full stack, desenvolvedor de software Recife, desenvolvedor frontend Recife, desenvolvedor backend Recife, sites modernos Pernambuco, criação de sistemas web, desenvolvedor para empresas Recife, programador freelancer Brasil, especialista em UI UX, desenvolvedor web moderno, sites com design premium"
-    />
-    <meta name="author" content="Marcelo Henrique" />
-    <meta name="creator" content="Marcelo Henrique" />
-    <meta name="publisher" content="Marcelo Henrique Dev" />
-    <meta name="application-name" content="Marcelo Henrique Dev" />
-    <meta name="geo.region" content="BR-PE" />
-    <meta name="geo.placename" content="Recife" />
-    <meta name="geo.position" content="-8.0476;-34.877" />
-    <meta name="ICBM" content="-8.0476, -34.877" />
-
-    <link rel="canonical" href="https://marcelodev.online/" />
+    <!--seo:start-->
+    <title>Criação de Sites e Landing Pages | Marcelo Henrique</title>
+    <meta name="description" content="Criação de landing pages, sites profissionais e sistemas web sob medida. Atendimento online no Brasil e no mundo." />
+    <!--seo:end-->
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
-    <link
-      rel="preload"
-      as="image"
-      href="/src/assets/marcelo-henrique-portrait.webp"
-      type="image/webp"
-      fetchpriority="high"
-    />
-
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Marcelo Henrique | Desenvolvedor Full Stack Recife, UI/UX e Sistemas Web"
-    />
-    <meta
-      property="og:description"
-      content="Portfólio de desenvolvedor full stack em Recife com criação de sites, landing pages, UI/UX, React, Next.js e sistemas web personalizados para empresas no Brasil."
-    />
-    <meta property="og:url" content="https://marcelodev.online/" />
-    <meta property="og:site_name" content="Marcelo Henrique Dev - Desenvolvimento Web, UI/UX e Sistemas" />
-    <meta property="og:image" content="https://marcelodev.online/og-cover.svg" />
-    <meta property="og:image:secure_url" content="https://marcelodev.online/og-cover.svg" />
-    <meta property="og:image:type" content="image/svg+xml" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Marcelo Henrique - portfólio de desenvolvimento web" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Marcelo Henrique | Desenvolvedor Full Stack Recife, UI/UX e Sistemas Web"
-    />
-    <meta
-      name="twitter:description"
-      content="Criação de sites em Recife, UI/UX, React, Next.js, landing pages e sistemas web personalizados para empresas no Brasil."
-    />
-    <meta name="twitter:image" content="https://marcelodev.online/og-cover.svg" />
-    <meta name="twitter:image:alt" content="Marcelo Henrique - Desenvolvedor Full Stack e UI/UX" />
-
-    <script id="website-schema" type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": "https://marcelodev.online/#website",
-        "name": "Marcelo Henrique Dev - Desenvolvimento Web, UI/UX e Sistemas",
-        "alternateName": "Marcelo Henrique Dev",
-        "url": "https://marcelodev.online/",
-        "inLanguage": "pt-BR",
-        "description": "Desenvolvedor full stack em Recife, Pernambuco, especializado em criação de sites profissionais, landing pages, UI/UX, React, Next.js e sistemas web personalizados para empresas no Brasil."
-      }
-    </script>
-    <script id="person-schema" type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "@id": "https://marcelodev.online/#person",
-        "name": "Marcelo Henrique",
-        "alternateName": "Marcelo Henrique Dev",
-        "jobTitle": "Desenvolvedor Full Stack e UI/UX",
-        "url": "https://marcelodev.online/",
-        "image": "https://marcelodev.online/og-cover.svg",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Recife",
-          "addressRegion": "Pernambuco",
-          "addressCountry": "BR"
-        },
-        "sameAs": [
-          "https://github.com/marceloohenr",
-          "https://www.linkedin.com/in/marcelo-henrique-malagueta-64b35224a/",
-          "https://www.instagram.com/marcelohdev"
-        ]
-      }
-    </script>
-
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png?v=3" />
+    <link rel="shortcut icon" href="/favicon.ico?v=3" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png?v=3" />
+    <link rel="preload" as="image" href="/src/assets/marcelo-perfil.webp" type="image/webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=Sora:wght@500..800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=Sora:wght@500..800&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>

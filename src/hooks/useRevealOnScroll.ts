@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { prefersReducedMotion } from '../utils/motion';
+import { useReducedMotion } from './useReducedMotion';
 
 export const useRevealOnScroll = <T extends HTMLElement>(
   threshold = 0.14,
   rootMargin = '0px 0px -12% 0px'
 ) => {
   const ref = useRef<T | null>(null);
-  const [isVisible, setIsVisible] = useState(() => prefersReducedMotion());
+  const reducedMotion = useReducedMotion();
+  const [isVisible, setIsVisible] = useState(reducedMotion);
 
   useEffect(() => {
     if (isVisible) {
@@ -15,6 +16,11 @@ export const useRevealOnScroll = <T extends HTMLElement>(
 
     const element = ref.current;
     if (!element) {
+      return;
+    }
+
+    if (reducedMotion || typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
       return;
     }
 
@@ -37,7 +43,7 @@ export const useRevealOnScroll = <T extends HTMLElement>(
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [isVisible, rootMargin, threshold]);
+  }, [isVisible, reducedMotion, rootMargin, threshold]);
 
   return { ref, isVisible };
 };

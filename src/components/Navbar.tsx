@@ -1,201 +1,132 @@
-import { useEffect, useState } from 'react';
-import type { MouseEvent } from 'react';
-import { Menu, X } from 'lucide-react';
-import { navigationItems } from '../data/site';
-import { scrollToSection } from '../utils/motion';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { navigationItems, siteMetadata } from '../data/site';
+import { contactInfo } from '../data/contact';
+import { buildWhatsappUrl } from '../utils/contact';
+import BrandMark from './BrandMark';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '../i18n/LanguageContext';
 
-const Navbar = () => {
+const desktopIds = new Set(['sobre', 'stack', 'projetos', 'servicos', 'contato']);
+
+export default function Navbar() {
+  const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const destinationRef = useRef<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 24);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isMobileMenuOpen) {
+    const initialHash = window.location.hash;
+    if (!initialHash) return;
+    let id: string;
+    try {
+      id = decodeURIComponent(initialHash.slice(1));
+    } catch {
       return;
     }
-
-    const originalOverflow = document.body.style.overflow;
-    const originalPaddingRight = document.body.style.paddingRight;
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-    document.body.style.overflow = 'hidden';
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      document.body.style.paddingRight = originalPaddingRight;
-    };
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    const sections = navigationItems
-      .map((item) => document.getElementById(item.id))
-      .filter((section): section is HTMLElement => Boolean(section));
-
-    if (!sections.length) {
-      return;
-    }
-
-    let animationFrameId = 0;
-
-    const updateActiveSection = () => {
-      const headerOffset = window.innerWidth >= 768 ? 124 : 96;
-      const probeY = window.scrollY + headerOffset + window.innerHeight * 0.16;
-      const pageBottom = window.scrollY + window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      if (pageBottom >= documentHeight - 4) {
-        const lastSection = sections[sections.length - 1];
-
-        if (lastSection) {
-          setActiveSection((current) => (current === lastSection.id ? current : lastSection.id));
+    let disposed = false;
+    let frame = 0;
+    // The browser may resolve a fragment before React has mounted its target.
+    const alignInitialAnchor = () => {
+      if (disposed) return;
+      frame = requestAnimationFrame(() => {
+        if (window.location.hash === initialHash && window.scrollY === 0) {
+          document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' });
         }
-
-        return;
-      }
-
-      const matchedSection = [...sections]
-        .reverse()
-        .find((section) => probeY >= section.offsetTop);
-
-      const nextSectionId = matchedSection?.id ?? sections[0].id;
-      setActiveSection((current) => (current === nextSectionId ? current : nextSectionId));
+      });
     };
-
-    const handleViewportChange = () => {
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = window.requestAnimationFrame(updateActiveSection);
-    };
-
-    handleViewportChange();
-
-    window.addEventListener('scroll', handleViewportChange, { passive: true });
-    window.addEventListener('resize', handleViewportChange);
-
+    if (document.fonts) void document.fonts.ready.then(alignInitialAnchor);
+    else alignInitialAnchor();
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('scroll', handleViewportChange);
-      window.removeEventListener('resize', handleViewportChange);
+      disposed = true;
+      cancelAnimationFrame(frame);
     };
   }, []);
 
-  const handleSectionLink = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    event.preventDefault();
-    scrollToSection(sectionId);
-    setActiveSection(sectionId);
-    window.history.replaceState(null, '', `#${sectionId}`);
-    setIsMobileMenuOpen(false);
-  };
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setIsScrolled(window.scrollY > 24);
+      const probe = Math.min(window.innerHeight * 0.2, 180);
+      const sections = navigationItems
+        .map(item => document.getElementById(item.id))
+        .filter((element): element is HTMLElement => element !== null);
+      const current = [...sections].reverse().find(section => section.getBoundingClientRect().top <= probe);
+      setActiveSection(current?.id ?? 'inicio');
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    schedule();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const panel = panelRef.current;
+    const trigger = triggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    const previousPadding = document.body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
+    const background = Array.from(document.querySelectorAll<HTMLElement>('main, footer, .floating-whatsapp, .navbar-bar'));
+    const inertStates = background.map(element => element.inert);
+    background.forEach(element => { element.inert = true; });
+    panel?.querySelector<HTMLButtonElement>('button')?.focus();
+    const closeOnDesktop = () => { if (window.innerWidth >= 1024) setIsOpen(false); };
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); setIsOpen(false); }
+      if (event.key !== 'Tab' || !panel) return;
+      const elements = Array.from(panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) {
+        event.preventDefault(); last?.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) {
+        event.preventDefault(); first?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    window.addEventListener('resize', closeOnDesktop);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPadding;
+      background.forEach((element, index) => { element.inert = inertStates[index]; });
+      document.removeEventListener('keydown', handleKey);
+      window.removeEventListener('resize', closeOnDesktop);
+      const destination = destinationRef.current;
+      destinationRef.current = null;
+      if (destination) document.getElementById(destination)?.focus({ preventScroll: true });
+      else trigger?.focus({ preventScroll: true });
+    };
+  }, [isOpen]);
 
   return (
-    <nav
-      aria-label="Navegação principal"
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'border-b border-white/10 bg-bg-base/[0.82] shadow-soft backdrop-blur-xl'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="content-shell">
-        <div className="flex h-16 items-center justify-end md:h-[4.75rem] md:justify-center">
-          <div className="hidden items-center justify-center gap-5 md:flex lg:gap-7">
-            {navigationItems.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={(event) => handleSectionLink(event, item.id)}
-                className={`nav-link ${activeSection === item.id ? 'nav-link-active' : ''}`}
-                aria-current={activeSection === item.id ? 'location' : undefined}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen((current) => !current)}
-            className="focus-ring inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-button border border-white/[0.12] bg-bg-elevated/90 text-text-secondary transition-colors hover:text-brand-300 md:hidden"
-            aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="menu-mobile"
-          >
-            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
+    <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <div className="content-shell navbar-bar">
+        <a className="brand-link" href="#inicio" aria-label={t('Marcelo Henrique, início')}><BrandMark /><span className="nav-brand-name">Marcelo Henrique<small>FULL STACK DEVELOPER</small></span></a>
+        <nav aria-label={t('Navegação principal')} className="navbar-desktop">
+          {navigationItems.filter(item => desktopIds.has(item.id)).map(item => <a key={item.id} href={`#${item.id}`} className="nav-link" aria-current={activeSection === item.id ? 'location' : undefined}>{t(item.label)}</a>)}
+        </nav>
+        <div className="navbar-actions"><LanguageSwitcher /><a href={buildWhatsappUrl(contactInfo.whatsappNumber, t(siteMetadata.budgetMessage))} target="_blank" rel="noopener noreferrer" className="nav-cta">{t('Vamos conversar')} <ArrowUpRight size={16} aria-hidden="true" /></a>
+        <button ref={triggerRef} type="button" className="menu-trigger" aria-label={t('Abrir menu')} aria-expanded={isOpen} aria-controls="menu-mobile" onClick={() => setIsOpen(true)}><Menu size={22} aria-hidden="true" /></button></div>
       </div>
-
-      {isMobileMenuOpen && (
-        <>
-          <button
-            type="button"
-            aria-label="Fechar menu"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="fixed inset-0 top-16 z-0 bg-slate-950/75 backdrop-blur-[2px] md:hidden"
-          />
-
-          <div
-            id="menu-mobile"
-            className="relative z-10 border-t border-white/10 bg-bg-base/95 backdrop-blur-xl md:hidden"
-          >
-            <div className="content-shell py-4">
-              <div className="card-base p-3 sm:p-4">
-                <div className="flex flex-col gap-2">
-                  {navigationItems.map((item) => (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      onClick={(event) => handleSectionLink(event, item.id)}
-                      className={`nav-link w-full rounded-button px-4 py-3 text-left ${
-                        activeSection === item.id ? 'bg-brand-300/10 nav-link-active' : ''
-                      }`}
-                      aria-current={activeSection === item.id ? 'location' : undefined}
-                    >
-                      {item.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-    </nav>
+      {isOpen && <div className="mobile-menu-backdrop" onClick={() => setIsOpen(false)}>
+        <div ref={panelRef} id="menu-mobile" role="dialog" aria-modal="true" aria-labelledby="menu-title" className="mobile-menu-panel" onClick={event => event.stopPropagation()}>
+          <div className="mobile-menu-top"><p id="menu-title" className="eyebrow">{t('Explore o portfólio')}</p><button className="menu-trigger" type="button" aria-label={t('Fechar menu')} onClick={() => setIsOpen(false)}><X size={24} aria-hidden="true" /></button></div>
+          <nav aria-label={t('Navegação mobile')}>{navigationItems.map((item, index) => <a key={item.id} href={`#${item.id}`} aria-current={activeSection === item.id ? 'location' : undefined} onClick={() => { destinationRef.current = item.id; setIsOpen(false); }}><span>0{index + 1}</span>{t(item.label)}<ArrowUpRight size={18} aria-hidden="true" /></a>)}</nav>
+          <p className="mobile-menu-caption">Marcelo Henrique · {t('Brasil e mundo')}</p>
+        </div>
+      </div>}
+    </header>
   );
-};
-
-export default Navbar;
+}
