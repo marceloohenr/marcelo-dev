@@ -43,6 +43,8 @@ for (const language of languages) {
     if (resource.origin === new URL(url).origin) await access(resolve(dist, decodeURIComponent(resource.pathname.slice(1))));
   }
   await access(resolve(dist, new URL(document.querySelector('meta[property="og:image"]').content).pathname.slice(1)));
+  assert.equal(document.querySelector('meta[property="og:image:type"]').content, 'image/png');
+  assert.ok(document.querySelector('meta[property="og:title"]').content.includes('Marcelo Henrique'));
   const catalog = schema['@graph'].find(item => item['@type'] === 'Organization').hasOfferCatalog;
   for (const offer of catalog.itemListElement) {
     assert.ok(document.getElementById(new URL(offer.itemOffered.url).hash.slice(1)));

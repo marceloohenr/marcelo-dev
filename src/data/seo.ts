@@ -7,11 +7,21 @@ import { locales, supportedLanguages } from '../i18n/locales';
 
 const baseUrl = siteMetadata.canonicalUrl;
 const absolute = (path: string) => new URL(path, baseUrl).href;
-const searchCopy: Record<Language, { title: string; description: string; role: string; catalog: string; portfolio: string }> = {
-  pt: { title: siteMetadata.title, description: siteMetadata.description, role: siteMetadata.role, catalog: 'Serviços de desenvolvimento web', portfolio: 'Portfólio de projetos web' },
+const searchCopy: Record<Language, { title: string; description: string; shareTitle: string; shareDescription: string; role: string; catalog: string; portfolio: string }> = {
+  pt: {
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    shareTitle: 'Marcelo Henrique | Sites, Landing Pages e Sistemas Web',
+    shareDescription: 'Transformo ideias em experiências digitais modernas: sites, landing pages, catálogos e sistemas web sob medida. Conheça meu portfólio.',
+    role: siteMetadata.role,
+    catalog: 'Serviços de desenvolvimento web',
+    portfolio: 'Portfólio de projetos web',
+  },
   en: {
     title: 'Freelance Web Developer & Landing Pages | Marcelo Henrique',
     description: 'Hire a freelance web developer for custom landing pages, responsive websites and React web applications. UI/UX and technical SEO for clients worldwide.',
+    shareTitle: 'Marcelo Henrique | Websites, Landing Pages & Web Apps',
+    shareDescription: 'I turn ideas into polished digital experiences: websites, landing pages, online catalogs and custom web applications. Explore my portfolio.',
     role: 'Full Stack Developer & UI/UX', catalog: 'Web development services', portfolio: 'Web project portfolio',
   },
 };
@@ -19,8 +29,8 @@ const searchCopy: Record<Language, { title: string; description: string; role: s
 export function getSeo(language: Language) {
   const t = (text: string) => translate(text, language);
   const url = absolute(languagePath(language));
-  const { title, description, role, catalog, portfolio } = searchCopy[language];
-  const image = absolute(language === 'pt' ? '/og-cover.svg' : `/og-cover-${language}.svg`);
+  const { title, description, shareTitle, shareDescription, role, catalog, portfolio } = searchCopy[language];
+  const image = absolute(language === 'pt' ? '/og-cover.png?v=2' : `/og-cover-${language}.png?v=2`);
   const imageAlt = `${siteMetadata.personName} - ${role}`;
   const lang = locales[language].htmlLang;
   const sameAs = [contactInfo.githubUrl, contactInfo.linkedinUrl, contactInfo.instagramUrl];
@@ -34,14 +44,14 @@ export function getSeo(language: Language) {
       publisher: siteMetadata.brandName, 'application-name': siteMetadata.shortTitle,
       'theme-color': siteMetadata.themeColor, 'color-scheme': 'dark',
       robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-      'twitter:card': 'summary_large_image', 'twitter:title': title,
-      'twitter:description': description, 'twitter:image': image, 'twitter:image:alt': imageAlt,
+      'twitter:card': 'summary_large_image', 'twitter:title': shareTitle,
+      'twitter:description': shareDescription, 'twitter:image': image, 'twitter:image:alt': imageAlt,
     }).map(([name, content]) => ({ name, content })),
     ...Object.entries({
       'og:locale': locales[language].ogLocale,
-      'og:type': 'website', 'og:title': title, 'og:description': description, 'og:url': url,
+      'og:type': 'website', 'og:title': shareTitle, 'og:description': shareDescription, 'og:url': url,
       'og:site_name': siteMetadata.brandName, 'og:image': image, 'og:image:secure_url': image,
-      'og:image:type': 'image/svg+xml', 'og:image:width': '1200', 'og:image:height': '630', 'og:image:alt': imageAlt,
+      'og:image:type': 'image/png', 'og:image:width': '1200', 'og:image:height': '630', 'og:image:alt': imageAlt,
     }).map(([property, content]) => ({ property, content })),
     ...supportedLanguages.filter(code => code !== language).map(code => ({ property: 'og:locale:alternate', content: locales[code].ogLocale })),
   ];
